@@ -1,7 +1,5 @@
 package logic;
 
-import clientserver.Message;
-import entities.Order;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +11,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 
+import common.Message;
 import ocsf.client.*;
 
 /*
@@ -97,51 +96,12 @@ public class BistroClient extends AbstractClient {
 		currentStage.show();
 
 	}
+	
+	
 
 	/*
-	 * Method to retrieve the list of orders from the server.
-	 * 
-	 * @return A list of Order objects retrieved from the server.
+	 * Method to notify the server when the client is exiting.
 	 */
-
-	@SuppressWarnings("unchecked")
-	public List<Order> getOrdersListFromServer() {
-		messageFromServer = new Message("getOrdersList", null);
-		handleMessageFromClientUI(messageFromServer);
-		if ("ordersList".equals(messageFromServer.getId())) {
-			return (List<Order>) messageFromServer.getData();
-		}
-		return null;
-	}
-
-	/*
-	 * Method to retrieve an order by its confirmation code from the server.
-	 * 
-	 * @param confirmationCode The confirmation code of the order to be retrieved.
-	 * 
-	 * @return The Order object corresponding to the given confirmation code.
-	 */
-	public Order getOrderByConfirmationCode(int confirmationCode) {
-		messageFromServer = new Message("getOrderByConfirmationCode", confirmationCode);
-		handleMessageFromClientUI(messageFromServer);
-		if ("orderByConfirmationCode".equals(messageFromServer.getId())) {
-			return (Order) messageFromServer.getData();
-		}
-		return null;
-	}
-
-	/*
-	 * Method to send an order update request to the server.
-	 * 
-	 * @param orderUpdateData The data for updating the order.
-	 * 
-	 * @return The response ID from the server after processing the update request.
-	 */
-	public String sendOrderUpdateRequest(Order orderUpdateData) {
-		handleMessageFromClientUI(new Message("updateOrderStatus", orderUpdateData));
-		return messageFromServer.getId();
-	}
-
 	public void notifyServerOnExit() {
 		try {
 			sendToServer(new Message("disconnect", null));
@@ -156,7 +116,11 @@ public class BistroClient extends AbstractClient {
 			System.out.println("Error while closing connection: " + e.getMessage());
 		}
 	}
-
+	
+	
+	/*
+	 * Method to notify the server when the client successfully connects.
+	 */
 	public void notifyServerOnConnection() {
 		try {
 			handleMessageFromClientUI(new Message("connect", null));
@@ -182,7 +146,7 @@ public class BistroClient extends AbstractClient {
     }
 
     private void notifyServerDisconnected(String message) {
-        // This is called from the client's thread – we must switch to JavaFX thread
+        // This is called from the client's thread ï¿½ we must switch to JavaFX thread
         Platform.runLater(() -> {
             BistroClientGUI.showServerDisconnected(message);
         });

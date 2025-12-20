@@ -2,7 +2,7 @@ package logic;
 
 import java.io.IOException;
 
-import gui.controllers.ServerConnectionFrameController;
+import gui.logic.ServerConnectionFrame;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.application.Platform;
@@ -45,7 +45,7 @@ public class BistroClientGUI extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		BistroClientGUI.primaryStage = primaryStage;
-		ServerConnectionFrameController connectionFrame = new ServerConnectionFrameController(); // Create server connection frame
+		ServerConnectionFrame connectionFrame = new ServerConnectionFrame(); // Create server connection frame
 		connectionFrame.start(primaryStage); // Start the connection frame
 		primaryStage.centerOnScreen(); // Center the primary stage on the screen
 	}
@@ -95,7 +95,7 @@ public class BistroClientGUI extends Application {
     /**
      * Closes the client connection (if any) and exits the application.
      */
-    private static void safeExit() {
+    public static void safeExit() {
         try {
             if (client != null && client.isConnected()) {
                 client.closeConnection();
