@@ -59,7 +59,7 @@ public class InputCheck {
 			errorMessage += "You must enter a port\n";
 		}
 		else if (!isValidPort(port)) {
-			errorMessage += "Port must have only digits\n(between the values 0-65535)\n";
+			errorMessage += "Port must have only digits (between the values 0-65535)\n";
 		}
 		return errorMessage;
 	}
