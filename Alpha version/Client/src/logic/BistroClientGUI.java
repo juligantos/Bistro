@@ -23,7 +23,7 @@ public class BistroClientGUI extends Application {
 	public static BistroClient client; // Static client instance for server communication
 
 	private static Stage primaryStage; // Primary stage for the application
-
+	
 	/*
 	 * Main method to launch the JavaFX application.
 	 * 
