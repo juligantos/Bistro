@@ -38,7 +38,7 @@ public class ClientLoginScreen {
 		if (!errorMessage.equals("")) {
 			BistroClientGUI.display(lblError, errorMessage.trim(), Color.RED);
 		} else {
-			// Proceed with sign-in logic TODO
+			// Proceed with sign-in logic before calling the switchScreen method TODO
 			BistroClientGUI.switchScreen(event, "clientDashboardScreen", "Client Dashboard");
 		}
 		
@@ -46,6 +46,7 @@ public class ClientLoginScreen {
 	
 	@FXML
 	public void btnScanQR(Event event) {
+		
 		
 	}
 	

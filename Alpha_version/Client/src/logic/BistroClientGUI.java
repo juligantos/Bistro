@@ -85,6 +85,10 @@ public class BistroClientGUI extends Application {
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error loading screen: " + fxmlName + "\n" + errorMessage);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Could not load the requested screen due to unforseen circumstances, we'll look into it.");
+            alert.showAndWait();
         }
     }
 	
