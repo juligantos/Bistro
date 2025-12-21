@@ -1,6 +1,8 @@
 package gui.logic;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -35,6 +37,9 @@ public class ClientLoginScreen {
 		String errorMessage = InputCheck.isValidUsername(username);
 		if (!errorMessage.equals("")) {
 			BistroClientGUI.display(lblError, errorMessage.trim(), Color.RED);
+		} else {
+			// Proceed with sign-in logic TODO
+			BistroClientGUI.switchScreen(event, "clientDashboardScreen", "Client Dashboard");
 		}
 		
 	}

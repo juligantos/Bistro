@@ -55,9 +55,11 @@ public class ServerConnectionFrame {
 				System.out.println("IP Entered Successfully");
 				BistroClientGUI.client.notifyServerOnConnection(); // Notify successful connection
 				// Load the home screen if the connection is successful.
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/fxml/" + "clientLoginScreen" + ".fxml"));
-				Parent root = loader.load();
-				BistroClientGUI.client.switchScreen(loader, root, event, "Login Screen");
+				/* added method on BistroClientGUI to switch screens, left this here until confirmed working
+				*FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/fxml/" + "clientLoginScreen" + ".fxml"));
+				*Parent root = loader.load();
+				*/
+				BistroClientGUI.switchScreen(event, "clientLoginScreen", "Server Connection");
 			} catch (Exception e) {
 				// Handles connection errors
 				System.out.println("Error: Can't setup connection! \nThe error message: ");

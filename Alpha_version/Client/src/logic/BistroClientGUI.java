@@ -1,5 +1,6 @@
 package logic;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 import gui.logic.ServerConnectionFrame;
@@ -8,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
@@ -60,14 +62,31 @@ public class BistroClientGUI extends Application {
 	}
 	
 	//****************************** Static Methods ******************************
-	public static void switchScreen(FXMLLoader loader, Parent root, Event event, String string) {
-		Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-		Scene newScene = new Scene(root);
-		currentStage.setTitle(string);
-		currentStage.setScene(newScene);
-		currentStage.centerOnScreen();
-		currentStage.show();
-	}
+	
+	public static void switchScreen(Event event, String fxmlName, String errorMessage) {
+        try {
+            // 1. Build the path dynamically
+            String path = "/gui/fxml/" + fxmlName + ".fxml";
+            
+            // 2. Load the FXML
+            //TODO make sure BistroClient.class is correct
+            FXMLLoader loader = new FXMLLoader(BistroClient.class.getResource(path));
+            Parent root = loader.load();
+            
+            // 3. Get the current Stage (Window) from the event that triggered this
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            
+            // 4. Set the new Scene
+            Scene scene = new Scene(root);
+            
+            stage.setScene(scene);
+            stage.show();
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error loading screen: " + fxmlName + "\n" + errorMessage);
+        }
+    }
 	
 	/*
 	 * Method to display an error message in a label with a specified color.
