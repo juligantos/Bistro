@@ -106,7 +106,7 @@ public class ClientDashboardScreen {
 		try {
 			loader.load();
 			Parent root = loader.getRoot();
-			BistroClientGUI.switchScreen(loader,root,event,"New Reservation");
+			BistroClientGUI.switchScreen(event,"New Reservation", "Failed to load Client New Reservation Screen.");
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("Failed to load Client New Reservation Screen.");
@@ -120,7 +120,7 @@ public class ClientDashboardScreen {
 		try {
 			loader.load();
 			Parent root = loader.getRoot();
-			BistroClientGUI.switchScreen(loader,root,event,"Join Waiting List");
+			BistroClientGUI.switchScreen(event,"Join Waiting List", "Failed to load Client Join Waiting List Screen.");
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("Failed to load Client Join Waiting List Screen.");
@@ -135,7 +135,7 @@ public class ClientDashboardScreen {
 		try {
 			loader.load();
 			Parent root = loader.getRoot();
-			BistroClientGUI.switchScreen(loader,root,event,"Check In For Table");
+			BistroClientGUI.switchScreen(event,"Check In For Table", "Failed to load Client Check In For Table Screen.");
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("Failed to load Client Check In For Table Screen.");
@@ -150,7 +150,7 @@ public class ClientDashboardScreen {
 		try {
 			loader.load();
 			Parent root = loader.getRoot();
-			BistroClientGUI.switchScreen(loader,root,event,"Manage Booking");
+			BistroClientGUI.switchScreen(event,"Manage Booking", "Failed to load Client Manage Booking Screen.");
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("Failed to load Client Manage Booking Screen.");
@@ -165,7 +165,7 @@ public class ClientDashboardScreen {
 		try {
 			loader.load();
 			Parent root = loader.getRoot();
-			BistroClientGUI.switchScreen(loader,root,event,"Pay Bill");
+			BistroClientGUI.switchScreen(event,"Pay Bill", "Failed to load Client Pay Bill Screen.");
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("Failed to load Client Pay Bill Screen.");
@@ -180,7 +180,7 @@ public class ClientDashboardScreen {
 		try {
 			loader.load();
 			Parent root = loader.getRoot();
-			BistroClientGUI.switchScreen(loader,root,event,"Edit Personal Details");
+			BistroClientGUI.switchScreen(event,"Edit Personal Details", "Failed to load Client Edit Personal Details Screen.");
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("Failed to load Client Edit Personal Details Screen.");
@@ -196,7 +196,7 @@ public class ClientDashboardScreen {
 			try {
 				loader.load();
 				Parent root = loader.getRoot();
-				BistroClientGUI.switchScreen(loader,root,event,"Login");
+				BistroClientGUI.switchScreen(event,"Login", "Failed to load Login Screen.");
 			} catch (IOException e) {
 				e.printStackTrace();
 				System.out.println("Failed to load Login Screen.");
