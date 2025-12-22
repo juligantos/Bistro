@@ -47,7 +47,7 @@ public class ClientLoginScreen {
 	
 	@FXML
 	public void btnScanQR(Event event) {
-		
+		//TODO - Implement QR code scanning functionality
 		
 	}
 	

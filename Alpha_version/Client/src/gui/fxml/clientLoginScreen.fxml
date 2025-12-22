@@ -99,7 +99,7 @@
 									</children>
 								</StackPane>
 								<Label styleClass="loginD-cardTitle" text="Guest" />
-								<Label styleClass="loginD-cardHint" text="First time here?" />
+								<Label styleClass="loginD-cardHint" text="First time here? How can we contact you? (Fill at least one)" />
 								<VBox alignment="CENTER" spacing="12" styleClass="loginD-form">
 									<children>
 										<VBox spacing="6">
@@ -110,7 +110,7 @@
 										</VBox>
 										<VBox spacing="6">
 											<children>
-												<Label styleClass="loginD-label" text="Email (Optional)" />
+												<Label styleClass="loginD-label" text="Email" />
 												<TextField id="txtEmailAddress" fx:id="guestEmailField" promptText="Enter email address" styleClass="loginD-input" />
 											</children>
 										</VBox>
