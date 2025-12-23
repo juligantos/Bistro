@@ -21,256 +21,267 @@
 
 <StackPane styleClass="reservation-root" stylesheets="@../../gui/css/clientNewReservationStyles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.logic.ManageBookingScreen">
 
-    <children>
-        <BorderPane prefHeight="720" prefWidth="1280">
+	<children>
+		<BorderPane prefHeight="720" prefWidth="1280">
 
-            <!-- TOP: Back + Title -->
-            <top>
-                <BorderPane>
-                    <padding>
-                        <Insets bottom="6" left="28" right="28" top="18" />
-                    </padding>
+			<!-- TOP: Back + Title -->
+			<top>
+				<BorderPane>
+					<padding>
+						<Insets bottom="6" left="28" right="28" top="18" />
+					</padding>
 
-                    <left>
-                        <Button fx:id="btnBack" onAction="#onBack" styleClass="nav-back" text="Back">
-                     <graphic>
-                        <ImageView fitHeight="18.0" fitWidth="9.0">
-                           <image>
-                              <Image url="@resources/backIcon.png" />
-                           </image>
-                        </ImageView>
-                     </graphic></Button>
-                    </left>
+					<left>
+						<Button id="btnBack" fx:id="btnBack" onAction="#onBack" styleClass="nav-back" text="Back">
+							<graphic>
+								<ImageView fitHeight="18.0" fitWidth="9.0">
+									<image>
+										<Image url="@resources/backIcon.png" />
+									</image>
+								</ImageView>
+							</graphic>
+						</Button>
+					</left>
 
-                    <center>
-                        <Label styleClass="page-hero-title" text="Manage Booking" BorderPane.alignment="CENTER" />
-                    </center>
-                </BorderPane>
-            </top>
+					<center>
+						<Label styleClass="page-hero-title" text="Manage Booking" BorderPane.alignment="CENTER" />
+					</center>
+				</BorderPane>
+			</top>
 
-            <!-- CENTER: two cards -->
-            <center>
-                <HBox alignment="TOP_CENTER" spacing="28" BorderPane.alignment="CENTER">
-                    <padding>
-                        <Insets bottom="24" left="28" right="28" top="18" />
-                    </padding>
+			<!-- CENTER: two cards -->
+			<center>
+				<HBox alignment="TOP_CENTER" spacing="28" BorderPane.alignment="CENTER">
+					<padding>
+						<Insets bottom="24" left="28" right="28" top="18" />
+					</padding>
 
-                    <children>
-                  <VBox prefHeight="597.0" prefWidth="388.0" spacing="20.0">
-                     <children>
-                        <VBox minHeight="193.0" prefHeight="193.0" spacing="14">
-                           <padding>
-                              <Insets bottom="18.0" left="18.0" right="18.0" top="18.0" />
-                           </padding>
-                           <children>
-                              <Label styleClass="card-title" text="Find Order" />
-                              <VBox spacing="14" styleClass="legend-box">
-                                 <children>
-                                    <Label styleClass="field-label" text="Confirmation Code" />
-                                    <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0" styleClass="confirm-form">
-                                       <children>
-                                          <TextField prefHeight="44.0" prefWidth="236.0" promptText="Enter your order confirmation code">
-                                             <styleClass>
-                                                <String fx:value="confirm-label" />
-                                                <String fx:value="confirm-input" />
-                                             </styleClass>
-                                          </TextField>
-                                          <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="79.0" styleClass="btn-primary" text="Check" />
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                           </children>
-                           <styleClass>
-                              <String fx:value="legend-card" />
-                              <String fx:value="card" />
-                           </styleClass>
-                        </VBox>
-      
-                              <!-- RIGHT CARD -->
-                              <VBox minHeight="193.0" prefHeight="279.0" prefWidth="388.0" spacing="14">
-                                  <padding>
-                                      <Insets bottom="18.0" left="18.0" right="18.0" top="18.0" />
-                                  </padding>
-      
-                                  <children>
-                                      <Label styleClass="card-title" text="Available Time Slots" />
-      
-                                      <VBox spacing="14" styleClass="legend-box">
-                                          <children>
-                                              <HBox alignment="CENTER_LEFT" spacing="10">
-                                                  <children>
-                                          <ImageView fitHeight="17.0" fitWidth="17.0">
-                                             <image>
-                                                <Image url="@resources/material-symbols--square-rounded%20(1).png" />
-                                             </image>
-                                          </ImageView>
-                                                      <Label styleClass="legend-text" text="Selected" />
-                                                  </children>
-                                              </HBox>
-      
-                                              <HBox alignment="CENTER_LEFT" spacing="10">
-                                                  <children>
-                                          <ImageView fitHeight="17.0" fitWidth="17.0">
-                                             <image>
-                                                <Image url="@resources/si--square-duotone.png" />
-                                             </image>
-                                          </ImageView>
-                                                      <Label styleClass="legend-text" text="Available" />
-                                                  </children>
-                                              </HBox>
-      
-                                              <HBox alignment="CENTER_LEFT" spacing="10">
-                                                  <children>
-                                          <ImageView fitHeight="17.0" fitWidth="17.0" opacity="0.54">
-                                             <image>
-                                                <Image url="@resources/si--square-duotone.png" />
-                                             </image>
-                                          </ImageView>
-                                                      <Label text="Fully Booked">
-                                             <styleClass>
-                                                <String fx:value="legend text" />
-                                                <String fx:value="muted-strike" />
-                                             </styleClass></Label>
-                                                  </children>
-                                              </HBox>
-                                          </children>
-                                      </VBox>
-                                  </children>
-                           <styleClass>
-                              <String fx:value="legend-card" />
-                              <String fx:value="card" />
-                           </styleClass>
-                              </VBox>
-                     </children>
-                  </VBox>
+					<children>
+						<VBox prefHeight="597.0" prefWidth="388.0" spacing="20.0">
+							<children>
+								<VBox minHeight="193.0" prefHeight="193.0" spacing="14">
+									<padding>
+										<Insets bottom="18.0" left="18.0" right="18.0" top="18.0" />
+									</padding>
+									<children>
+										<Label styleClass="card-title" text="Find Order" />
+										<VBox spacing="14" styleClass="legend-box">
+											<children>
+												<Label styleClass="field-label" text="Confirmation Code" />
+												<HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0" styleClass="confirm-form">
+													<children>
+														<TextField prefHeight="44.0" prefWidth="236.0" promptText="Enter your order confirmation code">
+															<styleClass>
+																<String fx:value="confirm-label" />
+																<String fx:value="confirm-input" />
+															</styleClass>
+														</TextField>
+														<Button id="btnCheck" fx:id="btnCheck" mnemonicParsing="false" prefHeight="42.0" prefWidth="79.0" styleClass="btn-primary" text="Check" />
+													</children>
+												</HBox>
+												<Button id="btnCancel" fx:id="btnCancel" disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="334.0" text="Cancel Reservation">
+													<styleClass>
+														<String fx:value="btn-primary" />
+														<String fx:value="btn-wide" />
+													</styleClass>
+												</Button>
+											</children>
+										</VBox>
+									</children>
+									<styleClass>
+										<String fx:value="legend-card" />
+										<String fx:value="card" />
+									</styleClass>
+								</VBox>
 
-                        <!-- LEFT CARD -->
-                        <VBox disable="true" spacing="16.0">
-                            <padding>
-                                <Insets bottom="18" left="18" right="18" top="18" />
-                            </padding>
+								<!-- RIGHT CARD -->
+								<VBox minHeight="193.0" prefHeight="279.0" prefWidth="388.0" spacing="14">
+									<padding>
+										<Insets bottom="18.0" left="18.0" right="18.0" top="18.0" />
+									</padding>
 
-                            <children>
-                                <HBox alignment="CENTER_LEFT" spacing="28.0">
-                                    <children>
-                                        <Label styleClass="muted-label" text="Booking as:" />
-                                        <Label styleClass="pill-blue" text="Member" />
-                                    </children>
-                                </HBox>
+									<children>
+										<Label styleClass="card-title" text="Available Time Slots" />
 
-                                <!-- Date -->
-                                <VBox spacing="8">
-                                    <children>
-                                        <Label styleClass="field-label" text="Select Date">
-                                 <graphic>
-                                    <ImageView fitHeight="18.0" fitWidth="18.0">
-                                       <image>
-                                          <Image url="@resources/formkit--date.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic></Label>
-                                        <DatePicker fx:id="datePicker" styleClass="field-input" />
-                                    </children>
-                                </VBox>
+										<VBox spacing="14" styleClass="legend-box">
+											<children>
+												<HBox alignment="CENTER_LEFT" spacing="10">
+													<children>
+														<ImageView fitHeight="17.0" fitWidth="17.0">
+															<image>
+																<Image url="@resources/material-symbols--square-rounded%20(1).png" />
+															</image>
+														</ImageView>
+														<Label styleClass="legend-text" text="Selected" />
+													</children>
+												</HBox>
 
-                                <!-- Diners -->
-                                <VBox spacing="8">
-                                    <children>
-                                        <Label styleClass="field-label" text="Number of Diners">
-                                 <graphic>
-                                    <ImageView fitHeight="22.0" fitWidth="22.0">
-                                       <image>
-                                          <Image url="@resources/famicons--people-outline.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic></Label>
-                                        <ComboBox fx:id="dinersCombo" promptText="2 People" styleClass="field-input" />
-                                    </children>
-                                </VBox>
+												<HBox alignment="CENTER_LEFT" spacing="10">
+													<children>
+														<ImageView fitHeight="17.0" fitWidth="17.0">
+															<image>
+																<Image url="@resources/si--square-duotone.png" />
+															</image>
+														</ImageView>
+														<Label styleClass="legend-text" text="Available" />
+													</children>
+												</HBox>
 
-                                <!-- Time -->
-                                <VBox spacing="10">
-                                    <children>
-                                        <Label styleClass="field-label" text="Select Time">
-                                 <graphic>
-                                    <ImageView fitHeight="18.0" fitWidth="18.0">
-                                       <image>
-                                          <Image url="@resources/mingcute--time-line.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic></Label>
+												<HBox alignment="CENTER_LEFT" spacing="10">
+													<children>
+														<ImageView fitHeight="17.0" fitWidth="17.0" opacity="0.54">
+															<image>
+																<Image url="@resources/si--square-duotone.png" />
+															</image>
+														</ImageView>
+														<Label text="Fully Booked">
+															<styleClass>
+																<String fx:value="legend text" />
+																<String fx:value="muted-strike" />
+															</styleClass>
+														</Label>
+													</children>
+												</HBox>
+											</children>
+										</VBox>
+									</children>
+									<styleClass>
+										<String fx:value="legend-card" />
+										<String fx:value="card" />
+									</styleClass>
+								</VBox>
+							</children>
+						</VBox>
 
-                                        <ScrollPane fx:id="timesScroll" fitToWidth="true" hbarPolicy="NEVER" prefHeight="208.0" prefWidth="484.0" styleClass="times-scroll">
-                                 <content>
-                                    <GridPane styleClass="times-grid">
-                                      <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                      </columnConstraints>
-                                      <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                      </rowConstraints>
-                                       <children>
-                                          <ToggleButton mnemonicParsing="false" styleClass="time-slot" text="11:00" />
-                                          <ToggleButton mnemonicParsing="false" styleClass="time-slot" text="11:30" GridPane.columnIndex="1" />
-                                          <ToggleButton mnemonicParsing="false" styleClass="time-slot" text="12:00" GridPane.columnIndex="2" />
-                                          <ToggleButton mnemonicParsing="false" styleClass="time-slot" text="12:30" GridPane.columnIndex="3" />
-                                          <ToggleButton mnemonicParsing="false" styleClass="time-slot" text="13:00" GridPane.rowIndex="1" />
-                                          <ToggleButton mnemonicParsing="false" styleClass="time-slot" text="13:30" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                          <ToggleButton mnemonicParsing="false" styleClass="time-slot" text="14:00" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                                          <ToggleButton mnemonicParsing="false" styleClass="time-slot" text="14:30" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                                          <ToggleButton mnemonicParsing="false" styleClass="time-slot" text="15:00" GridPane.rowIndex="2" />
-                                          <ToggleButton mnemonicParsing="false" styleClass="time-slot" text="15:30" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                          <ToggleButton mnemonicParsing="false" styleClass="time-slot" text="16:00" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                                          <ToggleButton mnemonicParsing="false" styleClass="time-slot" text="16:30" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                                          <ToggleButton mnemonicParsing="false" styleClass="time-slot" text="17:00" GridPane.rowIndex="3" />
-                                          <ToggleButton mnemonicParsing="false" styleClass="time-slot" text="17:30" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                       </children>
-                                    </GridPane>
-                                 </content>
-                                        </ScrollPane>
-                                    </children>
-                                </VBox>
-      
-                                <Button fx:id="confirmBtn" disable="true" onAction="#onConfirm" text="Confirm Reservation">
-                           <styleClass>
-                              <String fx:value="btn-primary" />
-                              <String fx:value="btn-wide" />
-                           </styleClass>
-                        </Button>
-                            </children>
-                     <styleClass>
-                        <String fx:value="reservation-card" />
-                        <String fx:value="card" />
-                     </styleClass>
-                        </VBox>
+						<!-- LEFT CARD -->
+						<VBox disable="true" spacing="16.0">
+							<padding>
+								<Insets bottom="18" left="18" right="18" top="18" />
+							</padding>
 
-                    </children>
-                </HBox>
-            </center>
-         <bottom>
-            <BorderPane BorderPane.alignment="CENTER">
-               <left>
-                  <HBox alignment="BOTTOM_LEFT">
-                     <children>
-                        <Label styleClass="footer-label" text="© 2025 Bistro · All rights reserved · v1.0.0" textFill="WHITE" />
-                     </children>
-                     <padding>
-                        <Insets bottom="16" left="24" right="0" top="0" />
-                     </padding>
-                  </HBox>
-               </left>
-            </BorderPane>
-         </bottom>
-        </BorderPane>
-    </children>
+							<children>
+								<HBox alignment="CENTER_LEFT" spacing="28.0">
+									<children>
+										<Label styleClass="muted-label" text="Booking as:" />
+										<Label styleClass="pill-blue" text="Member" />
+									</children>
+								</HBox>
+
+								<!-- Date -->
+								<VBox spacing="8">
+									<children>
+										<Label styleClass="field-label" text="Select Date">
+											<graphic>
+												<ImageView fitHeight="18.0" fitWidth="18.0">
+													<image>
+														<Image url="@resources/formkit--date.png" />
+													</image>
+												</ImageView>
+											</graphic>
+										</Label>
+										<DatePicker id="datePicker" fx:id="datePicker" styleClass="field-input" />
+									</children>
+								</VBox>
+
+								<!-- Diners -->
+								<VBox spacing="8">
+									<children>
+										<Label styleClass="field-label" text="Number of Diners">
+											<graphic>
+												<ImageView fitHeight="22.0" fitWidth="22.0">
+													<image>
+														<Image url="@resources/famicons--people-outline.png" />
+													</image>
+												</ImageView>
+											</graphic>
+										</Label>
+										<ComboBox id="dinersAmountComboBox" fx:id="dinersAmountComboBox" promptText="2 People" styleClass="field-input" />
+									</children>
+								</VBox>
+
+								<!-- Time -->
+								<VBox spacing="10">
+									<children>
+										<Label styleClass="field-label" text="Select Time">
+											<graphic>
+												<ImageView fitHeight="18.0" fitWidth="18.0">
+													<image>
+														<Image url="@resources/mingcute--time-line.png" />
+													</image>
+												</ImageView>
+											</graphic>
+										</Label>
+
+										<ScrollPane fx:id="timesScroll" fitToWidth="true" hbarPolicy="NEVER" prefHeight="208.0" prefWidth="484.0" styleClass="times-scroll">
+											<content>
+												<GridPane id="timeSlotsGridPane" fx:id="timeSlotsGridPane" styleClass="times-grid">
+													<columnConstraints>
+														<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+														<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+														<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+														<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+													</columnConstraints>
+													<rowConstraints>
+														<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+														<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+														<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+														<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+														<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+														<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+														<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+													</rowConstraints>
+													<children>
+														<ToggleButton mnemonicParsing="false" styleClass="time-slot" text="11:00" />
+														<ToggleButton mnemonicParsing="false" styleClass="time-slot" text="11:30" GridPane.columnIndex="1" />
+														<ToggleButton mnemonicParsing="false" styleClass="time-slot" text="12:00" GridPane.columnIndex="2" />
+														<ToggleButton mnemonicParsing="false" styleClass="time-slot" text="12:30" GridPane.columnIndex="3" />
+														<ToggleButton mnemonicParsing="false" styleClass="time-slot" text="13:00" GridPane.rowIndex="1" />
+														<ToggleButton mnemonicParsing="false" styleClass="time-slot" text="13:30" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+														<ToggleButton mnemonicParsing="false" styleClass="time-slot" text="14:00" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+														<ToggleButton mnemonicParsing="false" styleClass="time-slot" text="14:30" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+														<ToggleButton mnemonicParsing="false" styleClass="time-slot" text="15:00" GridPane.rowIndex="2" />
+														<ToggleButton mnemonicParsing="false" styleClass="time-slot" text="15:30" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+														<ToggleButton mnemonicParsing="false" styleClass="time-slot" text="16:00" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+														<ToggleButton mnemonicParsing="false" styleClass="time-slot" text="16:30" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+														<ToggleButton mnemonicParsing="false" styleClass="time-slot" text="17:00" GridPane.rowIndex="3" />
+														<ToggleButton mnemonicParsing="false" styleClass="time-slot" text="17:30" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+													</children>
+												</GridPane>
+											</content>
+										</ScrollPane>
+									</children>
+								</VBox>
+
+								<Button id="btnConfirmReservation" fx:id="btnConfirmReservation" disable="true" onAction="#onConfirm" text="Confirm Reservation">
+									<styleClass>
+										<String fx:value="btn-primary" />
+										<String fx:value="btn-wide" />
+									</styleClass>
+								</Button>
+							</children>
+							<styleClass>
+								<String fx:value="reservation-card" />
+								<String fx:value="card" />
+							</styleClass>
+						</VBox>
+
+					</children>
+				</HBox>
+			</center>
+			<bottom>
+				<BorderPane BorderPane.alignment="CENTER">
+					<left>
+						<HBox alignment="BOTTOM_LEFT">
+							<children>
+								<Label styleClass="footer-label" text="© 2025 Bistro · All rights reserved · v1.0.0" textFill="WHITE" />
+							</children>
+							<padding>
+								<Insets bottom="16" left="24" right="0" top="0" />
+							</padding>
+						</HBox>
+					</left>
+				</BorderPane>
+			</bottom>
+		</BorderPane>
+	</children>
 </StackPane>
