@@ -28,6 +28,9 @@ public class NewReservationScreen {
 	public void initialize() {
 		setupDinersAmountComboBox();
 		setupDatePicker();
+		
+		
+		generateTimeSlots(generateDefaultTimeSlots());
 	}
 
 	
@@ -44,6 +47,11 @@ public class NewReservationScreen {
 	    });
 		
 		//TODO - add listener to update available time slots when date changes
+		datePicker.valueProperty().addListener((obs, oldDate, newDate) -> {
+	        System.out.println("Date changed to: " + newDate);
+	        //TODO - load available time slots from server based on selected date and diners amount
+	        generateTimeSlots(generateDefaultTimeSlots());
+	        });
 		//TODO highlight selected time slot
 		//TODO - load available time slots from server based on selected date and diners amount
 	}
