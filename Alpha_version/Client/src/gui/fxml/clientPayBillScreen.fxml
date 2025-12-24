@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="720" prefWidth="1280" styleClass="background" stylesheets="@clientPayBillStyles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="your.package.BillPaymentCodeController">
+
+    <!-- HEADER -->
+    <top>
+        <StackPane prefHeight="90" styleClass="header">
+            <HBox alignment="CENTER_LEFT" spacing="10" StackPane.alignment="CENTER_LEFT">
+                <padding>
+                    <Insets bottom="18" left="24" right="24" top="18" />
+                </padding>
+                <Button fx:id="backButton" styleClass="nav-back" text=" Back">
+               <graphic>
+                  <ImageView fitHeight="18.0" fitWidth="9.0">
+                     <image>
+                        <Image url="@resources/backIcon.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            </HBox>
+
+            <Label styleClass="header-title" text="Bill Payment" StackPane.alignment="CENTER" />
+        </StackPane>
+    </top>
+
+    <!-- CONTENT -->
+    <center>
+        <StackPane>
+              <VBox alignment="TOP_CENTER" styleClass="content">
+                  <padding>
+                      <Insets bottom="30" left="24" right="24" top="30" />
+                  </padding>
+
+                  <!-- WHITE CARD -->
+                  <VBox alignment="TOP_CENTER" prefHeight="537.0" prefWidth="792.0" spacing="18" styleClass="big-card">
+
+                      <!-- Paying as -->
+                      <HBox alignment="CENTER" spacing="12">
+                          <Label styleClass="muted" text="Paying as:" />
+                          <Label fx:id="lblUserStat" styleClass="pill" text="Member" />
+                      </HBox>
+               <ImageView fitHeight="51.0" fitWidth="51.0">
+                  <image>
+                     <Image url="@resources/bill_icon.png" />
+                  </image>
+               </ImageView>
+
+                      <!-- Titles -->
+                      <Label styleClass="section-title" text="Enter Your Confirmation Code" />
+
+                      <Label styleClass="subtitle" text="Please enter the confirmation code from your reservation or&#10;check-in" textAlignment="CENTER" wrapText="true" />
+
+                      <!-- Field label -->
+                      <VBox alignment="CENTER_LEFT" spacing="8" styleClass="form-area">
+                          <Label styleClass="field-label" text="Confirmation Code" />
+
+                          <TextField fx:id="txtConfirmCode" styleClass="code-field" />
+                      </VBox>
+
+                      <!-- Verify button -->
+                      <Button fx:id="btnVerify" prefHeight="40.0" prefWidth="581.0" text="Verify &amp; Continue">
+                  <styleClass>
+                     <String fx:value="btn-primary" />
+                     <String fx:value="btn-wide" />
+                  </styleClass></Button>
+
+                      <!-- Help box -->
+                      <VBox alignment="TOP_LEFT" prefHeight="89.0" prefWidth="549.0" spacing="10" styleClass="help-box">
+                          <Label styleClass="help-title" text="Need Help?" />
+
+                          <Label styleClass="help-text" text="Your confirmation code was provided when you made your reservation or&#10;checked in. It can be found in your confirmation email or message." wrapText="true" />
+                      </VBox>
+
+                  </VBox>
+              </VBox>
+        </StackPane>
+    </center>
+   <bottom>
+      <BorderPane prefHeight="24.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
+         <left>
+            <HBox prefHeight="33.0" prefWidth="253.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="546.0" text="© 2025 Bistro · All rights reserved · v1.0.0" textFill="WHITE" />
+               </children>
+               <padding>
+                  <Insets bottom="16.0" left="24.0" />
+               </padding>
+            </HBox>
+         </left>
+      </BorderPane>
+   </bottom>
+
+</BorderPane>
