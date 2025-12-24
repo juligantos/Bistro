@@ -12,9 +12,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 
+import comms.*;
 import entities.User;
 import ocsf.client.*;
-import massages.*;
 
 /*
  * This class represents a client that connects to a Bistro server.

@@ -1,4 +1,4 @@
-package massages;
+package comms;
 
 import java.io.Serial;
 import java.io.Serializable;

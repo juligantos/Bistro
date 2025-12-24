@@ -1,4 +1,4 @@
-package massages;
+package comms;
 
 public final class Api {
 	// Requests

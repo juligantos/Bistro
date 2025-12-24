@@ -3,9 +3,9 @@ package logic;
 import java.util.ArrayList;
 import java.util.Map;
 
+import comms.*;
 import entities.User;
 import entities.UserType;
-import massages.*;
 
 /*
  * This class represents the controller for user-related operations in the BistroClient.
