@@ -10,12 +10,15 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import comms.*;
+import entities.Order;
 import entities.User;
 import enums.DaysOfWeek;
 import ocsf.client.*;
@@ -85,6 +88,7 @@ public class BistroClient extends AbstractClient {
 	 * 
 	 * @param msg The message received from the server.
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void handleMessageFromServer(Object msg) {
 		BistroClient.messageFromServer = (Message) msg; // Update static message variable
@@ -92,6 +96,9 @@ public class BistroClient extends AbstractClient {
 		switch(messageFromServer.getId()) {
 		case "ASK_TO_LOGIN_APPROVED":
 			userCTRL.setLoggedInUser((User) messageFromServer.getData());
+			break;
+		case "REPLAY_ACTIVE_ORDERS_RES":
+			reservationCTRL.setActiveReservations((Map<LocalDate, TreeMap<LocalTime,List <Order>>>) messageFromServer.getData());
 			break;
 			
 		default:
