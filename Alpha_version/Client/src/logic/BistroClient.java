@@ -30,7 +30,9 @@ public class BistroClient extends AbstractClient {
 	
 	public static boolean awaitResponse = false;
 	
-	private final User_Controller userCTRL; //final to ensure there is only one instance associated with the client
+	private final User_Controller userCTRL;
+	
+	private final Reservation_Controller reservationCTRL;
 	
 	//******************************** Constructors ***********************************
 	
@@ -51,6 +53,7 @@ public class BistroClient extends AbstractClient {
 			throw new Exception("Could not connect to server at " + host + ":" + port, e);
 		}
 		this.userCTRL = new User_Controller(this);
+		this.reservationCTRL = new Reservation_Controller();
 	}
 	
 	/*
@@ -189,6 +192,11 @@ public class BistroClient extends AbstractClient {
 	 */
 	public User_Controller getUserCTRL() {
 		return this.userCTRL;
+	}
+
+	public Object getReservationCTRL() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

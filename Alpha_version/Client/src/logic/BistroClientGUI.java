@@ -65,22 +65,14 @@ public class BistroClientGUI extends Application {
 	
 	public static void switchScreen(Event event, String fxmlName, String errorMessage) {
         try {
-            // 1. Build the path dynamically
             String path = "/gui/fxml/" + fxmlName + ".fxml";
-            
-            // 2. Load the FXML
+            System.out.println(path);
             FXMLLoader loader = new FXMLLoader(BistroClientGUI.class.getResource(path));
             Parent root = loader.load();
-            
-            // 3. Get the current Stage (Window) from the event that triggered this
             Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            
-            // 4. Set the new Scene
             Scene scene = new Scene(root);
-            
             stage.setScene(scene);
             stage.show();
-            
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error loading screen: " + fxmlName + "\n" + errorMessage);

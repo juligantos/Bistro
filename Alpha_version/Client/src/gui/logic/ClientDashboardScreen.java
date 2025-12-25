@@ -73,14 +73,32 @@ public class ClientDashboardScreen {
 		switch (type) {
 		case GUEST:
 			SetDashboardAsGuest();
+			//check if guest is on waiting list and change button name to "Waiting List Status":
+			editJoinWaitingListButton();
 			break;
 		case MEMBER:
 			SetDashboardAsMember(BistroClientGUI.client.getUserCTRL().getLoggedInUser());
+			//check if member is on waiting list and change button name to "Waiting List Status":
+			editJoinWaitingListButton();
 			break;
 		default:
 			System.out.println("Error: Unknown user type.");
 			break;
 		}
+	}
+	
+	/*
+	 * Method to edit the Join Waiting List button text based on user's waiting list status.
+	 */
+	private void editJoinWaitingListButton() {
+		boolean isOnWaitingList = BistroClientGUI.client.getReservationCTRL().isUserOnWaitingList(
+				BistroClientGUI.client.getUserCTRL().getLoggedInUser());
+		if (isOnWaitingList) {
+			btnJoinWaitingList.setText("Waiting List Status");
+		} else {
+			btnJoinWaitingList.setText("Join Waiting List");
+		}
+		
 	}
 
 	/*
