@@ -193,12 +193,12 @@ public class BistroDataBase_Controller {
 
 	        while (rs.next()) {
 	            int orderNumber = rs.getInt("order_number");
-	            java.sql.Date sqlOrderDate = rs.getDate("order_date");
+	            Date sqlOrderDate = rs.getDate("order_date");
 	            Time sqlOrderTime = rs.getTime("order_time");
 	            int dinersAmount = rs.getInt("number_of_guests");
 	            int confirmationCode = rs.getInt("confirmation_code");
 	            int memberId = rs.getInt("member_id");
-	            java.sql.Date sqlPlacedDate = rs.getDate("date_of_placing_order");
+	            Date sqlPlacedDate = rs.getDate("date_of_placing_order");
 	            boolean orderActive = rs.getBoolean("order_active");
 	            boolean waitList = rs.getBoolean("wait_list");
 
