@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane styleClass="bill-root" stylesheets="@clientCheckoutStyles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bistro.app.controllers.BillPaymentController">
+
+    <children>
+        <BorderPane prefHeight="720" prefWidth="1280">
+
+            <!-- TOP -->
+            <top>
+                <BorderPane>
+                    <padding>
+                        <Insets bottom="8" left="28" right="28" top="18" />
+                    </padding>
+
+                    <left>
+                        <Button fx:id="btnBack" onAction="#btnBack" styleClass="bill-back" text=" Back">
+                     <graphic>
+                        <ImageView fitHeight="18.0" fitWidth="9.0">
+                           <image>
+                              <Image url="@resources/backIcon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                    </left>
+
+                    <center>
+                        <Label styleClass="bill-title" text="Bill Payment" BorderPane.alignment="CENTER" />
+                    </center>
+                </BorderPane>
+            </top>
+
+            <!-- CENTER -->
+            <center>
+                <StackPane BorderPane.alignment="CENTER">
+                    <children>
+
+                        <HBox alignment="TOP_CENTER" spacing="22" styleClass="bill-container">
+                            <padding>
+                                <Insets bottom="28" left="28" right="28" top="10" />
+                            </padding>
+
+                            <children>
+
+                                <!-- LEFT BIG CARD: BILL DETAILS -->
+                                <VBox spacing="14">
+
+                                    <!-- Header -->
+                                    <HBox alignment="CENTER_LEFT" spacing="10">
+                                        <children>
+                                            <Label styleClass="section-title" text="Bill Details">
+                                    <graphic>
+                                       <ImageView fitHeight="26.0" fitWidth="26.0">
+                                          <image>
+                                             <Image url="@resources/bill_icon.png" />
+                                          </image>
+                                       </ImageView>
+                                    </graphic></Label>
+                                        </children>
+                                    </HBox>
+                           <TableView fx:id="billTable" prefHeight="420" styleClass="bill-table">
+                             <columns>
+                                <TableColumn fx:id="colItem" prefWidth="360" text="Item" />
+                                <TableColumn fx:id="colQty" prefWidth="90" text="Qty" />
+                                <TableColumn fx:id="colPrice" prefWidth="140" text="Price" />
+                                <TableColumn fx:id="colTotal" prefWidth="140" text="Total" />
+                             </columns>
+                           </TableView>
+
+                                    <!-- Totals block -->
+                                    <VBox spacing="10">
+
+                                        <GridPane hgap="8">
+                                            <columnConstraints>
+                                                <ColumnConstraints percentWidth="70" />
+                                                <ColumnConstraints percentWidth="30" />
+                                            </columnConstraints>
+                                            <children>
+                                                <Label styleClass="totals-row-label" text="Subtotal" GridPane.columnIndex="0" />
+                                                <Label fx:id="subtotalLabel" styleClass="totals-row-value" text="₪125.92" GridPane.columnIndex="1" />
+                                            </children>
+                                 <rowConstraints>
+                                    <RowConstraints />
+                                 </rowConstraints>
+                                        </GridPane>
+
+                                        <GridPane hgap="8">
+                                            <columnConstraints>
+                                                <ColumnConstraints percentWidth="70" />
+                                                <ColumnConstraints percentWidth="30" />
+                                            </columnConstraints>
+                                            <children>
+                                                <Label styleClass="totals-row-label" text="Tax (8%)" GridPane.columnIndex="0" />
+                                                <Label fx:id="taxLabel" styleClass="totals-row-value" text="₪10.07" GridPane.columnIndex="1" />
+                                            </children>
+                                 <rowConstraints>
+                                    <RowConstraints />
+                                 </rowConstraints>
+                                        </GridPane>
+
+                                        <GridPane hgap="8">
+                                            <columnConstraints>
+                                                <ColumnConstraints percentWidth="70" />
+                                                <ColumnConstraints percentWidth="30" />
+                                            </columnConstraints>
+                                            <children>
+                                                <Label styleClass="totals-row-label discount-row" text="Member Discount (10%)" GridPane.columnIndex="0" />
+                                                <Label fx:id="discountLabel" styleClass="totals-row-value discount-value" text="-₪12.59" GridPane.columnIndex="1" />
+                                            </children>
+                                 <rowConstraints>
+                                    <RowConstraints />
+                                 </rowConstraints>
+                                        </GridPane>
+
+                                        <Separator opacity="0.4" />
+
+                                        <GridPane hgap="8">
+                                            <columnConstraints>
+                                                <ColumnConstraints percentWidth="70" />
+                                                <ColumnConstraints percentWidth="30" />
+                                            </columnConstraints>
+                                            <children>
+                                                <Label styleClass="total-label" text="Total" GridPane.columnIndex="0" />
+                                                <Label fx:id="totalLabel" styleClass="total-value" text="₪123.40" GridPane.columnIndex="1" />
+                                            </children>
+                                 <rowConstraints>
+                                    <RowConstraints />
+                                 </rowConstraints>
+                                        </GridPane>
+
+                                    </VBox>
+                           <styleClass>
+                              <String fx:value="bill-card" />
+                              <String fx:value="bill-card-left" />
+                              <String fx:value="bill-card-pad" />
+                           </styleClass>
+
+                                </VBox>
+
+                                <!-- RIGHT COLUMN -->
+                                <VBox spacing="16" styleClass="bill-right-col">
+
+                                    <!-- Member Benefits -->
+                                    <VBox spacing="12" styleClass="benefits-card">
+                                        <children>
+                                            <Label fx:id="lblUserBenefits" styleClass="benefits-title" text="Member Benefits" />
+
+                                            <HBox fx:id="hboxUserBenefits" alignment="CENTER" styleClass="benefits-pill">
+                                                <children>
+                                                    <Label styleClass="benefits-pill-text" text="Discount Applied" />
+                                                </children>
+                                            </HBox>
+                                        </children>
+                                    </VBox>
+
+                                    <!-- Payment Summary (blue card) -->
+                                    <VBox spacing="12" styleClass="summary-card">
+                                        <children>
+                                            <Label styleClass="summary-title" text="Payment Summary" />
+
+                                            <TextField fx:id="txtAmountToPay" promptText="Amount to Pay" styleClass="summary-input" />
+
+                                            <VBox spacing="8">
+                                                <children>
+                                                    <Label fx:id="summarySubtotal" styleClass="summary-bullet" text="• Subtotal: ₪125.92" />
+                                                    <Label fx:id="summaryTax" styleClass="summary-bullet" text="• Tax: ₪10.07" />
+                                                    <Label fx:id="summaryDiscount" styleClass="summary-bullet" text="• Discount: -₪12.59" />
+                                                </children>
+                                            </VBox>
+                                        </children>
+                                    </VBox>
+
+                                    <!-- Pay Now -->
+                                    <Button fx:id="btnPay" onAction="#btnPay" styleClass="pay-now" text="Pay Now" />
+
+                                    <!-- Secondary actions -->
+                                    <Button fx:id="btnSplitBill" onAction="#btnSplitBill" styleClass="white-action" text="Split Bill" />
+
+                                    <Button fx:id="btnAddTip" onAction="#btnAddTip" styleClass="white-action" text="Add Tip" />
+
+                                </VBox>
+
+                            </children>
+                        </HBox>
+
+                    </children>
+                </StackPane>
+            </center>
+         <bottom>
+            <BorderPane BorderPane.alignment="CENTER">
+               <left>
+                  <HBox alignment="BOTTOM_LEFT">
+                     <children>
+                        <Label styleClass="footer-label" text="© 2025 Bistro · All rights reserved · v1.0.0" textFill="WHITE" />
+                     </children>
+                     <padding>
+                        <Insets bottom="16" left="24" right="0" top="0" />
+                     </padding>
+                  </HBox>
+               </left>
+            </BorderPane>
+         </bottom>
+
+        </BorderPane>
+    </children>
+</StackPane>
