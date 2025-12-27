@@ -27,14 +27,14 @@ CREATE TABLE `orders` (
   `order_date` date DEFAULT NULL,
   `number_of_guests` int DEFAULT NULL,
   `confirmation_code` int DEFAULT NULL,
-  `member_id` int DEFAULT NULL,
+  `user_id` int DEFAULT NULL,
   `date_of_placing_order` date DEFAULT NULL,
   `order_time` time DEFAULT NULL,
   `order_active` tinyint DEFAULT NULL,
   `wait_list` tinyint DEFAULT NULL,
   PRIMARY KEY (`order_number`),
-  KEY `member_id` (`member_id`),
-  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `members` (`memberID`)
+  KEY `foreign_order_member_idx` (`user_id`),
+  CONSTRAINT `foreign_order_member` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-12-17 12:42:40
+-- Dump completed on 2025-12-27 16:12:19

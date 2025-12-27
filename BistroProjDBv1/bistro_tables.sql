@@ -20,13 +20,14 @@
 --
 
 DROP TABLE IF EXISTS `tables`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tables` (
-  `tableNum` INT NOT NULL,
-  `capacity` INT NOT NULL,
-  `occupied_now` TINYINT NOT NULL DEFAULT 0,
+  `tableNum` int NOT NULL,
+  `capacity` int NOT NULL,
+  `occupied_now` tinyint NOT NULL DEFAULT '0',
   PRIMARY KEY (`tableNum`),
-  CONSTRAINT `chk_tables_capacity` CHECK (`capacity` > 0)
+  CONSTRAINT `chk_tables_capacity` CHECK ((`capacity` > 0))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -36,6 +37,7 @@ CREATE TABLE `tables` (
 
 LOCK TABLES `tables` WRITE;
 /*!40000 ALTER TABLE `tables` DISABLE KEYS */;
+INSERT INTO `tables` VALUES (1,4,0),(2,6,0),(3,8,0),(4,2,0),(5,3,0);
 /*!40000 ALTER TABLE `tables` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -48,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-12-17 12:42:41
+-- Dump completed on 2025-12-27 16:12:19
