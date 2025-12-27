@@ -28,6 +28,8 @@ public class Reservation_Controller {
 	private  final BistroClient client;
 	private Map<LocalTime,List<Order>> reservationsByDate;
 	private String confirmationCode; 
+	private boolean userOnWaitingList;
+	private boolean userReservationReady;
 	//******************************** Constructors ***********************************//
 	
 	public Reservation_Controller(BistroClient client) {
@@ -52,6 +54,22 @@ public class Reservation_Controller {
 	
 	public void setConfirmationCode(String confirmationCode) {
 		this.confirmationCode = confirmationCode;
+	}
+	
+	public void setUserOnWaitingList(boolean userOnWaitingList) {
+		this.userOnWaitingList = userOnWaitingList;
+	}
+	
+	public boolean getUserOnWaitingList() {
+		return this.userOnWaitingList;
+	}
+	
+	public boolean getUserReservationReady() {
+		return this.userReservationReady;
+	}
+	
+	public void setUserReservationReady(boolean userReservationReady) {
+		this.userReservationReady = userReservationReady;
 	}
 	
 	//******************************** Instance Methods ***********************************//
@@ -90,7 +108,15 @@ public class Reservation_Controller {
 		reservationData.add(date);
 		reservationData.add(selectedTimeSlot);
 		reservationData.add(diners);
-		client.handleMessageFromClientUI(new Message("CREATE_NEW_RESERVATION",reservationData));
+		client.handleMessageFromClientUI(new Message(api.ASK_CREATE_RESERVATION,reservationData));
 		
 	}
+
+	public void askUserOnWaitingList(Object userVerificationID) { // verficationID can be memberID or phone number/email for guest
+		client.handleMessageFromClientUI(new Message("ASK_USER_ON_WAITING", userVerificationID));
+		return;
+	}
+
+	
+	
 }

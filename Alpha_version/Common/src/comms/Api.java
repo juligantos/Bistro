@@ -37,6 +37,7 @@ public final class Api {
     // == Orders subject == //
     
 // Requests
+    public static final String ASK_CREATE_RESERVATION = "orders.createReservation";
     public static final String ASK_ORDERS_LIST          = "orders.list";
     public static final String ASK_ORDERS_UPDATE_STATUS = "orders.updateStatus";
     public static final String ASK_ORDERS_GET_BY_CODE   = "orders.getByCode";
@@ -60,4 +61,5 @@ public final class Api {
     // == System responses == //
     
     public static final String REPLY_UNKNOWN_COMMAND = "system.unknownCommand";
+	
 }

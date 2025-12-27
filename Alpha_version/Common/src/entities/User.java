@@ -1,11 +1,17 @@
 package entities;
 
+import java.io.Serializable;
+
 import enums.UserType;
 
 /*
  * This class represents a user in the Bistro system.
  */
-public class User {
+public class User implements Serializable {
+	
+	//**************************** Serial Version UID ****************************//
+	
+	private static final long serialVersionUID = 1L;
 	
 	//*************************** Instance variables ***************************//
 	

@@ -91,9 +91,28 @@ public class ClientDashboardScreen {
 	 * Method to edit the Join Waiting List button text based on user's waiting list status.
 	 */
 	private void editJoinWaitingListButton() {
-		//TODO: implement method to check if user is on waiting list	
+		Object data;
+		switch (BistroClientGUI.client.getUserCTRL().getLoggedInUserType()) {
+		case GUEST:
+			if (BistroClientGUI.client.getUserCTRL().getLoggedInUser().getPhoneNumber() != null) {
+				data = (Object) BistroClientGUI.client.getUserCTRL().getLoggedInUser().getPhoneNumber();
+			} else {
+				data = (Object) BistroClientGUI.client.getUserCTRL().getLoggedInUser().getEmail();
+			}
+			break;
+		default: // MEMBER
+			data = (Object) BistroClientGUI.client.getUserCTRL().getLoggedInUser().getID();
+			break;
+		}
+		BistroClientGUI.client.getReservationCTRL().askUserOnWaitingList(data);
+		if (BistroClientGUI.client.getReservationCTRL().isUserOnWaitingList()) {
+			btnJoinWaitingList.setText("Waiting List Status");
+		} else {
+			btnJoinWaitingList.setText("Join Waiting List");
+		}
 	}
-
+	
+	
 	/*
 	 * Method to set up the dashboard for a guest user.
 	 */
@@ -141,16 +160,7 @@ public class ClientDashboardScreen {
 	 */
 	@FXML
 	public void NewReservation(Event event) {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/screens/clientNewReservationScreen.fxml"));
-		try {
-			loader.load();
-			Parent root = loader.getRoot();
-			BistroClientGUI.switchScreen(event, "New Reservation", "Failed to load Client New Reservation Screen.");
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.out.println("Failed to load Client New Reservation Screen.");
-			display(lblError, "Failel loading screen", Color.RED);
-		}
+		BistroClientGUI.switchScreen(event, "clientNewReservationScreen", "Failed to load Client New Reservation Screen.");
 	}
 
 	/*
@@ -160,17 +170,17 @@ public class ClientDashboardScreen {
 	 */
 	@FXML
 	public void JoinWaitingList(Event event) {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/screens/clientJoinWaitingListScreen.fxml"));
-		try {
-			loader.load();
-			Parent root = loader.getRoot();
-			BistroClientGUI.switchScreen(event, "Join Waiting List", "Failed to load Client Join Waiting List Screen.");
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.out.println("Failed to load Client Join Waiting List Screen.");
-			display(lblError, "Failel loading screen", Color.RED);
+		String fxmlFileName;
+		if(BistroClientGUI.client.getReservationCTRL().getUserOnWaitingList()) {
+			fxmlFileName = "clientOnListScreen";
 		}
-
+		else if(BistroClientGUI.client.getReservationCTRL().getUserReservationReady()) {
+			fxmlFileName = "clienWaitingOverScreen";
+		}
+		else {
+			fxmlFileName = "clientJoinWaitingListScreen";
+		}
+		BistroClientGUI.switchScreen(event, fxmlFileName, "Failed to load Client Join Waiting List Screen.");
 	}
 
 	/*
