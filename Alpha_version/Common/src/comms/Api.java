@@ -22,6 +22,17 @@ public final class Api {
     public static final String REPLY_CONNECTION_CONNECT_OK = "connection.connect.ok";
 
 
+    // == Login subject == //
+// Requests
+    public static final String ASK_LOGIN_MEMBER = "login.member";
+    public static final String ASK_LOGIN_GUEST  = "login.guest";
+    
+// Responses
+    public static final String REPLY_LOGIN_MEMBER_OK = "login.user.ok";
+    public static final String REPLY_LOGIN_MEMBER_NOT_FOUND = "login.user.notFound";
+    public static final String REPLY_LOGIN_GUEST_OK  = "login.guest.ok";
+    public static final String REPLY_LOGIN_GUEST_ALREADY_MEMBER = "login.guest.alreadyMember";
+    
     
     // == Orders subject == //
     
