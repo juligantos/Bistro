@@ -16,28 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tables`
+-- Table structure for table `opening_hours_weekly`
 --
 
-DROP TABLE IF EXISTS `tables`;
+DROP TABLE IF EXISTS `opening_hours_weekly`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tables` (
-  `tableNum` int NOT NULL,
-  `capacity` int NOT NULL,
-  PRIMARY KEY (`tableNum`),
-  CONSTRAINT `chk_tables_capacity` CHECK ((`capacity` > 0))
+CREATE TABLE `opening_hours_weekly` (
+  `day_of_week` tinyint NOT NULL,
+  `open_time` time NOT NULL,
+  `close_time` time NOT NULL,
+  PRIMARY KEY (`day_of_week`),
+  CONSTRAINT `chk_week_hours` CHECK ((`open_time` < `close_time`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tables`
+-- Dumping data for table `opening_hours_weekly`
 --
 
-LOCK TABLES `tables` WRITE;
-/*!40000 ALTER TABLE `tables` DISABLE KEYS */;
-INSERT INTO `tables` VALUES (1,4),(2,6),(3,8),(4,2),(5,3);
-/*!40000 ALTER TABLE `tables` ENABLE KEYS */;
+LOCK TABLES `opening_hours_weekly` WRITE;
+/*!40000 ALTER TABLE `opening_hours_weekly` DISABLE KEYS */;
+/*!40000 ALTER TABLE `opening_hours_weekly` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.44, for Win64 (x86_64)
 --
--- Host: localhost    Database: bistro
+-- Host: 127.0.0.1    Database: bistro
 -- ------------------------------------------------------
 -- Server version	8.0.44
 
@@ -23,10 +23,11 @@ DROP TABLE IF EXISTS `reports`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `reports` (
-  `reportID` int NOT NULL,
-  `reportName` varchar(45) DEFAULT NULL,
-  `reportDate` date DEFAULT NULL,
-  PRIMARY KEY (`reportID`)
+  `reportID` int NOT NULL AUTO_INCREMENT,
+  `reportName` varchar(45) NOT NULL,
+  `reportDate` date NOT NULL,
+  PRIMARY KEY (`reportID`),
+  UNIQUE KEY `uq_report_name_date` (`reportName`,`reportDate`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -48,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-12-27 16:12:18
+-- Dump completed on 2025-12-28 18:30:07

@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.44, for Win64 (x86_64)
 --
--- Host: localhost    Database: bistro
+-- Host: 127.0.0.1    Database: bistro
 -- ------------------------------------------------------
 -- Server version	8.0.44
 
@@ -23,10 +23,18 @@ DROP TABLE IF EXISTS `bills`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `bills` (
-  `billID` int NOT NULL,
-  `billSum` double DEFAULT NULL,
-  `billDate` date DEFAULT NULL,
-  PRIMARY KEY (`billID`)
+  `billID` int NOT NULL AUTO_INCREMENT,
+  `session_id` int NOT NULL,
+  `billSum` decimal(10,2) NOT NULL,
+  `subtotal_amount` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `discount_percent` decimal(5,2) NOT NULL DEFAULT '0.00',
+  `billDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `paid_at` datetime DEFAULT NULL,
+  `payment_method` enum('CASH','CREDIT') DEFAULT NULL,
+  `payment_status` enum('UNPAID','PAID') NOT NULL DEFAULT 'UNPAID',
+  PRIMARY KEY (`billID`),
+  UNIQUE KEY `session_id` (`session_id`),
+  CONSTRAINT `fk_bills_session` FOREIGN KEY (`session_id`) REFERENCES `table_sessions` (`session_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -48,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-12-27 16:12:18
+-- Dump completed on 2025-12-28 18:30:08

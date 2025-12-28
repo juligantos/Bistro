@@ -16,28 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tables`
+-- Table structure for table `bill_items`
 --
 
-DROP TABLE IF EXISTS `tables`;
+DROP TABLE IF EXISTS `bill_items`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tables` (
-  `tableNum` int NOT NULL,
-  `capacity` int NOT NULL,
-  PRIMARY KEY (`tableNum`),
-  CONSTRAINT `chk_tables_capacity` CHECK ((`capacity` > 0))
+CREATE TABLE `bill_items` (
+  `bill_item_id` int NOT NULL AUTO_INCREMENT,
+  `billID` int NOT NULL,
+  `item_name` varchar(100) NOT NULL,
+  `qty` int NOT NULL DEFAULT '1',
+  `unit_price` decimal(10,2) NOT NULL DEFAULT '0.00',
+  PRIMARY KEY (`bill_item_id`),
+  KEY `idx_bill_items_bill` (`billID`),
+  CONSTRAINT `fk_bill_items_bill` FOREIGN KEY (`billID`) REFERENCES `bills` (`billID`) ON DELETE CASCADE,
+  CONSTRAINT `chk_bill_price` CHECK ((`unit_price` >= 0)),
+  CONSTRAINT `chk_bill_qty` CHECK ((`qty` > 0))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tables`
+-- Dumping data for table `bill_items`
 --
 
-LOCK TABLES `tables` WRITE;
-/*!40000 ALTER TABLE `tables` DISABLE KEYS */;
-INSERT INTO `tables` VALUES (1,4),(2,6),(3,8),(4,2),(5,3);
-/*!40000 ALTER TABLE `tables` ENABLE KEYS */;
+LOCK TABLES `bill_items` WRITE;
+/*!40000 ALTER TABLE `bill_items` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bill_items` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

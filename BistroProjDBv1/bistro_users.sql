@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.44, for Win64 (x86_64)
 --
--- Host: localhost    Database: bistro
+-- Host: 127.0.0.1    Database: bistro
 -- ------------------------------------------------------
 -- Server version	8.0.44
 
@@ -23,14 +23,14 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
-  `user_id` int NOT NULL,
+  `user_id` int NOT NULL AUTO_INCREMENT,
   `phoneNumber` varchar(20) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
   `type` enum('customer','member','employee','manager') NOT NULL,
   PRIMARY KEY (`user_id`),
-  UNIQUE KEY `userID_UNIQUE` (`user_id`),
-  UNIQUE KEY `phoneNumber_UNIQUE` (`phoneNumber`),
-  UNIQUE KEY `email_UNIQUE` (`email`)
+  UNIQUE KEY `uq_users_phone` (`phoneNumber`),
+  UNIQUE KEY `uq_users_email` (`email`),
+  CONSTRAINT `chk_user_contact` CHECK (((`phoneNumber` is not null) or (`email` is not null)))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-12-27 16:12:18
+-- Dump completed on 2025-12-28 18:30:08

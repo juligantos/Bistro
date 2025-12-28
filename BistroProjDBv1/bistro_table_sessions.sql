@@ -16,28 +16,35 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tables`
+-- Table structure for table `table_sessions`
 --
 
-DROP TABLE IF EXISTS `tables`;
+DROP TABLE IF EXISTS `table_sessions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tables` (
+CREATE TABLE `table_sessions` (
+  `session_id` int NOT NULL AUTO_INCREMENT,
+  `order_number` int NOT NULL,
   `tableNum` int NOT NULL,
-  `capacity` int NOT NULL,
-  PRIMARY KEY (`tableNum`),
-  CONSTRAINT `chk_tables_capacity` CHECK ((`capacity` > 0))
+  `seated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `expected_end_at` datetime DEFAULT NULL,
+  `left_at` datetime DEFAULT NULL,
+  `end_reason` enum('PAID','LEFT','NO_SHOW') DEFAULT NULL,
+  PRIMARY KEY (`session_id`),
+  UNIQUE KEY `order_number` (`order_number`),
+  KEY `idx_sessions_table_open` (`tableNum`,`left_at`),
+  CONSTRAINT `fk_sessions_order` FOREIGN KEY (`order_number`) REFERENCES `orders` (`order_number`) ON DELETE CASCADE,
+  CONSTRAINT `fk_sessions_table` FOREIGN KEY (`tableNum`) REFERENCES `tables` (`tableNum`) ON DELETE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tables`
+-- Dumping data for table `table_sessions`
 --
 
-LOCK TABLES `tables` WRITE;
-/*!40000 ALTER TABLE `tables` DISABLE KEYS */;
-INSERT INTO `tables` VALUES (1,4),(2,6),(3,8),(4,2),(5,3);
-/*!40000 ALTER TABLE `tables` ENABLE KEYS */;
+LOCK TABLES `table_sessions` WRITE;
+/*!40000 ALTER TABLE `table_sessions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `table_sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

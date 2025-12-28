@@ -16,28 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tables`
+-- Table structure for table `opening_hours_special`
 --
 
-DROP TABLE IF EXISTS `tables`;
+DROP TABLE IF EXISTS `opening_hours_special`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tables` (
-  `tableNum` int NOT NULL,
-  `capacity` int NOT NULL,
-  PRIMARY KEY (`tableNum`),
-  CONSTRAINT `chk_tables_capacity` CHECK ((`capacity` > 0))
+CREATE TABLE `opening_hours_special` (
+  `special_date` date NOT NULL,
+  `is_closed` tinyint NOT NULL DEFAULT '0',
+  `open_time` time DEFAULT NULL,
+  `close_time` time DEFAULT NULL,
+  PRIMARY KEY (`special_date`),
+  CONSTRAINT `chk_spec_hours` CHECK ((((`is_closed` = 1) and (`open_time` is null) and (`close_time` is null)) or ((`is_closed` = 0) and (`open_time` is not null) and (`close_time` is not null) and (`open_time` < `close_time`))))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tables`
+-- Dumping data for table `opening_hours_special`
 --
 
-LOCK TABLES `tables` WRITE;
-/*!40000 ALTER TABLE `tables` DISABLE KEYS */;
-INSERT INTO `tables` VALUES (1,4),(2,6),(3,8),(4,2),(5,3);
-/*!40000 ALTER TABLE `tables` ENABLE KEYS */;
+LOCK TABLES `opening_hours_special` WRITE;
+/*!40000 ALTER TABLE `opening_hours_special` DISABLE KEYS */;
+/*!40000 ALTER TABLE `opening_hours_special` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

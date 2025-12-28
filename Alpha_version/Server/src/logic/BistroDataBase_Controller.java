@@ -23,14 +23,6 @@ import enums.OrderStatus;
 import enums.OrderType;
 
 
-/**
- * Matches the normalized schema you applied:
- *   users(user_id, phoneNumber, email, type)
- *   members(user_id, member_code, f_name, l_name)
- *   orders(order_number, confirmation_code, user_id, number_of_guests,
- *          order_date, order_time, date_of_placing_order, order_type, status,
- *          notified_at, cancelled_at)
- */
 public class BistroDataBase_Controller {
 
     private static final String JDBC_URL =
@@ -294,12 +286,13 @@ public class BistroDataBase_Controller {
         return getMemberByCode(memberCode);
     }
 
+
     private static User getMemberByCode(String memberCode) {
         final String sql =
-                "SELECT u.phoneNumber, u.email, m.member_code, m.f_name, m.l_name "
-                        + "FROM users u "
-                        + "JOIN members m ON u.user_id = m.user_id "
-                        + "WHERE m.member_code = ?";
+            "SELECT u.user_id, u.phoneNumber, u.email, m.member_code, m.f_name, m.l_name " +
+            "FROM users u " +
+            "JOIN members m ON u.user_id = m.user_id " +
+            "WHERE m.member_code = ?";
 
         Connection conn = null;
         try {
@@ -309,12 +302,14 @@ public class BistroDataBase_Controller {
                 try (ResultSet rs = pst.executeQuery()) {
                     if (!rs.next()) return null;
 
+                    int userId = rs.getInt("user_id");
                     String phone = rs.getString("phoneNumber");
                     String email = rs.getString("email");
+                    String code = rs.getString("member_code");
                     String fName = rs.getString("f_name");
                     String lName = rs.getString("l_name");
-                    
-                    return new User(memberCode, memberCode, fName, lName, null, phone, email, UserType.MEMBER);
+
+                    return new User(userId, code, fName, lName, phone, email);
                 }
             }
         } catch (SQLException ex) {
