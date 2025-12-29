@@ -6,6 +6,8 @@ import comms.Api;
 import comms.Message;
 import entities.Order;
 import logic.BistroDataBase_Controller;
+import logic.BistroServerGUI;
+import logic.ServerLogger;
 import logic.api.Router;
 import enums.OrderType;
 
@@ -19,12 +21,15 @@ public final class OrdersSubject {
     private OrdersSubject() {}
     /**
      * Registers all order related handlers.
+     * @param router
+     * @param logger 
+     * @param dbController
      */
-    public static void register(Router router) {
-
+    public static void register(Router router, BistroDataBase_Controller dbController) {
+    	
         // Get all orders
         router.on("orders", "list", (msg, client) -> {
-            List<Order> orders = BistroDataBase_Controller.getAllOrders();
+            List<Order> orders = dbController.getAllOrders();
             client.sendToClient(new Message(Api.REPLY_ORDERS_LIST_RESULT, orders));
         });
 
@@ -33,7 +38,7 @@ public final class OrdersSubject {
             Order order = (Order) msg.getData();
 
             if (order.getOrderType() == OrderType.RESERVATION && order.getOrderDate() != null) {
-                boolean available = BistroDataBase_Controller.isDateAvailable(
+                boolean available = dbController.isDateAvailable(
                         order.getOrderDate(),
                         order.getConfirmationCode());
 
@@ -44,7 +49,7 @@ public final class OrdersSubject {
             }
 
 
-            boolean updated = BistroDataBase_Controller.updateOrder(order);
+            boolean updated = dbController.updateOrder(order);
 
             if (updated) {
                 client.sendToClient(
@@ -61,7 +66,7 @@ public final class OrdersSubject {
             client.sendToClient(
                     new Message(
                             Api.REPLY_ORDERS_GET_BY_CODE_RESULT,
-                            BistroDataBase_Controller.getOrderByConfirmationCode(code)));
+                            dbController.getOrderByConfirmationCode(code)));
         });
     }
 }

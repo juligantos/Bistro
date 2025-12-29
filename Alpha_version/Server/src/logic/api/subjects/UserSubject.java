@@ -13,14 +13,14 @@ public final class UserSubject {
 	private UserSubject() {
 	}
 
-	public static void register(Router router) {
+	public static void register(Router router, BistroDataBase_Controller dbController) {
 
 		// Request: "login.user"
 		router.on("login", "user", (msg, client) -> {
 			@SuppressWarnings("unchecked")
 			Map<String, Object> loginData = (Map<String, Object>) msg.getData();
 
-			User user = BistroDataBase_Controller.getUserInfo(loginData);
+			User user = dbController.getUserInfo(loginData);
 			if (user != null) {
 				client.sendToClient(new Message(Api.REPLY_LOGIN_USER_OK, user));
 			} else {

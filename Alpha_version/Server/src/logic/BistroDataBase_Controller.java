@@ -22,21 +22,48 @@ import enums.UserType;
 import enums.OrderStatus;
 import enums.OrderType;
 
-
+/**
+ * BistroDataBase_Controller class that manages database connections and operations
+ * for a Bistro application.
+ */
 public class BistroDataBase_Controller {
-
+	
+	// **************************** Instance variables ****************************
+	
+	private static BistroDataBase_Controller dataBaseControllerInstance;
+	private static ServerLogger logger;
+	
+	//**************************** Database Configurations ****************************
+	
     private static final String JDBC_URL =
             "jdbc:mysql://localhost:3306/bistro?allowLoadLocalInfile=true&serverTimezone=Asia/Jerusalem&useSSL=false&allowPublicKeyRetrieval=true";
     private static final String JDBC_USER = "root";
     private static final String JDBC_PASS = "Aa123456";
-
-    private static final int POOL_SIZE = 10;
-    private static final long BORROW_TIMEOUT_MS = 10_000;
-
-    private static BlockingQueue<Connection> pool = null;
-    private static volatile boolean initialized = false;
-
-    public static synchronized boolean openConnection() {
+    
+    //******************************* Connection Pool Configurations *****************
+    
+    private static final int POOL_SIZE = 10; // Number of connections in the pool
+    private static final long BORROW_TIMEOUT_MS = 10_000; // Timeout for borrowing a connection
+    private static BlockingQueue<Connection> pool = null; // Connection pool
+    private static volatile boolean initialized = false; // Pool initialization flag
+ 
+    // ******************************** Constructors***********************************
+    
+    private BistroDataBase_Controller() {}
+    
+	public static synchronized BistroDataBase_Controller getInstance() {
+		if (dataBaseControllerInstance == null) {
+			dataBaseControllerInstance = new BistroDataBase_Controller();
+		}
+		return dataBaseControllerInstance;
+	}
+    //******************************Getters and Setters******************************
+	public void setLogger(ServerLogger log) {
+		logger = log;
+	}
+    //****************************** Database Connection Pool Management ******************************
+	
+    public synchronized boolean openConnection() {
         if (initialized) return true;
 
         try {
@@ -47,17 +74,17 @@ public class BistroDataBase_Controller {
                 pool.offer(c);
             }
             initialized = true;
-            ServerLogger.log("SQL connection pool initialized. Size=" + POOL_SIZE);
+            logger.log("SQL connection pool initialized. Size=" + POOL_SIZE);
             return true;
         } catch (SQLException ex) {
-            ServerLogger.log("Failed to initialize SQL connection pool: " + ex.getMessage());
+        	logger.log("Failed to initialize SQL connection pool: " + ex.getMessage());
             ex.printStackTrace();
             closeConnection();
             return false;
         }
     }
 
-    public static synchronized void closeConnection() {
+    public synchronized void closeConnection() {
         initialized = false;
         if (pool == null) return;
 
@@ -66,7 +93,7 @@ public class BistroDataBase_Controller {
             try { c.close(); } catch (SQLException ignored) {}
         }
         pool = null;
-        ServerLogger.log("SQL connection pool closed");
+        logger.log("SQL connection pool closed");
     }
 
     private static Connection borrow() throws SQLException {
@@ -103,9 +130,9 @@ public class BistroDataBase_Controller {
         } catch (SQLException ignored) {}
     }
 
-    // Orders
-
-    public static Order getOrderByConfirmationCode(int confCode) {
+	// ****************************** Database Operations ******************************
+    
+    public Order getOrderByConfirmationCode(int confCode) {
         final String sql =
             "SELECT order_number, order_date, order_time, number_of_guests, confirmation_code, user_id, " +
             "date_of_placing_order, order_type, status " +
@@ -141,7 +168,7 @@ public class BistroDataBase_Controller {
                 }
             }
         } catch (SQLException ex) {
-            ServerLogger.log("SQLException in getOrderByConfirmationCode: " + ex.getMessage());
+        	logger.log("SQLException in getOrderByConfirmationCode: " + ex.getMessage());
             ex.printStackTrace();
             return null;
         } finally {
@@ -150,7 +177,7 @@ public class BistroDataBase_Controller {
     }
 
 
-    public static List<Order> getAllOrders() {
+    public List<Order> getAllOrders() {
         final List<Order> allOrders = new ArrayList<>();
         final String sql =
             "SELECT order_number, order_date, order_time, number_of_guests, confirmation_code, user_id, " +
@@ -186,7 +213,7 @@ public class BistroDataBase_Controller {
                 }
             }
         } catch (SQLException ex) {
-            ServerLogger.log("SQLException in getAllOrders: " + ex.getMessage());
+        	logger.log("SQLException in getAllOrders: " + ex.getMessage());
             ex.printStackTrace();
         } finally {
             release(conn);
@@ -195,7 +222,7 @@ public class BistroDataBase_Controller {
     }
 
 
-    public static boolean updateOrder(Order orderUpdateData) {
+    public boolean updateOrder(Order orderUpdateData) {
         final String sql =
             "UPDATE orders " +
             "SET order_date = ?, order_time = ?, number_of_guests = ?, status = ? " +
@@ -229,7 +256,7 @@ public class BistroDataBase_Controller {
                 return pst.executeUpdate() > 0;
             }
         } catch (SQLException ex) {
-            ServerLogger.log("SQLException in updateOrder: " + ex.getMessage());
+        	logger.log("SQLException in updateOrder: " + ex.getMessage());
             ex.printStackTrace();
             return false;
         } finally {
@@ -238,7 +265,7 @@ public class BistroDataBase_Controller {
     }
 
 
-    public static boolean isDateAvailable(LocalDate date, int confirmationCodeToExclude) {
+    public boolean isDateAvailable(LocalDate date, int confirmationCodeToExclude) {
         if (date == null) return false;
 
         final String sql =
@@ -260,7 +287,7 @@ public class BistroDataBase_Controller {
                 }
             }
         } catch (SQLException ex) {
-            ServerLogger.log("SQLException in isDateAvailable: " + ex.getMessage());
+        	logger.log("SQLException in isDateAvailable: " + ex.getMessage());
             ex.printStackTrace();
             return false;
         } finally {
@@ -274,15 +301,18 @@ public class BistroDataBase_Controller {
     /**
      * Client sends: { userType: MEMBER, id: <member_code> }
      */
-    public static User getUserInfo(Map<String, Object> userLoginData) {
-        if (userLoginData == null) return null;
-
+    public User getUserInfo(Map<String, Object> userLoginData) {
+        if (userLoginData == null) {
+        	return null;
+        }
         Object idObj = userLoginData.get("id");
-        if (idObj == null) return null;
-
+        if (idObj == null) {
+        	return null;
+        }
         String memberCode = String.valueOf(idObj).trim();
-        if (memberCode.isEmpty()) return null;
-
+        if (memberCode.isEmpty()) {
+        	return null;
+        }
         return getMemberByCode(memberCode);
     }
 
@@ -313,7 +343,7 @@ public class BistroDataBase_Controller {
                 }
             }
         } catch (SQLException ex) {
-            ServerLogger.log("SQLException in getMemberByCode: " + ex.getMessage());
+        	logger.log("SQLException in getMemberByCode: " + ex.getMessage());
             ex.printStackTrace();
             return null;
         } finally {

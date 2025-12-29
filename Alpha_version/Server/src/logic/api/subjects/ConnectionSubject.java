@@ -3,6 +3,7 @@ package logic.api.subjects;
 import comms.Api;
 import comms.Message;
 import logic.api.Router;
+import logic.BistroDataBase_Controller;
 import logic.ServerLogger;
 
 /**
@@ -14,16 +15,19 @@ public final class ConnectionSubject {
 
     /**
      * Registers connection-related handlers.
+     * @param logger 
+     * @param logger 
+     * @param dbController 
      */
-    public static void register(Router router) {
+    public static void register(Router router, ServerLogger logger) {
 
         router.on("connection", "connect", (msg, client) -> {
-        	ServerLogger.log("Client connected: " + client);
+        	logger.log("Client connected: " + client);
             client.sendToClient(new Message(Api.REPLY_CONNECTION_CONNECT_OK, null));
         });
 
         router.on("connection", "disconnect", (msg, client) -> {
-            ServerLogger.log("Client disconnected: " + client);
+        	logger.log("Client disconnected: " + client);
             client.sendToClient(new Message(Api.REPLY_CONNECTION_DISCONNECT_OK, null));
             client.close();
         });

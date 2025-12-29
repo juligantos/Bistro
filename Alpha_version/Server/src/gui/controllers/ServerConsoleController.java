@@ -51,7 +51,7 @@ public class ServerConsoleController {
 			// Start the server in a separate thread to avoid blocking the javafx UI thread:
 			try {
 				// create a new server singleton instance:
-				BistroServerGUI.server = new BistroServer(ServerPortFrameController.listeningPort, this);
+				BistroServerGUI.server = BistroServer.getInstance(ServerPortFrameController.listeningPort, this);
 			} catch (Exception e) {
 				e.printStackTrace();
 				displayMessageToConsole("Error starting server: " + e.getMessage());
