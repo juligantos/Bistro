@@ -131,223 +131,97 @@ public class BistroDataBase_Controller {
     }
 
 	// ****************************** Database Operations ******************************
-    
-    public Order getOrderByConfirmationCode(int confCode) {
-        final String sql =
-            "SELECT order_number, order_date, order_time, number_of_guests, confirmation_code, user_id, " +
-            "date_of_placing_order, order_type, status " +
-            "FROM orders WHERE confirmation_code = ?";
-
-        Connection conn = null;
-        try {
-            conn = borrow();
-            try (PreparedStatement pst = conn.prepareStatement(sql)) {
-                pst.setInt(1, confCode);
-                try (ResultSet rs = pst.executeQuery()) {
-                    if (!rs.next()) return null;
-
-                    int orderNumber = rs.getInt("order_number");
-
-                    java.sql.Date od = rs.getDate("order_date");
-                    java.sql.Time ot = rs.getTime("order_time");
-                    LocalDate orderDate = (od == null) ? null : od.toLocalDate();
-                    LocalTime orderTime = (ot == null) ? null : ot.toLocalTime();
-
-                    int diners = rs.getInt("number_of_guests");
-                    int confirmationCode = rs.getInt("confirmation_code");
-                    int userId = rs.getInt("user_id");
-
-                    Timestamp placedTs = rs.getTimestamp("date_of_placing_order");
-                    LocalDate placedDate = (placedTs == null) ? null : placedTs.toLocalDateTime().toLocalDate();
-
-                    OrderType orderType = OrderType.valueOf(rs.getString("order_type"));
-                    OrderStatus status = OrderStatus.valueOf(rs.getString("status"));
-
-                    return new Order(orderNumber, orderDate, orderTime, diners, confirmationCode,
-                                     userId, orderType, status, placedDate);
-                }
-            }
-        } catch (SQLException ex) {
-        	logger.log("SQLException in getOrderByConfirmationCode: " + ex.getMessage());
-            ex.printStackTrace();
-            return null;
-        } finally {
-            release(conn);
-        }
-    }
-
-
-    public List<Order> getAllOrders() {
-        final List<Order> allOrders = new ArrayList<>();
-        final String sql =
-            "SELECT order_number, order_date, order_time, number_of_guests, confirmation_code, user_id, " +
-            "date_of_placing_order, order_type, status " +
-            "FROM orders";
-
-        Connection conn = null;
-        try {
-            conn = borrow();
-            try (PreparedStatement pst = conn.prepareStatement(sql);
-                 ResultSet rs = pst.executeQuery()) {
-
-                while (rs.next()) {
-                    int orderNumber = rs.getInt("order_number");
-
-                    java.sql.Date od = rs.getDate("order_date");
-                    java.sql.Time ot = rs.getTime("order_time");
-                    LocalDate orderDate = (od == null) ? null : od.toLocalDate();
-                    LocalTime orderTime = (ot == null) ? null : ot.toLocalTime();
-
-                    int diners = rs.getInt("number_of_guests");
-                    int confirmationCode = rs.getInt("confirmation_code");
-                    int userId = rs.getInt("user_id");
-
-                    Timestamp placedTs = rs.getTimestamp("date_of_placing_order");
-                    LocalDate placedDate = (placedTs == null) ? null : placedTs.toLocalDateTime().toLocalDate();
-
-                    OrderType orderType = OrderType.valueOf(rs.getString("order_type"));
-                    OrderStatus status = OrderStatus.valueOf(rs.getString("status"));
-
-                    allOrders.add(new Order(orderNumber, orderDate, orderTime, diners, confirmationCode,
-                                            userId, orderType, status, placedDate));
-                }
-            }
-        } catch (SQLException ex) {
-        	logger.log("SQLException in getAllOrders: " + ex.getMessage());
-            ex.printStackTrace();
-        } finally {
-            release(conn);
-        }
-        return allOrders;
-    }
-
-
-    public boolean updateOrder(Order orderUpdateData) {
-        final String sql =
-            "UPDATE orders " +
-            "SET order_date = ?, order_time = ?, number_of_guests = ?, status = ? " +
-            "WHERE confirmation_code = ?";
-
-        Connection conn = null;
-        try {
-            conn = borrow();
-            try (PreparedStatement pst = conn.prepareStatement(sql)) {
-
-                if (orderUpdateData.getOrderDate() == null) {
-                    pst.setNull(1, java.sql.Types.DATE);
-                } else {
-                    pst.setDate(1, java.sql.Date.valueOf(orderUpdateData.getOrderDate()));
-                }
-
-                if (orderUpdateData.getOrderHour() == null) {
-                    pst.setNull(2, java.sql.Types.TIME);
-                } else {
-                    pst.setTime(2, java.sql.Time.valueOf(orderUpdateData.getOrderHour()));
-                }
-
-                pst.setInt(3, orderUpdateData.getDinersAmount());
-
-                OrderStatus st = orderUpdateData.getStatus();
-                if (st == null) st = OrderStatus.PENDING;
-                pst.setString(4, st.name());
-
-                pst.setInt(5, orderUpdateData.getConfirmationCode());
-
-                return pst.executeUpdate() > 0;
-            }
-        } catch (SQLException ex) {
-        	logger.log("SQLException in updateOrder: " + ex.getMessage());
-            ex.printStackTrace();
-            return false;
-        } finally {
-            release(conn);
-        }
-    }
-
-
-    public boolean isDateAvailable(LocalDate date, int confirmationCodeToExclude) {
-        if (date == null) return false;
-
-        final String sql =
-            "SELECT 1 FROM orders " +
-            "WHERE order_type = 'RESERVATION' " +
-            "AND status IN ('PENDING','NOTIFIED','SEATED') " +
-            "AND order_date = ? " +
-            "AND confirmation_code <> ? " +
-            "LIMIT 1";
-
-        Connection conn = null;
-        try {
-            conn = borrow();
-            try (PreparedStatement pst = conn.prepareStatement(sql)) {
-                pst.setDate(1, java.sql.Date.valueOf(date));
-                pst.setInt(2, confirmationCodeToExclude);
-                try (ResultSet rs = pst.executeQuery()) {
-                    return !rs.next();
-                }
-            }
-        } catch (SQLException ex) {
-        	logger.log("SQLException in isDateAvailable: " + ex.getMessage());
-            ex.printStackTrace();
-            return false;
-        } finally {
-            release(conn);
-        }
-    }
-
-
-    // Users
-
+    // ******************************   User Operations   ******************************
     /**
      * Client sends: { userType: MEMBER, id: <member_code> }
      */
     public User getUserInfo(Map<String, Object> userLoginData) {
-        if (userLoginData == null) {
-        	return null;
-        }
-        Object idObj = userLoginData.get("id");
-        if (idObj == null) {
-        	return null;
-        }
-        String memberCode = String.valueOf(idObj).trim();
-        if (memberCode.isEmpty()) {
-        	return null;
-        }
-        return getMemberByCode(memberCode);
+    	if (userLoginData == null) {
+    		return null;
+    	}
+    	Object idObj = userLoginData.get("id");
+    	if (idObj == null) {
+    		return null;
+    	}
+    	String memberCode = String.valueOf(idObj).trim();
+    	if (memberCode.isEmpty()) {
+    		return null;
+    	}
+    	return getMemberByCode(memberCode);
     }
-
-
+    
+    
     private static User getMemberByCode(String memberCode) {
-        final String sql =
-            "SELECT u.user_id, u.phoneNumber, u.email, m.member_code, m.f_name, m.l_name " +
-            "FROM users u " +
-            "JOIN members m ON u.user_id = m.user_id " +
-            "WHERE m.member_code = ?";
-
-        Connection conn = null;
-        try {
-            conn = borrow();
-            try (PreparedStatement pst = conn.prepareStatement(sql)) {
-                pst.setString(1, memberCode);
-                try (ResultSet rs = pst.executeQuery()) {
-                    if (!rs.next()) return null;
-
-                    int userId = rs.getInt("user_id");
-                    String phone = rs.getString("phoneNumber");
-                    String email = rs.getString("email");
-                    String code = rs.getString("member_code");
-                    String fName = rs.getString("f_name");
-                    String lName = rs.getString("l_name");
-
-                    return new User(userId, code, fName, lName, phone, email);
-                }
-            }
-        } catch (SQLException ex) {
-        	logger.log("SQLException in getMemberByCode: " + ex.getMessage());
-            ex.printStackTrace();
-            return null;
-        } finally {
-            release(conn);
-        }
+    	final String sql =
+    			"SELECT u.user_id, u.phoneNumber, u.email, m.member_code, m.f_name, m.l_name " +
+    					"FROM users u " +
+    					"JOIN members m ON u.user_id = m.user_id " +
+    					"WHERE m.member_code = ?";
+    	
+    	Connection conn = null;
+    	try {
+    		conn = borrow();
+    		try (PreparedStatement pst = conn.prepareStatement(sql)) {
+    			pst.setString(1, memberCode);
+    			try (ResultSet rs = pst.executeQuery()) {
+    				if (!rs.next()) return null;
+    				
+    				int userId = rs.getInt("user_id");
+    				String phone = rs.getString("phoneNumber");
+    				String email = rs.getString("email");
+    				String code = rs.getString("member_code");
+    				String fName = rs.getString("f_name");
+    				String lName = rs.getString("l_name");
+    				
+    				return new User(userId, code, fName, lName, phone, email);
+    			}
+    		}
+    	} catch (SQLException ex) {
+    		logger.log("SQLException in getMemberByCode: " + ex.getMessage());
+    		ex.printStackTrace();
+    		return null;
+    	} finally {
+    		release(conn);
+    	}
     }
+    
+    public boolean updateUserInfo(User updatedUser) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+    
+    // ****************************** Order Operations ******************************	
+	
+	public List<String> getAvailableReservationHours(Map<String, Object> requestData) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Order createNewOrder(List<Object> order) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Order getOrderByConfirmationCode(String confirmationCode, OrderType reservation) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	// ****************************** Waiting List Operations ******************************
+	public Order addToWaitingList(Map<String, Object> userData) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public boolean removeFromWaitingList(String confirmationCode) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	
+
+
+
+
 }

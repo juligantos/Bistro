@@ -159,8 +159,9 @@ public class BistroServer extends AbstractServer {
 	private void registerHandlers(Router router, BistroDataBase_Controller dbController, ServerLogger logger) {
 		// Register API subjects
 		ConnectionSubject.register(router, logger);
-		UserSubject.register(router,dbController);
-		OrdersSubject.register(router, dbController);
+		UserSubject.register(router,dbController, logger);
+		OrdersSubject.register(router, dbController, logger);
+		WaitingListSubject.register(router, dbController, logger);
 	}
 
 }

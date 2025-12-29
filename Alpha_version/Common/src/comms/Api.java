@@ -22,50 +22,57 @@ public final class Api {
     public static final String REPLY_CONNECTION_CONNECT_OK = "connection.connect.ok";
     public static final String REPLY_CONNECTION_DISCONNECT_OK = "connection.disconnect.ok";
 
-    // == Login subject == //
+    // == Login/signOut subject == //
 // Requests
     public static final String ASK_LOGIN_USER = "login.user";
-    
+    public static final String ASK_SIGNOUT_USER = "signout.user";
 // Responses
     public static final String REPLY_LOGIN_USER_OK = "login.user.ok";
     public static final String REPLY_LOGIN_USER_NOT_FOUND = "login.user.notFound";
-    
+    public static final String REPLY_SIGNOUT_USER_OK = "signout.user.ok";
+
+    // == User subject == //
+    // Requests
+    public static final String ASK_MEMBER_UPDATE_INFO = "member.updateInfo";
+    //Responses
+    public static final String REPLY_MEMBER_UPDATE_INFO_OK = "member.updateInfo.ok";
+    public static final String REPLY_MEMBER_UPDATE_INFO_FAILED = "member.updateInfo.failed";
     
     // == Orders subject == //
     
 // Requests
     public static final String ASK_CREATE_RESERVATION 	= "orders.createReservation";
-    public static final String ASK_ORDERS_LIST          = "orders.list";
-    public static final String ASK_ORDERS_UPDATE_STATUS = "orders.updateStatus";
-    public static final String ASK_ORDERS_GET_BY_CODE   = "orders.getByCode";
+    public static final String ASK_ORDER_AVAIL_HOURS = "orders.getAvailableHours";
+    public static final String ASK_GET_ORDER = "orders.getOrderConfirmationCode";
     
 // Responses
-    public static final String REPLY_CREATE_RESERVATION_OK       		= "orders.createReservation.ok";
-    public static final String REPLY_ORDERS_LIST_RESULT                 = "orders.list.result";
-    public static final String REPLY_ORDERS_UPDATE_OK                   = "orders.updateStatus.ok";
-    public static final String REPLY_ORDERS_UPDATE_DATE_NOT_AVAILABLE   = "orders.updateStatus.dateNotAvailable";
-    public static final String REPLY_ORDERS_UPDATE_INVALID_CONFIRM_CODE = "orders.updateStatus.invalidConfirmCode";
-    public static final String REPLY_ORDERS_GET_BY_CODE_RESULT          = "orders.getByCode.result";
-
+    public static final String REPLY_CREATE_RESERVATION_OK = "orders.createReservation.ok";
+    public static final String REPLY_CREATE_RESERVATION_FAIL = "orders.createReservation.fail";
+    public static final String REPLY_ORDER_AVAIL_HOURS_OK= "orders.getAvailableHours.ok";
+    public static final String REPLY_ORDER_AVAIL_HOURS_FAIL = "orders.getAvailableHours.fail";
+    public static final String REPLY_GET_ORDER_OK = "orders.getOrderbyConfirmCode.ok";
+    public static final String REPLY_GET_ORDER_FAIL = "orders.getOrderbyConfirmCode.fail";
+    
+    
     // == Restaurant Management subject == //
 // Requests
-    public static final String ASK_AVAIL_HOURS = "restaurant.getAvailableHours";
     
 // Responses
-    public static final String REPLY_AVAIL_HOURS= "restaurant.getAvailableHours.result";
     
     // == WaitList subject == //
   // Requests
-    public static final String ASK_WAITLIST_ADD_USER    = "waitlist.addUser";
-    public static final String ASK_WAITLIST_REMOVE_USER = "waitlist.removeUser";
-    public static final String ASK_WAITLIST_IS_USER_ON  = "waitlist.isUserOn";
+	public static final String ASK_WAITING_LIST_JOIN = "waitingList.join";
+	public static final String ASK_WAITING_LIST_LEAVE = "waitingList.leave";
  // Responses
-    public static final String REPLY_WAITLIST_ADD_USER_OK    = "waitlist.addUser.ok";
-    public static final String REPLY_WAITLIST_REMOVE_USER_OK = "waitlist.removeUser.ok";
-    public static final String REPLY_WAITLIST_IS_USER_ON_RESULT  = "waitlist.isUserOn.result";
+    public static final String REPLY_WAITING_LIST_JOIN_OK = "waitinglist.join.ok";
+    public static final String REPLY_WAITING_LIST_SKIPPED = "waitinglist.join.skipped";
+    public static final String REPLY_WAITING_LIST_JOIN_FAIL = "waitinglist.join.fail";
+    public static final String REPLY_WAITING_LIST_LEAVE_OK = "waitinglist.leave.ok";
+    public static final String REPLY_WAITING_LIST_LEAVE_FAIL = "waitinglist.leave.fail";
+    
+  
     
     // == System responses == //
     
     public static final String REPLY_UNKNOWN_COMMAND = "system.unknownCommand";
-	
 }

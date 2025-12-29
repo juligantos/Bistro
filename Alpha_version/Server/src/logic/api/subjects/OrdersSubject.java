@@ -1,6 +1,8 @@
 package logic.api.subjects;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import comms.Api;
 import comms.Message;
@@ -24,49 +26,51 @@ public final class OrdersSubject {
      * @param router
      * @param logger 
      * @param dbController
+     * @param logger 
      */
-    public static void register(Router router, BistroDataBase_Controller dbController) {
+    public static void register(Router router, BistroDataBase_Controller dbController, ServerLogger logger) {
     	
-        // Get all orders
-        router.on("orders", "list", (msg, client) -> {
-            List<Order> orders = dbController.getAllOrders();
-            client.sendToClient(new Message(Api.REPLY_ORDERS_LIST_RESULT, orders));
-        });
+    	
+		// New reservation order
+		router.on("orders", "newReservation", (msg, client) -> {
+			List<Object> order = (ArrayList<Object>)msg.getData();
+			
+			Order createdOrder = dbController.createNewOrder(order);
+			if (createdOrder != null) {
+				client.sendToClient(new Message(Api.REPLY_CREATE_RESERVATION_OK, createdOrder));
+				logger.log("[INFO] Client: "+ client + " created a new reservation order successfully.");
+			} else {
+				client.sendToClient(new Message(Api.REPLY_CREATE_RESERVATION_FAIL, null));
+				logger.log("[ERROR] Client: "+ client + " failed to create a new reservation order.");
+			}
 
-        // Update order status
-        router.on("orders", "updateStatus", (msg, client) -> {
-            Order order = (Order) msg.getData();
-
-            if (order.getOrderType() == OrderType.RESERVATION && order.getOrderDate() != null) {
-                boolean available = dbController.isDateAvailable(
-                        order.getOrderDate(),
-                        order.getConfirmationCode());
-
-                if (!available) {
-                    client.sendToClient(new Message(Api.REPLY_ORDERS_UPDATE_DATE_NOT_AVAILABLE, null));
-                    return;
-                }
-            }
-
-
-            boolean updated = dbController.updateOrder(order);
-
-            if (updated) {
-                client.sendToClient(
-                        new Message(Api.REPLY_ORDERS_UPDATE_OK, null));
-            } else {
-                client.sendToClient(
-                        new Message(Api.REPLY_ORDERS_UPDATE_INVALID_CONFIRM_CODE, null));
-            }
-        });
-
-        // Get order by confirmation code
-        router.on("orders", "getByCode", (msg, client) -> {
-            int code = (int) msg.getData();
-            client.sendToClient(
-                    new Message(
-                            Api.REPLY_ORDERS_GET_BY_CODE_RESULT,
-                            dbController.getOrderByConfirmationCode(code)));
-        });
+		});
+		
+		// Send Order by confirmation code
+		router.on("orders", "getOrderConfirmationCode", (msg, client) ->{
+			String confirmationCode = (String) msg.getData();
+			Order order = dbController.getOrderByConfirmationCode(confirmationCode, OrderType.RESERVATION);
+			if(order != null) {
+				client.sendToClient(new Message(Api.REPLY_GET_ORDER_OK, order));
+				logger.log("[INFO] Client: "+ client + " retrieved order with confirmation code: " + confirmationCode + " successfully.");
+			}else {
+				client.sendToClient(new Message(Api.REPLY_GET_ORDER_FAIL, null));
+				logger.log("[ERROR] Client: "+ client + " failed to retrieve order with confirmation code: " + confirmationCode + ".");
+			}
+		});
+		
+		
+    	
+        //Send available time slots for reservation
+        router.on("orders", "getAvailableHours", (msg, client) -> {
+			Map<String,Object> requestData = (Map<String,Object>) msg.getData();
+			List<String> availableHours = dbController.getAvailableReservationHours(requestData);
+			if(availableHours != null) {
+				client.sendToClient(new Message(Api.REPLY_ORDER_AVAIL_HOURS_OK, availableHours));
+			}else {
+				client.sendToClient(new Message(Api.REPLY_ORDER_AVAIL_HOURS_FAIL, null));
+				logger.log("[ERROR] Client: "+ client + " failed to get available reservation hours.");
+			}
+		});
     }
 }
