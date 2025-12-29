@@ -25,7 +25,7 @@
                 <padding>
                     <Insets bottom="18" left="24" right="24" top="18" />
                 </padding>
-                <Button fx:id="backButton" styleClass="nav-back" text=" Back">
+                <Button fx:id="btnBack" onAction="#btnBack" styleClass="nav-back" text=" Back">
                <graphic>
                   <ImageView fitHeight="18.0" fitWidth="9.0">
                      <image>
