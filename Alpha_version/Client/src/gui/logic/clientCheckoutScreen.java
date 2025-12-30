@@ -32,7 +32,7 @@ public class clientCheckoutScreen {
     @FXML
     private Label totalLabel;
     @FXML
-    private TableView<orderItem> billTable;
+    private TableView<Object> billTable;
     
     private double finalAmount = 0.0;
     private double minValue = 0.0;
@@ -48,23 +48,25 @@ public class clientCheckoutScreen {
 		
 		// Check if user is a MEMBER for discount benefits
 		if (BistroClientGUI.client.getUserCTRL().getLoggedInUser().getUserType().name().equals("MEMBER")) {
+			LabelUserBenefits.setStyle("-fx-text-fill: green;");
 			LabelUserBenefits.setText("Discount Applied");
-			discount = BistroClientGUI.client.getTableCTRL().calculateDiscount(subtotal);
-			summaryDiscount.setText(String.format("-$%.2f", discount));
+			discount = subtotal * 0.1; // 10% discount for members
+			summaryDiscount.setText(String.format("-%.2f", discount));
 		} else {
+			LabelUserBenefits.setStyle("-fx-text-fill: red;");
 			LabelUserBenefits.setText("Sorry, no benefits for you :(");
-			summaryDiscount.setText("$0.00");
+			summaryDiscount.setText("0.00");
 		}
 		
 		double total = subtotal + tax - discount;
 		
 		// Setup UI Labels with formatted prices
-		summarySubtotal.setText(String.format("$%.2f", subtotal));
-		summarySubTax.setText(String.format("$%.2f", tax));
-		subtotalLabel.setText(String.format("$%.2f", subtotal));
-		taxLabel.setText(String.format("$%.2f", tax));
-		discountLabel.setText(String.format("-$%.2f", discount));
-		totalLabel.setText(String.format("$%.2f", total));
+		summarySubtotal.setText(String.format("%.2f", subtotal));
+		summarySubTax.setText(String.format("%.2f", tax));
+		subtotalLabel.setText(String.format("%.2f", subtotal));
+		taxLabel.setText(String.format("%.2f", tax));
+		discountLabel.setText(String.format("-%.2f", discount));
+		totalLabel.setText(String.format("%.2f", total));
 		
 		// Setup Table with order items
 		billTable.getItems().setAll(orderItems);
@@ -135,11 +137,8 @@ public class clientCheckoutScreen {
 	public void btnPay(Event event) {
 		// Force validation one last time (in case user clicked Pay without leaving the text field)
 		enforceMinimumValue();
-		
 		// Get confirmation code and set payment amount
-		String code = BistroClientGUI.client.getTableCTRL().getUserAllocatedOrderForTable().getConfirmationCode();
-		BistroClientGUI.client.getPaymentCTRL().setPaymentAmount(finalAmount);
-		
+		BistroClientGUI.client.getPaymentCTRL().setPaymentAmount(finalAmount);//TODO: paymentCTRL create it
 		// Process Payment
 		if (BistroClientGUI.client.getTableCTRL().processPayment()) {
 			BistroClientGUI.switchScreen(event, "clientCheckoutSuccessScreen.fxml", "Payment Successful");

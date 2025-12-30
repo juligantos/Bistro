@@ -33,7 +33,7 @@ public class clientCheckInTableScreen {
 		String testConfiramtionCode = txtConfirmCode.getText();
 		BistroClientGUI.client.getReservationCTRL().CheckConfiamtionCodeCorrect(testConfiramtionCode);
 		if(BistroClientGUI.client.getTableCTRL().isCheckInTableSuccess()) {
-			BistroClientGUI.switchScreen(event, "clientCheckInTableSucces.fxml", "clientCheckIn error");
+			BistroClientGUI.switchScreen(event, "clientCheckInTableSucces.fxml", "clientCheckIn error messege");
 		} else {
 			BistroClientGUI.display(lblError, "Error has been accoured!", Color.RED);//TODO: add error message Label to fxml
 		}

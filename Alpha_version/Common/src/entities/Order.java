@@ -88,7 +88,7 @@ public class Order implements Serializable {
 		return confirmationCode;
 	}
 
-	public void setConfirmationCode(int confirmationCode) {
+	public void setConfirmationCode(String confirmationCode) {
 		this.confirmationCode = confirmationCode;
 	}
 

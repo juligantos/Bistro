@@ -3,6 +3,8 @@ package logic;
 import java.util.ArrayList;
 import java.util.List;
 
+import comms.Api;
+import comms.Message;
 import entities.Order;
 import entities.Table;
 
@@ -51,4 +53,11 @@ public class Table_Controller {
 	public boolean isCheckInTableSuccess() {
 		return userAllocatedOrderForTable.getStatus() == enums.OrderStatus.SEATED;
 	}
+	public void CheckConfiamtionCodeCorrect(String confirmationCode) {
+        client.handleMessageFromClientUI(new Message(Api.ASK_GET_ORDER,confirmationCode));
+    }
+	public boolean processPayment() {
+		return userAllocatedOrderForTable.getStatus() == enums.OrderStatus.COMPLETED;
+	}
+
 }
