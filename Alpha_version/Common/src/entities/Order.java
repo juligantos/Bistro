@@ -84,7 +84,7 @@ public class Order implements Serializable {
 		this.dinersAmount = dinersAmount;
 	}
 
-	public int getConfirmationCode() {
+	public String getConfirmationCode() {
 		return confirmationCode;
 	}
 

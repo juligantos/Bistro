@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane styleClass="bill-root" stylesheets="@clientCheckoutStyles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bistro.app.controllers.BillPaymentController">
+<StackPane styleClass="bill-root" stylesheets="@../../gui/css/clientCheckoutStyles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bistro.app.controllers.BillPaymentController">
 
     <children>
         <BorderPane prefHeight="720" prefWidth="1280">
@@ -162,9 +162,9 @@
                                         <children>
                                             <Label fx:id="lblUserBenefits" styleClass="benefits-title" text="Member Benefits" />
 
-                                            <HBox fx:id="hboxUserBenefits" alignment="CENTER" styleClass="benefits-pill">
+                                            <HBox alignment="CENTER" styleClass="benefits-pill">
                                                 <children>
-                                                    <Label styleClass="benefits-pill-text" text="Discount Applied" />
+                                                    <Label fx:id="LabelUserBenefits" styleClass="benefits-pill-text" text="Discount Applied" />
                                                 </children>
                                             </HBox>
                                         </children>
@@ -189,11 +189,6 @@
 
                                     <!-- Pay Now -->
                                     <Button fx:id="btnPay" onAction="#btnPay" styleClass="pay-now" text="Pay Now" />
-
-                                    <!-- Secondary actions -->
-                                    <Button fx:id="btnSplitBill" onAction="#btnSplitBill" styleClass="white-action" text="Split Bill" />
-
-                                    <Button fx:id="btnAddTip" onAction="#btnAddTip" styleClass="white-action" text="Add Tip" />
 
                                 </VBox>
 
