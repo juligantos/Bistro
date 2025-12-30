@@ -39,6 +39,9 @@ public class WaitingList_Controller {
 		OrderStatus stat = client.getReservationCTRL().getReayUserReservation().getStatus();
 		
 	}
+	public void joinWaitingList( int dinersAmount) {
+		client.handleMessageFromClientUI(new Message(Api.ASK_WAITING_LIST_JOIN,dinersAmount));
+	}
 
 
 	

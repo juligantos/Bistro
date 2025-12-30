@@ -120,6 +120,6 @@
     </children>
    <stylesheets>
       <URL value="@../css/waiting_list_join.css" />
-      <URL value="@clientJoinWaitingListStyles.css" />
+      <URL value="@../../gui/css/clientJoinWaitingListStyles.css" />
    </stylesheets>
 </StackPane>
