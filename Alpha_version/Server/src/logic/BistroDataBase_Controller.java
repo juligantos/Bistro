@@ -20,6 +20,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 import entities.Order;
+import entities.Table;
 import entities.User;
 import enums.UserType;
 import enums.OrderStatus;
@@ -249,6 +250,22 @@ public class BistroDataBase_Controller {
 	public int assignTableForWaitingListOrder(Order createdOrder) {
 		// TODO implement this method to return the assigned table number for the order
 		return 0;
+	}
+	
+	// ****************************** Table Operations ******************************
+	public List<Table> getAllTablesFromDB() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<LocalTime> getOpeningHoursFromDB() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Order> getReservationsbyDate(LocalDate date) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
