@@ -53,7 +53,7 @@ public final class OrdersSubject {
 		router.on("orders", "getOrderConfirmationCode", (msg, client) ->{
 			String confirmationCode = (String) msg.getData();
 			Order order = ordersService.getOrderByConfirmationCode(confirmationCode, OrderType.RESERVATION);
-			if(order != null) {
+			if(order != null) { //TODO change to return only confirmation code to client
 				client.sendToClient(new Message(Api.REPLY_GET_ORDER_OK, order));
 				logger.log("[INFO] Client: "+ client + " retrieved order with confirmation code: " + confirmationCode + " successfully.");
 			}else {
