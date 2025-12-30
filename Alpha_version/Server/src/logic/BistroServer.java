@@ -12,6 +12,7 @@ import logic.api.subjects.OrdersSubject;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
 import logic.api.subjects.*;
+import logic.services.*;
 
 /**
  * BistroServer class that extends AbstractServer to handle client-server
@@ -20,14 +21,21 @@ import logic.api.subjects.*;
 public class BistroServer extends AbstractServer {
 
 	// ****************************** Instance variables******************************
-
+	// Singleton instance
 	private static BistroServer serverInstance;
-
+	// Database controller
 	private final BistroDataBase_Controller dbController;
-
+	// Router for API message handling
 	private final Router router;
-
+	// Server logger for logging events
 	private final ServerLogger logger;
+	//Services to handle the server algorithms:
+	private final OrdersService ordersService;
+	private final TableService tableService;
+	private final WaitingListService waitingListService;
+	private final NotificationService notificationService;
+	private final UserService userService;
+	private final ReportsService reportService;
 
 	// ******************************** Constructors***********************************
 
@@ -43,6 +51,13 @@ public class BistroServer extends AbstractServer {
 		this.router = new Router();
 		this.logger = new ServerLogger(serverConsoleController);
 		this.dbController.setLogger(this.logger);
+		// Initialize services:
+		this.ordersService = new OrdersService(this.dbController, this.logger);
+		this.tableService = new TableService(this.dbController, this.logger);
+		this.waitingListService = new WaitingListService(this.dbController, this.logger);
+		this.notificationService = new NotificationService(this.dbController, this.logger);
+		this.userService = new UserService(this.dbController, this.logger);
+		this.reportService = new ReportsService(this.dbController, this.logger);
 		// Register API subjects
 		registerHandlers(this.router, this.dbController, this.logger);
 	}
@@ -50,7 +65,7 @@ public class BistroServer extends AbstractServer {
 	/**
 	 * Static method to get the singleton instance of BistroServer.
 	 * 
-	 * @param port                    The port number for the server to listen on.
+	 * @param port The port number for the server to listen on.
 	 * 
 	 * @param serverConsoleController The controller for the server console UI.
 	 * 
@@ -159,9 +174,9 @@ public class BistroServer extends AbstractServer {
 	private void registerHandlers(Router router, BistroDataBase_Controller dbController, ServerLogger logger) {
 		// Register API subjects
 		ConnectionSubject.register(router, logger);
-		UserSubject.register(router,dbController, logger);
-		OrdersSubject.register(router, dbController, logger);
-		WaitingListSubject.register(router, dbController, logger);
+		UserSubject.register(router,userService, logger);
+		OrdersSubject.register(router, ordersService, logger);
+		WaitingListSubject.register(router, waitingListService, logger);
 	}
 
 }

@@ -8,20 +8,21 @@ import entities.User;
 import logic.BistroDataBase_Controller;
 import logic.ServerLogger;
 import logic.api.Router;
+import logic.services.UserService;
 
 public final class UserSubject {
 
 	private UserSubject() {
 	}
 
-	public static void register(Router router, BistroDataBase_Controller dbController,  ServerLogger logger) {
+	public static void register(Router router, UserService userService,  ServerLogger logger) {
 
 		// Request: "login.user"
 		router.on("login", "user", (msg, client) -> {
 			@SuppressWarnings("unchecked")
 			Map<String, Object> loginData = (Map<String, Object>) msg.getData();
 
-			User user = dbController.getUserInfo(loginData);
+			User user = userService.getUserInfo(loginData);
 			if (user != null) {
 				client.sendToClient(new Message(Api.REPLY_LOGIN_USER_OK, user));
 			} else {
@@ -39,7 +40,7 @@ public final class UserSubject {
 		//Request: "Member.updateInfo"
 		router.on("member", "updateInfo", (msg, client) -> {
 			User updatedUser = (User) msg.getData();
-			boolean success = dbController.updateUserInfo(updatedUser);
+			boolean success = userService.updateUserInfo(updatedUser);
 			if (success) {
 				logger.log("[INFO] Client " + client + " requested to update user info: successful.");
 				client.sendToClient(new Message(Api.REPLY_MEMBER_UPDATE_INFO_OK, null));

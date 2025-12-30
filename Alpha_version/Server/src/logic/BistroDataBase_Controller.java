@@ -192,20 +192,19 @@ public class BistroDataBase_Controller {
     
     // ****************************** Order Operations ******************************	
 	
-	public List<String> getAvailableReservationHours(Map<String, Object> requestData) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Order createNewOrder(List<Object> order) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Order getOrderByConfirmationCode(String confirmationCode, OrderType reservation) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public boolean setNewOrderToDataBase(List<Object> data) {
+    	 final String sql =
+    	            "INSERT INTO orders (" +
+    	            " confirmation_code,"
+    	            + " user_id, "
+    	            + "number_of_guests,"
+    	            + " order_date, "
+    	            + "order_time,"
+    	            +" date_of_placing_order,"
+    	            + " order_type, status)" 
+    	            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    }
+	
 	
 	
 	// ****************************** Waiting List Operations ******************************
@@ -218,6 +217,12 @@ public class BistroDataBase_Controller {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	public int assignTableForWaitingListOrder(Order createdOrder) {
+		// TODO implement this method to return the assigned table number for the order
+		return 0;
+	}
+
 
 	
 

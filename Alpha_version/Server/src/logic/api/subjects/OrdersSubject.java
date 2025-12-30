@@ -11,6 +11,7 @@ import logic.BistroDataBase_Controller;
 import logic.BistroServerGUI;
 import logic.ServerLogger;
 import logic.api.Router;
+import logic.services.OrdersService;
 import enums.OrderType;
 
 
@@ -19,25 +20,28 @@ import enums.OrderType;
  * API handlers related to orders.
  */
 public final class OrdersSubject {
-
+	// ******************************** Constructors***********************************
     private OrdersSubject() {}
+    
+	// ******************************** Static Methods***********************************
+    
     /**
      * Registers all order related handlers.
      * @param router
      * @param logger 
-     * @param dbController
+     * @param ordersService
      * @param logger 
      */
-    public static void register(Router router, BistroDataBase_Controller dbController, ServerLogger logger) {
+    public static void register(Router router, OrdersService ordersService, ServerLogger logger) {
     	
     	
 		// New reservation order
 		router.on("orders", "newReservation", (msg, client) -> {
+			@SuppressWarnings("unchecked")
 			List<Object> order = (ArrayList<Object>)msg.getData();
-			
-			Order createdOrder = dbController.createNewOrder(order);
-			if (createdOrder != null) {
-				client.sendToClient(new Message(Api.REPLY_CREATE_RESERVATION_OK, createdOrder));
+			boolean orderCreated= ordersService.createNewOrder(order);
+			if (orderCreated) {
+				client.sendToClient(new Message(Api.REPLY_CREATE_RESERVATION_OK, null));
 				logger.log("[INFO] Client: "+ client + " created a new reservation order successfully.");
 			} else {
 				client.sendToClient(new Message(Api.REPLY_CREATE_RESERVATION_FAIL, null));
@@ -49,7 +53,7 @@ public final class OrdersSubject {
 		// Send Order by confirmation code
 		router.on("orders", "getOrderConfirmationCode", (msg, client) ->{
 			String confirmationCode = (String) msg.getData();
-			Order order = dbController.getOrderByConfirmationCode(confirmationCode, OrderType.RESERVATION);
+			Order order = ordersService.getOrderByConfirmationCode(confirmationCode, OrderType.RESERVATION);
 			if(order != null) {
 				client.sendToClient(new Message(Api.REPLY_GET_ORDER_OK, order));
 				logger.log("[INFO] Client: "+ client + " retrieved order with confirmation code: " + confirmationCode + " successfully.");
@@ -63,8 +67,9 @@ public final class OrdersSubject {
     	
         //Send available time slots for reservation
         router.on("orders", "getAvailableHours", (msg, client) -> {
+			@SuppressWarnings("unchecked")
 			Map<String,Object> requestData = (Map<String,Object>) msg.getData();
-			List<String> availableHours = dbController.getAvailableReservationHours(requestData);
+			List<String> availableHours = ordersService.getAvailableReservationHours(requestData);
 			if(availableHours != null) {
 				client.sendToClient(new Message(Api.REPLY_ORDER_AVAIL_HOURS_OK, availableHours));
 			}else {

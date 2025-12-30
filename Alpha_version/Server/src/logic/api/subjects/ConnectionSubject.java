@@ -10,9 +10,9 @@ import logic.ServerLogger;
  * API handlers related to client connections.
  */
 public final class ConnectionSubject {
-
+	// ******************************** Constructors***********************************
     private ConnectionSubject() {}
-
+	// ******************************** Static Methods***********************************
     /**
      * Registers connection-related handlers.
      * @param logger 
@@ -33,3 +33,4 @@ public final class ConnectionSubject {
         });
     }
 }
+//End of ConnectionSubject.java

@@ -10,25 +10,41 @@ import enums.OrderType;
 import logic.BistroDataBase_Controller;
 import logic.ServerLogger;
 import logic.api.Router;
-
+import logic.services.WaitingListService;
+/**
+ * WaitingListSubject class that registers handlers related to waiting list operations.
+ */
 public class WaitingListSubject {
+	// ******************************** Constructors***********************************
 	private WaitingListSubject() {
 	}
-	
-	public static void register(Router router, BistroDataBase_Controller dbController, ServerLogger logger) {
+	// ******************************** Static Methods***********************************
+	/**
+	 * Registers handlers related to waiting list operations.
+	 * 
+	 * @param router       The Router instance to register handlers with.
+	 * @param waitingListService The BistroDataBase_Controller instance for database operations.
+	 * @param logger       The ServerLogger instance for logging.
+	 */
+	public static void register(Router router, WaitingListService waitingListService, ServerLogger logger) {
 		// Handlers related to waiting list can be added here
 		
 		//join to waiting list
 		router.on("waitingList", "join", (msg, client) -> {
 			Map<String, Object> userData = (Map<String, Object>) msg.getData();
-			Order createdOrder = dbController.addToWaitingList(userData);
+			Order createdOrder = waitingListService.addToWaitingList(userData);
+			//successful joining to waiting list:
 			if (createdOrder.getOrderType()==OrderType.WAITLIST) {
 				client.sendToClient(new Message(Api.REPLY_WAITING_LIST_JOIN_OK, createdOrder));
 				logger.log("[INFO] Client: "+ client +" created a waiting list order successfully.");
-			} else if(createdOrder.getOrderType()==OrderType.RESERVATION) {
-				client.sendToClient(new Message(Api.REPLY_WAITING_LIST_SKIPPED, createdOrder));
+			}
+			//Skip the waiting list and get a reservation directly if there is place immediately available:
+			else if(createdOrder.getOrderType()==OrderType.RESERVATION) {
+				int tableNumber = waitingListService.assignTableForWaitingListOrder(createdOrder);
+				client.sendToClient(new Message(Api.REPLY_WAITING_LIST_SKIPPED, tableNumber));
 				logger.log("[INFO] Client: "+ client + " joined the waiting list and got a reservation successfully.");
 			}
+			//in case of failure:
 			else {
 				client.sendToClient(new Message(Api.REPLY_WAITING_LIST_JOIN_FAIL, null));
 				logger.log("[ERROR] Client: "+ client + " failed to join the waiting list.");
@@ -38,10 +54,12 @@ public class WaitingListSubject {
 		//leave waiting list
 		router.on("waitingList", "leave", (msg, client) -> {
 			String confirmationCode = (String) msg.getData();
-			boolean success = dbController.removeFromWaitingList(confirmationCode);
+			boolean success = waitingListService.removeFromWaitingList(confirmationCode);
+			//successful leaving the waiting list:
 			if (success) {
 				client.sendToClient(new Message(Api.REPLY_WAITING_LIST_LEAVE_OK, null));
 				logger.log("[INFO] Client: "+ client + " left the waiting list successfully.");
+			//failure to leave the waiting list:
 			} else {
 				client.sendToClient(new Message(Api.REPLY_WAITING_LIST_LEAVE_FAIL, null));
 				logger.log("[ERROR] Client: "+ client + " failed to leave the waiting list.");
@@ -50,3 +68,4 @@ public class WaitingListSubject {
 		
 	}
 }
+// End of WaitingListSubject class
