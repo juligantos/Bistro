@@ -48,5 +48,7 @@ public class Table_Controller {
 	
 	
 	//******************************** Instance Methods ***********************************//
-	
+	public boolean isCheckInTableSuccess() {
+		return userAllocatedTable != null;
+	}
 }
