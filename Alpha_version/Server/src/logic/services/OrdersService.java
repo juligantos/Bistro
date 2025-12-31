@@ -114,6 +114,10 @@ public class OrdersService {
 		return server.getTablesService().getTableNumberByReservationConfirmationCode(confirmationCode);
 	}
 	
+	public boolean updateOrderStatus(String confirmationCode, OrderStatus completed) {
+		return dbController.updateOrderStatusInDB(confirmationCode, completed);
+	}
+	
 	// ****************************** Instance Private Methods ******************************
 	
 	
@@ -249,9 +253,6 @@ public class OrdersService {
         return String.format("%02d:%02d", time.getHour(), time.getMinute());
     }
 
-	public boolean updateOrderStatus(String confirmationCode, OrderStatus completed) {
-		return dbController.updateOrderStatusInDB(confirmationCode, completed);
-	}
 
 
 
