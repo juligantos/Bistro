@@ -97,7 +97,7 @@ public class ServerConnectionFrame {
 	public void start(Stage primaryStage) {
 		Parent root = null;
 		try {
-			root = FXMLLoader.load(getClass().getResource("/gui/fxml/ServerConnectionFrame"));
+			root = FXMLLoader.load(getClass().getResource("/gui/fxml/ServerConnectionFrame.fxml"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
