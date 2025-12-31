@@ -31,6 +31,7 @@ public class Reservation_Controller {
 	private List<Object> tempReservationData=new ArrayList<>();
 	
 	private Consumer<Order> orderLoadedCallback;
+	private Order orderReady;
 	
 	//******************************** Constructors ***********************************//
 	
@@ -80,6 +81,14 @@ public class Reservation_Controller {
 				orderLoadedCallback.accept(order);
 			});
 		}
+	}
+	
+	public Order getReadyUserReservation() {
+		return orderReady;
+	}
+	
+	public void setReadyUserReservation(Order orderReady) {
+		this.orderReady = orderReady;
 	}
 	
 	// Set by the Client when Server replies with REPLY_GET_ORDER_OK

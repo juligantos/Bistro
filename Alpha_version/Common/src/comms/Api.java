@@ -74,12 +74,15 @@ public final class Api {
   // Requests
 	public static final String ASK_WAITING_LIST_JOIN = "waitingList.join";
 	public static final String ASK_WAITING_LIST_LEAVE = "waitingList.leave";
+	public static final String ASK_IS_IN_WAITLIST = "waitinglist.isInWaitingList";
  // Responses
     public static final String REPLY_WAITING_LIST_JOIN_OK = "waitinglist.join.ok";
     public static final String REPLY_WAITING_LIST_SKIPPED = "waitinglist.join.skipped";
     public static final String REPLY_WAITING_LIST_JOIN_FAIL = "waitinglist.join.fail";
     public static final String REPLY_WAITING_LIST_LEAVE_OK = "waitinglist.leave.ok";
     public static final String REPLY_WAITING_LIST_LEAVE_FAIL = "waitinglist.leave.fail";
+    public static final String REPLY_IS_IN_WAITLIST_YES = "waitinglist.isInWaitingList.yes";
+    public static final String REPLY_IS_IN_WAITLIST_NO = "waitinglist.isInWaitingList.no";
     
     // == Payment subject == //
 // Requests
