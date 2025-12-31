@@ -56,9 +56,9 @@ public class UserService {
 		return userfound;
 	}
 
-	public boolean updateUserInfo(User updatedUser) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateMebmerInfo(User updatedUser) {
+			
+		return dbController.setUpdatedMemberData(updatedUser);	
 	}
-	
 }
+
