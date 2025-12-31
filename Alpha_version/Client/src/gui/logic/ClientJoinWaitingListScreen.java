@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import logic.BistroClientGUI;
 
-public class clientJoinWaitingListScreen {
+public class ClientJoinWaitingListScreen {
 
 	@FXML
 	private Button btnCheckAvail;
@@ -23,7 +23,8 @@ public class clientJoinWaitingListScreen {
 	private Label lblUser;
 	@FXML
 	private Label lblError;
-
+	@FXML
+	private Button btnBack;
 
 	
 	
@@ -54,6 +55,13 @@ public class clientJoinWaitingListScreen {
 			BistroClientGUI.switchScreen(event, "clientDashboardScreen.fxml", "client Join Waiting List messege");
 		} else {
 			BistroClientGUI.display(lblError, "Error has been accoured!", Color.RED);
+		}
+	}
+	public void btnBack(Event event) {
+		try {
+			BistroClientGUI.switchScreen(event, "clientDashboardScreen.fxml", "Client back error messege");
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	

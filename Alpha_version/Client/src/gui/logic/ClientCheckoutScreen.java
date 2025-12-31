@@ -11,7 +11,7 @@ import javafx.collections.FXCollections;
 import java.util.List;
 import logic.BistroClientGUI;
 
-public class clientCheckoutScreen {
+public class ClientCheckoutScreen {
     @FXML
     private Label LabelUserBenefits;
     @FXML 

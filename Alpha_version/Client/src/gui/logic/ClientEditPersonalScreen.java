@@ -30,7 +30,6 @@ public class ClientEditPersonalScreen {
 	private Label lblMemberID;
 	@FXML
 	private Label lblError;
-
 	@FXML
 	public void btnBack(ActionEvent event) {
 		try {
@@ -133,4 +132,5 @@ public class ClientEditPersonalScreen {
 			}
 		});
 	}
+	
 }

@@ -60,7 +60,7 @@ public class ClientDashboardScreen {
 
 	@FXML
 	private Label lblError;
-
+	
 	// ******************************** FXML Methods ***********************************
 
 	/*

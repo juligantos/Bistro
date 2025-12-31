@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import logic.BistroClientGUI;
 
-public class clientCheckInTableScreen {
+public class ClientCheckInTableScreen {
 	// ****************************** FXML Variables ******************************
 	@FXML
 	private Button btnCheckIn;

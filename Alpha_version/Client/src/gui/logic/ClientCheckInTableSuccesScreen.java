@@ -10,7 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import logic.BistroClientGUI;
 
-public class clientCheckInTableSuccesScreen {
+public class ClientCheckInTableSuccesScreen {
 	@FXML
 	private Label tableNumberLabel;
 	@FXML

@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import logic.BistroClientGUI;
 
-public class clientNewReservationCreatedScreen {
+public class ClientNewReservationCreatedScreen {
 @FXML
 private Label lblDate;
 @FXML

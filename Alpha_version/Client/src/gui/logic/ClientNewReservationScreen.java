@@ -15,7 +15,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import logic.BistroClientGUI;
 
-public class clientNewReservationScreen {
+public class ClientNewReservationScreen {
 @FXML
 private Label lblUser;
 @FXML
