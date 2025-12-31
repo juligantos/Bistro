@@ -55,14 +55,8 @@ public class User_Controller {
 	 * 
 	 * @param userLoginData An ArrayList containing user login information.
 	 */
-	public void signInUser(Map<String, Object> userLoginData, String massageType, UserType type) {
-		if (type == UserType.GUEST) {
-			setLoggedInUser(new User((String) (userLoginData.get("phoneNumber")),
-					(String) (userLoginData.get("emailAddress")), type));
-		} else {
-			Message req = new Message(massageType, (Object) userLoginData);
-			client.handleMessageFromClientUI(req);
-		}
+	public void signInUser(Map<String, Object> userLoginData) {
+		client.handleMessageFromClientUI(new Message(Api.ASK_LOGIN_USER, userLoginData));
 	}
 	
 	public void signOutUser() {

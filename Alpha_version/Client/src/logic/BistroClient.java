@@ -73,6 +73,7 @@ public class BistroClient extends AbstractClient {
 		this.reservationCTRL = new Reservation_Controller(this);
 		this.waitingListCTRL = new WaitingList_Controller(this);
 		this.tableCTRL = new Table_Controller(this);
+		this.paymentCTRL = new Payment_Controller(this);
 		registerHandlers(); // Register message handlers
 	}
 	

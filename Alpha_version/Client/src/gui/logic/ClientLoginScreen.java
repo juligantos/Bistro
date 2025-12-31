@@ -71,9 +71,10 @@ public class ClientLoginScreen {
 			BistroClientGUI.display(lblError, errorMessage.trim(), Color.RED);
 		} else {
 			userLoginData = new HashMap<String, Object>();
+			userLoginData.put("userType", (UserType.GUEST));
 			userLoginData.put("phoneNumber", (Object) phoneNumber);
 			userLoginData.put("emailAddress", (Object) emailAddress);
-			BistroClientGUI.client.getUserCTRL().signInUser(userLoginData,Api.ASK_LOGIN_USER, UserType.GUEST);
+			BistroClientGUI.client.getUserCTRL().signInUser(userLoginData);
 			if (BistroClientGUI.client.getUserCTRL().isUserLoggedIn()) {
 				BistroClientGUI.switchScreen(event, "clientDashboardScreen", "Client Dashboard Error Message");
 			} else {
@@ -101,7 +102,7 @@ public class ClientLoginScreen {
 			userLoginData = new HashMap<String, Object>();
 			userLoginData.put("userType", (UserType.MEMBER));
 			userLoginData.put("id", (Object) id);
-			BistroClientGUI.client.getUserCTRL().signInUser(userLoginData,Api.ASK_LOGIN_USER, UserType.MEMBER);
+			BistroClientGUI.client.getUserCTRL().signInUser(userLoginData);
 			if (BistroClientGUI.client.getUserCTRL().isUserLoggedIn()) {
 				BistroClientGUI.switchScreen(event, "clientDashboardScreen", "Client Dashboard Error Message");
 			} else {

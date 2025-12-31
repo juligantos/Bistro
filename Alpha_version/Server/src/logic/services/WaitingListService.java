@@ -19,12 +19,12 @@ public class WaitingListService {
 	}
 
 	public Order addToWaitingList(Map<String, Object> userData) {
-		int userId = (int) userData.get("userId");
-		int dinersAmount = (int) userData.get("dinersAmount");
-		server.getOrdersService().createNewOrderForWaitingList(userId, dinersAmount);
-		
+		return null;
 	}
-
+	public boolean checkIfuserHasOrderForToday(int userId) {
+		
+		return 
+	}
 	public int assignTableForWaitingListOrder(Order createdOrder) {
 		// TODO Auto-generated method stub
 		return 0;
