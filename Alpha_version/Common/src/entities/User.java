@@ -14,6 +14,7 @@ public class User implements Serializable {
 	private String email; 
 	private String firstName;
 	private String lastName;
+	private String username;
 	
 	// Member specific fields
 	private String memberCode;
@@ -42,13 +43,11 @@ public class User implements Serializable {
 	}
 	
 	// Constructor for EMPLOYEE and MANAGER users
-	public User(int userid,String phoneNumber,String email,String firstName,String LastName, UserType type) {
+	public User(int userid,String phoneNumber,String email,String username, UserType type) {
 		this.userId=userid;
 		this.type = type;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
-		this.firstName=firstName;
-		this.lastName=LastName;
 	}
 
 	public int getUserId() {
@@ -109,6 +108,14 @@ public class User implements Serializable {
 	
 	public String getAddress() {
 		return this.address;
+	}
+	
+	public String getUsername() {
+		return this.username;
+	}
+	
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	
 }

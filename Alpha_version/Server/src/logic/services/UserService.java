@@ -16,8 +16,24 @@ public class UserService {
 	}
 
 	public User getUserInfo(Map<String, Object> loginData) {
-		// TODO Auto-generated method stub
-		return null;
+		User userfound=null;
+		switch (String.valueOf(loginData.get("userType"))) {
+		case "GUEST":
+			userfound= dbController.findGuestUser((String) loginData.get("phoneNumber"),(String) loginData.get("email"));
+			break;
+		case "MEMBER":
+			userfound = dbController.findMemberUser((int) loginData.get("id"));
+			break;
+		case "EMPLOYEE", "MANAGER":
+			String username = String.valueOf(loginData.get("username"));
+			String password = String.valueOf(loginData.get("password"));
+			userfound = dbController.findStaffUser(username, password);
+			break;
+		default:
+			logger.log("[ERROR] Unknown user type: " + String.valueOf(loginData.get("userType")));
+			break;
+		}
+		return userfound;
 	}
 
 	public boolean updateUserInfo(User updatedUser) {

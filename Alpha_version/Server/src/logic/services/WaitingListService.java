@@ -23,7 +23,7 @@ public class WaitingListService {
 	}
 	public boolean checkIfuserHasOrderForToday(int userId) {
 		
-		return 
+		return false;
 	}
 	public int assignTableForWaitingListOrder(Order createdOrder) {
 		// TODO Auto-generated method stub

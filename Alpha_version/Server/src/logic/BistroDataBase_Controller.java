@@ -134,61 +134,125 @@ public class BistroDataBase_Controller {
         } catch (SQLException ignored) {}
     }
 
-	// ****************************** \\Database Operations// ******************************
-    
+	//Database Operations Methods:
     // ******************************   User Operations   ******************************
-    /**
-     * Client sends: { userType: MEMBER, id: <member_code> }
-     */
-    public User getUserInfo(Map<String, Object> userLoginData) {
-    	if (userLoginData == null) {
-    		return null;
-    	}
-    	Object idObj = userLoginData.get("id");
-    	if (idObj == null) {
-    		return null;
-    	}
-    	String memberCode = String.valueOf(idObj).trim();
-    	if (memberCode.isEmpty()) {
-    		return null;
-    	}
-    	return getMemberByCode(memberCode);
-    }
-    
-    
-    private static User getMemberByCode(String memberCode) {
-    	final String sql =
-    			"SELECT u.user_id, u.phoneNumber, u.email, m.member_code, m.f_name, m.l_name " +
-    					"FROM users u " +
-    					"JOIN members m ON u.user_id = m.user_id " +
-    					"WHERE m.member_code = ?";
-    	
+   
+   
+    public User findGuestUser(String phoneNumber, String email) {
+    	//query to find guest user by phone number and email
+        final String qry="SELECT * FROM users WHERE type = ? AND (phoneNumber = ? OR email = ?)";
+        User foundUser = null;
     	Connection conn = null;
-    	try {
-    		conn = borrow();
-    		try (PreparedStatement pst = conn.prepareStatement(sql)) {
-    			pst.setString(1, memberCode);
-    			try (ResultSet rs = pst.executeQuery()) {
-    				if (!rs.next()) return null;
-    				
-    				int userId = rs.getInt("user_id");
-    				String phone = rs.getString("phoneNumber");
-    				String email = rs.getString("email");
-    				String code = rs.getString("member_code");
-    				String fName = rs.getString("f_name");
-    				String lName = rs.getString("l_name");
-    				
-    				return new User(userId, code, fName, lName, phone, email);
-    			}
-    		}
-    	} catch (SQLException ex) {
-    		logger.log("SQLException in getMemberByCode: " + ex.getMessage());
-    		ex.printStackTrace();
-    		return null;
-    	} finally {
-    		release(conn);
-    	}
+		try {
+			conn = borrow();
+			try (PreparedStatement ps = conn.prepareStatement(qry)) {
+				ps.setString(1, UserType.GUEST.name());
+				ps.setString(2, phoneNumber);
+				ps.setString(3, email);
+				try (ResultSet rs = ps.executeQuery()) {
+					if (rs.next()) {
+						foundUser = new User(rs.getInt("id"), rs.getString("phoneNumber"), rs.getString("email"),
+								UserType.GUEST);
+					}
+				}
+			}
+		} catch (SQLException ex) {
+			logger.log("[ERROR] SQLException in findGuestUser: " + ex.getMessage());
+			ex.printStackTrace();
+
+		}
+		return foundUser;
     }
+    
+    /**
+     * Method to find a member user by their ID.
+     * @param i Member user ID.
+     * @return User object if found, null otherwise.
+     */
+    public User findMemberUser(int i) {
+    	//query to find member user by id
+		final String qry="SELECT * FROM users WHERE type = ? AND id = ?";
+		final String qry2="SELECT * FROM members WHERE id = ?";
+		User foundUser = null;
+		int id=0;
+		String memeberCode= null, firstName= null, lastName=null, phoneNumber = null, email = null, address= null;
+		Connection conn = null;
+		try {
+			conn = borrow();
+			try (PreparedStatement ps = conn.prepareStatement(qry)) {
+				ps.setString(1, UserType.MEMBER.name());
+				ps.setInt(2, i);
+				try (ResultSet rs = ps.executeQuery()) {
+					if (rs.next()) {
+						id=rs.getInt("id");
+						phoneNumber =rs.getString("phoneNumber");
+						email = rs.getString("email");
+					}
+				}
+			}
+			// Optionally, you can also fetch additional member-specific data from the members table
+			try (PreparedStatement ps2 = conn.prepareStatement(qry2)) {
+				ps2.setInt(1, i);
+				try (ResultSet rs2 = ps2.executeQuery()) {
+					if (rs2.next() && id !=0 ) {
+						firstName = rs2.getString("first_name");
+						lastName = rs2.getString("last_name");
+						memeberCode = rs2.getString("member_code");
+						address = rs2.getString("address");
+						foundUser = new User(id, phoneNumber, email, memeberCode, firstName, lastName, address,
+								UserType.MEMBER);
+					}
+				}
+			}
+		} catch (SQLException ex) {
+			logger.log("[ERROR] SQLException in findMemberUser: " + ex.getMessage());
+			ex.printStackTrace();
+		}
+		return foundUser;
+    }
+    
+	public User findStaffUser(String username, String password) {
+		// query to find staff user by username and password
+		final String qry = "SELECT * FROM staff_accounts WHERE username = ? AND password = ?";
+		final String qry2 = "SELECT * FROM users WHERE id = ?";
+		User foundUser = null;
+		int userId = 0;
+		String phoneNumber = null, email = null, user_name = null,pass=null , type = null;
+		Connection conn = null;
+		try {
+			conn = borrow();
+			try (PreparedStatement ps = conn.prepareStatement(qry)) {
+				ps.setString(1, username);
+				ps.setString(2, password);
+				try (ResultSet rs = ps.executeQuery()) {
+					if (rs.next()) {
+						userId = rs.getInt("user_id");
+						user_name = rs.getString("username");
+						pass = rs.getString("password");
+						// Now fetch user details from users table
+						try (PreparedStatement ps2 = conn.prepareStatement(qry2)) {
+							ps2.setInt(1, userId);
+							try (ResultSet rs2 = ps2.executeQuery()) {
+								if (rs2.next()) {
+									phoneNumber = rs2.getString("phoneNumber");
+									email = rs2.getString("email");
+									type = rs2.getString("type");
+									foundUser = new User(userId, phoneNumber, email, user_name, UserType.valueOf(type));
+								}
+							}
+						}
+					}
+				}
+			}
+		} catch (SQLException ex) {
+			logger.log("[ERROR] SQLException in findStaffUser: " + ex.getMessage());
+			ex.printStackTrace();
+		}
+		return foundUser;
+
+    }
+	
+	
     
     public boolean updateUserInfo(User updatedUser) {
 		// TODO Auto-generated method stub
@@ -228,7 +292,7 @@ public class BistroDataBase_Controller {
 				return true;
 			}
 		}catch (SQLException ex) {
-			logger.log("SQLException in setNewOrderToDataBase: " + ex.getMessage());
+			logger.log("[ERROR] SQLException in setNewOrderToDataBase: " + ex.getMessage());
 			ex.printStackTrace();
 			return false;
 		}
@@ -285,6 +349,7 @@ public class BistroDataBase_Controller {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 
 
 
