@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane styleClass="reservation-root" stylesheets="@../../gui/css/clientNewReservationStyles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.logic.NewReservationScreen">
+<StackPane styleClass="reservation-root" stylesheets="@../../gui/css/clientNewReservationStyles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.logic.ClientNewReservationScreen">
 
     <children>
         <BorderPane prefHeight="720" prefWidth="1280">
