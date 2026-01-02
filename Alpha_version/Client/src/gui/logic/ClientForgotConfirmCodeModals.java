@@ -1,6 +1,4 @@
 package gui.logic;
-
-import com.bistro.app.controllers.ClientCheckInTableScreen;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
