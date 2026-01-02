@@ -33,6 +33,9 @@ public class ClientLoginScreen {
 
 	@FXML
 	private Button btnScanQR;
+	
+	@FXML
+	private Hyperlink lnkForgotMemberID;
 
 	@FXML
 	private Hyperlink lnkEmployee;
@@ -45,14 +48,15 @@ public class ClientLoginScreen {
 
 	@FXML
 	private TextField txtEmailAddress;
-
+	
 	@FXML
 	private Label lblError;
 
 	// ******************************** Variables ********************************
 
 	private Map<String, Object> userLoginData; // holds received user login data
-
+	
+	private ClientForgotModals forgotModalsCTRL;
 	// ****************************** FXML Methods *****************************
 
 	/**
@@ -140,6 +144,22 @@ public class ClientLoginScreen {
 	public void btnScanQR(Event event) {
 		// TODO - Implement QR code scanning functionality
 
+	}
+	
+	@FXML
+	public void lnkForgotMemberID(Event event) {
+		Parent root= null;
+		 FXMLLoader loader = null;
+		try {
+			loader = new FXMLLoader(getClass().getResource("/gui/fxml/ClientForgotMemberIDScreen.fxml"));
+			root = loader.load();
+		}catch (Exception e) {
+			e.printStackTrace();
+			BistroClientGUI.display(lblError, "Unable to open Forgot Member ID screen.", Color.RED);
+		}
+		forgotModalsCTRL = loader.getController();
+		forgotModalsCTRL.setParent(this);
+		
 	}
 
 	/**
