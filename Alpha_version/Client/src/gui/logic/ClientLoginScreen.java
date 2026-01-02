@@ -94,7 +94,7 @@ public class ClientLoginScreen {
 		} else {
 			String userLoginData = phoneNumber.trim() + "_" + emailAddress.trim();
 			BistroClientGUI.client.getUserCTRL().signInUser(userLoginData,userType);
-			if (BistroClientGUI.client.getUserCTRL().isUserLoggedInAs(UserType.GUEST)) {
+			if (BistroClientGUI.client.getUserCTRL().isUserLoggedInAs(userType)) {
 				BistroClientGUI.switchScreen(event, "clientDashboardScreen", "Client Dashboard Error Message");
 			} else {
 				BistroClientGUI.display(lblError, "Error has been accoured!", Color.RED);
@@ -121,14 +121,7 @@ public class ClientLoginScreen {
 			lblError.setText(err);
 			return;
 		}
-
-		int memberCode = Integer.parseInt(memberCodeText.trim());
-
-		HashMap<String, Object> userLoginData = new HashMap<>();
-		userLoginData.put("userType", UserType.MEMBER);
-		userLoginData.put("memberCode", memberCode);
-		
-		BistroClientGUI.client.getUserCTRL().signInUser(userLoginData);
+		BistroClientGUI.client.getUserCTRL().signInUser(memberCodeText, UserType.MEMBER);
 
 		if (BistroClientGUI.client.getUserCTRL().isUserLoggedInAs(UserType.MEMBER)) {
 			BistroClientGUI.switchScreen(event, "clientDashboardScreen", "Client Dashboard Error Message");
