@@ -7,7 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import logic.BistroClientGUI;
-
+import common.InputCheck;
+import entities.User;
 /**
  * This class represents the controller for the Client Edit Personal screen in
  * the BistroClientGUI.
@@ -50,9 +51,9 @@ public class ClientEditPersonalScreen {
 		txtAddress.setText(BistroClientGUI.client.getUserCTRL().getLoggedInUser().getAddress());
 		lblError.setText("");
 		//TODO: change input restriction to use the input check class on common folder
-		// Added: Restriction for First Name - only letters allowed during typing
+		// Added: Restriction for First Name - only English letters allowed during typing
 		txtFirstName.textProperty().addListener((observable, oldValue, newValue) -> {
-			if (!newValue.matches("[a-zA-Zא-ת]*")) {
+			if (!newValue.matches("[a-zA-Z]*")) {
 				txtFirstName.setText(oldValue);
 			}
 		});
@@ -93,30 +94,39 @@ public class ClientEditPersonalScreen {
 		String email = txtEmailAddress.getText().trim();
 		String address = txtAddress.getText().trim();
 		lblError.setText("");
-		//TODO: change input check to use the input check class on common folder
-		// Validations
-		if (!firstName.matches("[a-zA-Zא-ת]+")) {
-			lblError.setText("Error: First name must contain only letters");
+		
+		// Input validation using InputCheck methods
+		String errorMessage;
+		
+		errorMessage = InputCheck.validateFirstName(firstName);
+		if (!errorMessage.isEmpty()) {
+			lblError.setText(errorMessage);
 			return;
 		}
-		if (!lastName.matches("[a-zA-Zא-ת]+")) {
-			lblError.setText("Error: Last name must contain only letters");
+		
+		errorMessage = InputCheck.validateLastName(lastName);
+		if (!errorMessage.isEmpty()) {
+			lblError.setText(errorMessage);
 			return;
 		}
-		if (!phoneNumber.matches("\\d{10}")) {
-			lblError.setText("Error: Phone number must contain exactly 10 digits");
+		
+		errorMessage = InputCheck.validatePhoneNumber(phoneNumber);
+		if (!errorMessage.isEmpty()) {
+			lblError.setText(errorMessage);
 			return;
 		}
-		if (!email.contains("@")) {
-			lblError.setText("Error: Email must contain @");
+		
+		errorMessage = InputCheck.validateEmail(email);
+		if (!errorMessage.isEmpty()) {
+			lblError.setText(errorMessage);
 			return;
 		}
 
 		// 1. Get the current user object once to avoid long, repetitive lines
-		entities.User currentUser = BistroClientGUI.client.getUserCTRL().getLoggedInUser();
+		User currentUser = BistroClientGUI.client.getUserCTRL().getLoggedInUser();
 
 		// 2. Build the updated user object using local variables and the current user's data
-		entities.User updatedUser = new entities.User(
+		User updatedUser = new entities.User(
 		    currentUser.getUserId(),
 		    phoneNumber, 
 		    email, 
