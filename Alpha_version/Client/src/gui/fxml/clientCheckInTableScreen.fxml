@@ -78,6 +78,7 @@
                                     <Label styleClass="field-label" text="Confirmation Code" />
 
                                     <TextField fx:id="txtConfirmCode" promptText="E.G., R-1234" styleClass="field-input" />
+                           <Label fx:id="lblError" />
 
                                     <Button fx:id="btnCheckIn" onAction="#btnCheckIn" text="Check In">
                               <styleClass>
