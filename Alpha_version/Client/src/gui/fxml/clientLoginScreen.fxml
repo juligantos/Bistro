@@ -67,6 +67,7 @@
 										<String fx:value="btn-primary" />
 									</styleClass>
 								</Button>
+                        <Hyperlink fx:id="lnkForgotMemberID" onAction="#lnkForgotMemberID" text="Forgot Member ID? click here" />
 								<HBox alignment="CENTER" spacing="10" styleClass="loginD-orRow">
 									<children>
 										<Label styleClass="loginD-orText" text="╾ or ╾" />

@@ -176,13 +176,9 @@ public class ClientManageBookingScreen {
 			timeSlotsGridPane.getChildren().clear();
 			if (availableTimeSlots == null || availableTimeSlots.isEmpty()) {
 				// Optional: Show a "No slots available" label
-				Label noSlotsLabel = new Label("No available time slots for this date.");
-				noSlotsLabel.setStyle("-fx-text-fill: #ef4444; -fx-font-size: 14px; -fx-font-weight: bold;");
-				timeSlotsGridPane.add(noSlotsLabel, 0, 0);
-				GridPane.setColumnSpan(noSlotsLabel, 4);
 				return;
 			}
-
+			
 			ToggleGroup timeSlotToggleGroup = new ToggleGroup();
 			int col = 0;
 			int row = 0;
@@ -193,7 +189,6 @@ public class ClientManageBookingScreen {
 				timeSlotButton.setPrefWidth(104);
 				timeSlotButton.setPrefHeight(37);
 				timeSlotButton.getStyleClass().add("time-slot");
-
 				timeSlotButton.setOnAction(event -> {
 					if (timeSlotButton.isSelected()) {
 						selectedTimeSlot = timeSlot;
@@ -203,7 +198,6 @@ public class ClientManageBookingScreen {
 						btnConfirmReservation.setDisable(true);
 					}
 				});
-
 				timeSlotsGridPane.add(timeSlotButton, col, row);
 				col++;
 				if (col >= 4) {
@@ -229,7 +223,9 @@ public class ClientManageBookingScreen {
 			@Override
 			public void updateItem(LocalDate date, boolean empty) {
 				super.updateItem(date, empty);
-				setDisable(empty || date.isBefore(LocalDate.now()));
+				LocalDate today = LocalDate.now();
+				LocalDate maxDate = today.plusMonths(1);
+				setDisable(empty || date.isBefore(today) || date.isAfter(maxDate));
 			}
 		});
 		datePicker.valueProperty().addListener((obs, old, newVal) -> refreshTimeSlots());
@@ -255,3 +251,4 @@ public class ClientManageBookingScreen {
 	}
 
 }
+
