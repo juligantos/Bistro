@@ -216,7 +216,7 @@ public class ClientDashboardScreen {
 	 * @param event The event that triggered this action.
 	 */
 	@FXML
-	public void SignOut(Event event) {
+	public void btnSignOut(Event event) {
 		BistroClientGUI.client.getUserCTRL().signOutUser();
 		if (BistroClientGUI.client.getUserCTRL().getLoggedInUser() == null) {
 			BistroClientGUI.switchScreen(event, "loginScreen", "Failed to load Login Screen.");

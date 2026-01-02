@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="720" prefWidth="1280" stylesheets="@clientEmployeeDashboardStyles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bistro.app.controllers.ManagementDashboardController">
+<BorderPane prefHeight="720" prefWidth="1280" stylesheets="@../../css/staff/clientStaffDashboardStyles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.logic.staff.ClientStaffDashboardScreen">
   <!-- Sidebar -->
   <left>
     <VBox prefWidth="260" styleClass="mgmt-sidebar">
@@ -22,7 +22,7 @@
           <children>
             <ImageView fitHeight="186.0" fitWidth="186.0">
               <image>
-                <Image url="@resources/bistro%20logo.png" />
+                <Image url="@../../resources/bistro_logo.png" />
               </image>
             </ImageView>
             <Label styleClass="mgmt-sidebar-subtitle" text="Management Portal" />
@@ -33,7 +33,7 @@
                            <Image url="@resources/employeeIcon.png" />
                         </image>
                      </ImageView>
-              <Label fx:id="lbRole" text="Manager">
+              <Label fx:id="lblRole" text="Manager">
                         <styleClass>
                            <String fx:value="mgmt-role-chip" />
                            <String fx:value="mgmt-chip-manager" />
