@@ -60,6 +60,8 @@ public class ClientDashboardScreen {
 
 	@FXML
 	private Label lblError;
+	@FXML
+	private Label LblButtonDescrip;
 	
 	// ******************************** FXML Methods ***********************************
 
@@ -94,9 +96,9 @@ public class ClientDashboardScreen {
 		int userID = BistroClientGUI.client.getUserCTRL().getLoggedInUser().getUserId();
 		BistroClientGUI.client.getWaitingListCTRL().askUserOnWaitingList(userID);
 		if (BistroClientGUI.client.getWaitingListCTRL().isUserOnWaitingList()) {
-			btnJoinWaitingList.setText("Waiting List Status");
+			LblButtonDescrip.setText("Waiting List Status");
 		} else {
-			btnJoinWaitingList.setText("Join Waiting List");
+			LblButtonDescrip.setText("Add to queue");
 		}
 	}
 	

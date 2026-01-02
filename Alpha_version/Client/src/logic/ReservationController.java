@@ -111,7 +111,6 @@ public class ReservationController {
 	// Set by the Client when Server replies with REPLY_GET_ORDER_OK
 	
 	//******************************** Instance Methods ***********************************//
-	
 	/*
 	 * Asks the server for available hours based on date and party size.
 	 * Matches Api.ASK_ORDER_AVAILABLE_HOURS

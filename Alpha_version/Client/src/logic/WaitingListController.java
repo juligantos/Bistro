@@ -51,6 +51,10 @@ public class WaitingListController {
 		client.handleMessageFromClientUI(new Message(Api.ASK_WAITING_LIST_LEAVE, null));
 		
 	}
+	public boolean isLeaveWaitingListSuccess() {
+		OrderStatus status = client.getReservationCTRL().getReadyUserReservation().getStatus();
+		return status != OrderStatus.WAITING_LIST;
+	}
 
 
 	

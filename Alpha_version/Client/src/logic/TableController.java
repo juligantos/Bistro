@@ -7,7 +7,7 @@ import comms.Api;
 import comms.Message;
 import entities.Order;
 import entities.Table;
-
+import enums.OrderStatus;
 public class TableController {
 	//****************************** Instance variables ******************************
 	private final BistroClient client;
@@ -51,7 +51,7 @@ public class TableController {
 	
 	//******************************** Instance Methods ***********************************//
 	public boolean isCheckInTableSuccess() {
-		return userAllocatedOrderForTable.getStatus() == enums.OrderStatus.SEATED;
+		return userAllocatedOrderForTable.getStatus() == OrderStatus.SEATED;
 	}
 
 

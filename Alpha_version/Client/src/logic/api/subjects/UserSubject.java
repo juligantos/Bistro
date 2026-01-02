@@ -1,5 +1,6 @@
 package logic.api.subjects;
 
+import entities.Order;
 import entities.User;
 import logic.BistroClient;
 import logic.BistroClientGUI;
@@ -19,5 +20,10 @@ public class UserSubject {
             BistroClientGUI.client.getUserCTRL().setLoggedInUser(null);
             BistroClient.awaitResponse = false;
         });
+		router.on("member", "updateInfo.ok", msg -> {
+			BistroClientGUI.client.getUserCTRL().setLoggedInUser((User) msg.getData());
+		});
+		router.on("member", "updateInfo.fail", msg -> {
+		});
     }
 }

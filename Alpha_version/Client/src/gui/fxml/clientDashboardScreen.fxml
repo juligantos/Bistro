@@ -214,7 +214,7 @@
                                             </StackPane>
 
                                             <Label styleClass="mem-cardTitle" text="Join Waiting List" />
-                                            <Label styleClass="mem-cardDesc" text="Add to queue" />
+                                            <Label fx:id="LblButtonDescrip" styleClass="mem-cardDesc" text="Add to queue" />
                                         </children>
                                     </VBox>
                                 </graphic>

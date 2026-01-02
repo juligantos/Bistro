@@ -47,6 +47,11 @@ public class ClientOnListScreen {
 	@FXML
 	public void btnLeave(Event event) {
 	    BistroClientGUI.client.getWaitingListCTRL().leaveWaitingList();
-	    BistroClientGUI.switchScreen(event, "clientDashboardScreen", "Error returning to dashboard after leaving waiting list.");
+	    if (BistroClientGUI.client.getWaitingListCTRL().isLeaveWaitingListSuccess()) {
+		    BistroClientGUI.switchScreen(event, "clientDashboardScreen", "Error returning to dashboard after leaving waiting list.");
+	    }
+	    else
+	    	BistroClientGUI.display(lblConfirmCode, "Error leaving the waiting list. Please try again.", null)
+;
 	}
 }

@@ -3,7 +3,7 @@ package logic;
 public class PaymentController {
 	private final BistroClient client;
 	private double amountPaid;
-	private enum PaymentStatus {
+	public enum PaymentStatus {
 		PENDING,
 		COMPLETED,
 		FAILED
