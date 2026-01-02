@@ -1,0 +1,105 @@
+.root { -fx-font-family: "Segoe UI", "Arial"; }
+
+/* Dim background like modal */
+.fmid-overlay {
+  -fx-background-color: rgba(15, 23, 42, 0.35);
+  -fx-padding: 24;
+}
+
+/* White card */
+.fmid-card {
+  -fx-background-color: white;
+  -fx-background-radius: 14;
+  -fx-effect: dropshadow(gaussian, rgba(15,23,42,0.18), 18, 0.15, 0, 8);
+  -fx-border-color: rgba(226,232,240,0.9);
+  -fx-border-radius: 14;
+}
+
+/* Typography */
+.fmid-title {
+  -fx-font-size: 20px;
+  -fx-font-weight: 900;
+  -fx-text-fill: #0f172a;
+}
+
+.fmid-subtitle {
+  -fx-font-size: 12px;
+  -fx-text-fill: #64748b;
+}
+
+.fmid-label {
+  -fx-font-size: 13px;
+  -fx-font-weight: 800;
+  -fx-text-fill: #0f172a;
+}
+
+.fmid-hint {
+  -fx-font-size: 11px;
+  -fx-text-fill: #64748b;
+}
+
+/* Inputs */
+.fmid-field {
+  -fx-background-radius: 10;
+  -fx-border-radius: 10;
+  -fx-border-color: #cbd5e1;
+  -fx-background-color: #ffffff;
+  -fx-padding: 10 12;
+  -fx-prompt-text-fill: #94a3b8;
+}
+
+/* Close button */
+.fmid-close {
+  -fx-background-color: transparent;
+  -fx-text-fill: #64748b;
+  -fx-font-weight: 900;
+  -fx-background-radius: 10;
+  -fx-cursor: hand;
+}
+.fmid-close:hover {
+  -fx-background-color: rgba(100,116,139,0.10);
+}
+
+.fmid-close:pressed {
+  -fx-background-color: rgba(100,116,139,0.20);
+}
+
+/* Buttons */
+.fmid-btn-primary {
+  -fx-background-color: #2563eb;
+  -fx-text-fill: white;
+  -fx-font-weight: 900;
+  -fx-background-radius: 12;
+  -fx-padding: 10 14;
+  -fx-cursor: hand;
+}
+.fmid-btn-primary:hover { -fx-background-color: #1d4ed8; }
+.fmid-btn-primary:pressed{
+     -fx-background-color: #1e40af;
+     -fx-effect: dropshadow(gaussian, rgba(15,23,42,0.20), 8, 0.10, 0, 4);
+     -fx-padding: 12 16 8 12;
+     -fx-cursor: hand; 
+    }
+
+.fmid-btn-secondary {
+  -fx-background-color: transparent;
+  -fx-text-fill: #0f172a;
+  -fx-font-weight: 900;
+  -fx-border-color: #cbd5e1;
+  -fx-border-radius: 12;
+  -fx-background-radius: 12;
+  -fx-padding: 10 14;
+  -fx-cursor: hand;
+}
+.fmid-btn-secondary:hover { -fx-background-color: rgba(203,213,225,0.25); }
+.fmid-btn-secondary:pressed {
+    -fx-background-color: rgba(203,213,225,0.40);
+    -fx-effect: dropshadow(gaussian, rgba(15,23,42,0.15), 8, 0.10, 0, 4);
+    -fx-padding: 12 16 8 12;
+    -fx-cursor: hand; 
+}
+
+/* wrapper so X can sit above the card */
+.fmid-card-wrap {
+  -fx-background-color: transparent;
+}
