@@ -9,16 +9,24 @@ import entities.Order;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Control;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Pane;
+import java.io.IOException;
+import javafx.scene.Parent;
+import javafx.scene.effect.GaussianBlur;
 import logic.BistroClientGUI;
 
 public class ClientManageBookingScreen {
@@ -39,9 +47,16 @@ public class ClientManageBookingScreen {
 	private TextField txtConfirmationCode;
 	@FXML
 	private Button btnConfirmReservation;
+	@FXML
+	private Hyperlink lnkForgot;
+	@FXML
+	private StackPane modalOverlay;
+	@FXML
+	private Pane mainPane;
 
 	private String selectedTimeSlot = null;
 	private Order currentOrder = null;
+	private Parent forgotCodeRoot = null;
 
 	// *************************** FXML Methods ****************************
 
@@ -122,7 +137,7 @@ public class ClientManageBookingScreen {
 	}
 
 	@FXML
-	void btnCancel(Event event) { // Matches FXML onAction="#btnCancel" (check FXML method name)
+	void btnCancel(Event event) { 
 		if (currentOrder == null)
 			return;
 
@@ -176,6 +191,10 @@ public class ClientManageBookingScreen {
 			timeSlotsGridPane.getChildren().clear();
 			if (availableTimeSlots == null || availableTimeSlots.isEmpty()) {
 				// Optional: Show a "No slots available" label
+				Label noSlotsLabel = new Label("No available time slots.");
+				noSlotsLabel.setStyle("-fx-text-fill: #ef4444; -fx-font-size: 14px; -fx-font-weight: bold;");
+				timeSlotsGridPane.add(noSlotsLabel, 0, 0);
+				GridPane.setColumnSpan(noSlotsLabel, 4);
 				return;
 			}
 			
@@ -250,5 +269,24 @@ public class ClientManageBookingScreen {
 		return 2;
 	}
 
+	@FXML
+	private void lnkForgot(Event event) {
+		if (forgotCodeRoot==null) {
+			try {
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/fxml/ClientForgotConfirmationCode.fxml"));
+				forgotCodeRoot = loader.load();
+				modalOverlay.getChildren().add(forgotCodeRoot);
+			} catch (IOException e) {
+				e.printStackTrace();
+				showAlert(Alert.AlertType.ERROR, "Error", "Unable to open Forgot Booking Code screen.");
+				return;
+			}
+		}
+		
+		modalOverlay.setVisible(true);
+		modalOverlay.setManaged(true);
+		
+		mainPane.setEffect(new GaussianBlur(15));
+	}
 }
 
