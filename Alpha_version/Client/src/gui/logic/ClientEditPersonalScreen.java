@@ -50,9 +50,9 @@ public class ClientEditPersonalScreen {
 		txtAddress.setText(BistroClientGUI.client.getUserCTRL().getLoggedInUser().getAddress());
 		lblError.setText("");
 		//TODO: change input restriction to use the input check class on common folder
-		// Added: Restriction for First Name - only letters allowed during typing
+		// Added: Restriction for First Name - only English letters allowed during typing
 		txtFirstName.textProperty().addListener((observable, oldValue, newValue) -> {
-			if (!newValue.matches("[a-zA-Zא-ת]*")) {
+			if (!newValue.matches("[a-zA-Z]*")) {
 				txtFirstName.setText(oldValue);
 			}
 		});
@@ -95,12 +95,12 @@ public class ClientEditPersonalScreen {
 		lblError.setText("");
 		//TODO: change input check to use the input check class on common folder
 		// Validations
-		if (!firstName.matches("[a-zA-Zא-ת]+")) {
-			lblError.setText("Error: First name must contain only letters");
+		if (!firstName.matches("[a-zA-Z]+")) {
+			lblError.setText("Error: First name must contain only English letters");
 			return;
 		}
-		if (!lastName.matches("[a-zA-Zא-ת]+")) {
-			lblError.setText("Error: Last name must contain only letters");
+		if (!lastName.matches("[a-zA-Z]+")) {
+			lblError.setText("Error: Last name must contain only English letters");
 			return;
 		}
 		if (!phoneNumber.matches("\\d{10}")) {
