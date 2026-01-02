@@ -479,9 +479,63 @@ public class BistroDataBase_Controller {
 		}
     	finally{
     		release(conn);
-    	}
-  	
+    	}  	
 	}
+	
+	
+	
+	public Order getOrderByConfirmationCodeInDB(String confirmationCode)
+	{
+		if( confirmationCode == null  || confirmationCode.isEmpty())
+    	{
+    		return null;
+    	}
+		
+		final String qry =	"SELECT order_number, order_date, order_time, number_of_guests, "
+	          				+ "confirmation_code, user_id, order_type, status, date_of_placing_order "
+	          				+ "FROM orders "
+	          				+ "WHERE confirmation_code = ?";
+    	
+    	Connection conn = null;
+    	
+    	try {
+			conn = borrow();
+			
+			try(PreparedStatement ps = conn.prepareStatement(qry))
+			{
+				ps.setString(1, confirmationCode); 
+					
+				try(ResultSet rs = ps.executeQuery())
+				{
+					if(!rs.next())
+					{
+						return null;		// not exists such order
+					}
+					int orderNumber	= rs.getInt("order_number");
+                    LocalDate orderDate   = rs.getDate("order_date").toLocalDate();
+                    LocalTime orderTime   = rs.getTime("order_time").toLocalTime();
+                    int dinersAmount = rs.getInt("number_of_guests");
+                    int userId = rs.getInt("user_id");
+                    OrderType orderType	= OrderType.valueOf(rs.getString("order_type"));
+                    OrderStatus status = OrderStatus.valueOf(rs.getString("status"));
+                    LocalDate dateOfPlacingOrder   = rs.getDate("date_of_placing_order").toLocalDate();	
+                    
+                    return new Order(orderNumber, orderDate, orderTime, dinersAmount,confirmationCode, userId, orderType, status ,dateOfPlacingOrder);
+					
+				}
+			}
+			
+    	}
+    	catch (SQLException ex) {
+			logger.log("[ERROR] SQLException in getOrderByConfirmationCodeInDB: " + ex.getMessage());
+			ex.printStackTrace();
+			return null;
+		}
+    	finally{
+    		release(conn);
+    	}  	
+	}
+		
 	
 	
 	
@@ -598,7 +652,72 @@ public class BistroDataBase_Controller {
 
 		  } finally {
 		        release(conn);
-		    }
+		  }
+	}
+	
+	
+	
+	public List<User> getAllCustomersInDB() {
+		List<User> usersList = new ArrayList<>();
+		
+		
+		final String qry =	    "SELECT u.phoneNumber, u.email, u.type, "
+		          				+ "m.member_code, m.f_name, m.l_name "
+		          				+ "FROM users u "
+		          				+ "LEFT JOIN members m ON u.user_id = m.user_id";
+
+		Connection conn = null;
+
+		try {
+			conn = borrow();
+
+			try(PreparedStatement ps = conn.prepareStatement(qry))
+			{
+						
+				try(ResultSet rs = ps.executeQuery()){
+					
+					while(rs.next()){	
+											
+						String email = rs.getString("email");
+						String phone = rs.getString("phoneNumber");
+						UserType type = UserType.valueOf(rs.getString("type"));
+						
+						User user = null;
+						
+						switch(type) {
+							case MEMBER:{
+								String fname = rs.getString("f_name");
+								String lname = rs.getString("l_name");
+								String memberCode = rs.getString("member_code");
+								String fullName = fname + " " + lname;
+								user = new User(fullName, email, phone, memberCode, UserType.MEMBER);
+								break;
+							}
+						
+							case GUEST:{
+								user = new User(null, email, phone, null, UserType.GUEST);
+								break;				
+							}
+							
+							default:
+								continue;
+						
+						}
+						usersList.add(user);
+					}
+				}
+			}
+			return usersList;
+
+		}
+		catch (SQLException ex) {
+			logger.log("[ERROR] SQLException in getOrderByConfirmationCodeInDB: " + ex.getMessage());
+			ex.printStackTrace();
+			return null;
+		}
+		finally{
+			release(conn);
+		}  	
 	}
 
 }
