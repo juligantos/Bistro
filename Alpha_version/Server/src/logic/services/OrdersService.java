@@ -82,8 +82,8 @@ public class OrdersService {
 	
 	
 	public Order getOrderByConfirmationCode(String confirmationCode) {
-		// TODO Auto-generated method stub
-		return null;
+		Order order  = dbController.getOrderByConfirmationCodeInDB(confirmationCode);
+		return order;
 	}
 
 	public boolean checkOrderExists(String confirmationCode) {
