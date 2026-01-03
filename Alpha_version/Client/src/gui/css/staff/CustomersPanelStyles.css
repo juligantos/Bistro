@@ -90,22 +90,17 @@
 
 /* Action buttons */
 .cm-btn {
+  -fx-background-color: #e2e8f0;
   -fx-background-radius: 10;
   -fx-padding: 6 10;
   -fx-font-weight: 800;
   -fx-cursor: hand;
 }
+.cm-btn:hover { -fx-background-color: #cbd5e1; }
+.cm-btn:pressed{
+     -fx-background-color: #94a3b8;
+     -fx-effect: dropshadow(gaussian, rgba(15,23,42,0.20), 8, 0.10, 0, 4);
+     -fx-padding: 12 18 8 14;
+    }
 
-.cm-btn-view { -fx-background-color: #2563eb; -fx-text-fill: white; }
-.cm-btn-view:hover { -fx-background-color: #1d4ed8; }
 
-.cm-btn-edit { -fx-background-color: #16a34a; -fx-text-fill: white; }
-.cm-btn-edit:hover { -fx-background-color: #15803d; }
-
-.cm-btn-remove {
-  -fx-background-color: transparent;
-  -fx-text-fill: #ef4444;
-  -fx-border-color: #ef4444;
-  -fx-border-radius: 10;
-}
-.cm-btn-remove:hover { -fx-background-color: rgba(239,68,68,0.10); }

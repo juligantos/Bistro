@@ -2,7 +2,6 @@
 
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -44,14 +43,6 @@
                             <children>
                                 <Label styleClass="sm-stat-label" text="Occupied Tables" />
                                 <Label fx:id="lblOccupied" styleClass="sm-stat-value" text="0" />
-                            </children>
-                        </VBox>
-
-                        <!-- Reserved -->
-                        <VBox spacing="4" styleClass="sm-stat-card">
-                            <children>
-                                <Label styleClass="sm-stat-label" text="Reserved Tables" />
-                                <Label fx:id="lblReserved" styleClass="sm-stat-value" text="0" />
                             </children>
                         </VBox>
                     </children>
@@ -112,23 +103,6 @@
                                         </HBox>
                                     </children>
                                 </VBox>
-                            </children>
-                        </VBox>
-
-                        <!-- Waiting list sidebar -->
-                        <VBox prefWidth="368.0" spacing="10" styleClass="sm-stat-card">
-                            <children>
-                                <Label styleClass="sm-card-title" text="Waiting List" />
-
-                                <ScrollPane fitToWidth="true" prefViewportHeight="360">
-                                    <content>
-                                        <VBox fx:id="waitingListBox" spacing="8" />
-                                    </content>
-                                </ScrollPane>
-
-                                <Region VBox.vgrow="ALWAYS" />
-
-                                <Button fx:id="btnAddWaitingList" onAction="#btnAddWaitingList" styleClass="sm-primary" text="Add to Waiting List" />
                             </children>
                         </VBox>
                     </children>

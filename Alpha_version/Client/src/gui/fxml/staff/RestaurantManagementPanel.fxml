@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -42,30 +43,34 @@
                         <Label styleClass="op-section-title" text="Open" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                         <Label styleClass="op-section-title" text="Close" GridPane.columnIndex="2" GridPane.rowIndex="0" />
                         <Label styleClass="op-section-title" text="Active" GridPane.columnIndex="3" GridPane.rowIndex="0" />
-                        <Label text="Monday" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                        <TextField fx:id="txtMonOpen" promptText="11:00" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="txtMonClose" promptText="23:00" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <CheckBox fx:id="monActiveCheck" selected="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                        <Label text="Tuesday" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                        <TextField fx:id="txtTueOpen" promptText="11:00" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="txtTueClose" promptText="23:00" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                        <CheckBox fx:id="tueActiveCheck" selected="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                        <Label text="Wednesday" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                        <TextField fx:id="txtWedOpen" promptText="11:00" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="txtWedClose" promptText="23:00" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                        <CheckBox fx:id="wedActiveCheck" selected="true" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                        <Label text="Thursday" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                        <TextField fx:id="txtThuOpen" promptText="11:00" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField fx:id="txtThuClose" promptText="23:00" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                        <CheckBox fx:id="thuActiveCheck" selected="true" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-                        <Label text="Friday" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-                        <TextField fx:id="friOpenField" promptText="11:00" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField fx:id="friCloseField" promptText="01:00" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-                        <CheckBox fx:id="friActiveCheck" selected="true" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-                        <Label text="Saturday" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-                        <TextField fx:id="satOpenField" promptText="11:00" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <TextField fx:id="satCloseField" promptText="01:00" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-                        <CheckBox fx:id="satActiveCheck" selected="true" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                        <Label text="Monday" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <CheckBox fx:id="ActiveCheck2" selected="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                        <Label text="Tuesday" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                        <CheckBox fx:id="ActiveCheck3" selected="true" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                        <Label text="Wednesday" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                        <CheckBox fx:id="ActiveCheck4" selected="true" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                        <Label text="Thursday" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                        <CheckBox fx:id="ActiveCheck5" selected="true" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                        <Label text="Friday" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                        <CheckBox fx:id="ActiveCheck6" selected="true" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                        <Label text="Saturday" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+                        <CheckBox fx:id="ActiveCheck7" selected="true" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+                        <Label text="Sunday" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="cmboxOpen1" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <CheckBox fx:id="ActiveCheck1" selected="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="cmboxClose1" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="cmboxOpen2" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="cmboxClose2" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="cmboxOpen3" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <ComboBox fx:id="cmboxClose3" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <ComboBox fx:id="cmboxOpen4" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <ComboBox fx:id="cmboxClose4" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                        <ComboBox fx:id="cmboxOpen5" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <ComboBox fx:id="cmboxClose5" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                        <ComboBox fx:id="cmboxOpen6" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <ComboBox fx:id="cmboxClose6" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                        <ComboBox fx:id="cmboxOpen7" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <ComboBox fx:id="cmboxClose7" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
                      </children>
                      <columnConstraints>
                         <ColumnConstraints />
@@ -75,6 +80,7 @@
                      </columnConstraints>
                      <rowConstraints>
                         <RowConstraints />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" />
                         <RowConstraints />
                         <RowConstraints />
                         <RowConstraints />
@@ -85,7 +91,7 @@
                   </GridPane>
                   <HBox spacing="8">
                      <children>
-                        <Button onAction="#onSaveHours" styleClass="op-btn-primary" text="Save Hours" />
+                        <Button fx:id="btnSaveHours" onAction="#btnSaveHours" styleClass="op-btn-primary" text="Save Hours" />
                      </children>
                   </HBox>
                </children>
@@ -106,10 +112,10 @@
                             <ColumnConstraints hgrow="ALWAYS" />
                         </columnConstraints>
 
-                        <DatePicker fx:id="holidayDatePicker" promptText="dd/mm/yyyy" styleClass="op-field" GridPane.rowIndex="0" />
-                        <TextField fx:id="holidayNameField" promptText="Holiday name" styleClass="op-field" GridPane.rowIndex="1" />
+                        <DatePicker fx:id="dpHoliday" promptText="dd/mm/yyyy" styleClass="op-field" GridPane.rowIndex="0" />
+                        <TextField fx:id="txtHolidayName" promptText="Holiday name" styleClass="op-field" GridPane.rowIndex="1" />
 
-                        <CheckBox fx:id="holidayClosedCheck" styleClass="op-checkbox" text="Restaurant closed on this day" GridPane.rowIndex="2" />
+                        <CheckBox fx:id="holyShitCheck" styleClass="op-checkbox" text="Restaurant closed on this day" GridPane.rowIndex="2" />
 
                         <Button fx:id="btnAddHoliday" onAction="#btnAddHoliday" styleClass="op-btn-primary" text="➕  Add Holiday" GridPane.rowIndex="3" />
                   <rowConstraints>
@@ -126,11 +132,10 @@
             <VBox spacing="12" styleClass="op-card">
                 <Label styleClass="op-card-title" text="Table Management" />
 
-                <TableView fx:id="tablesTable" styleClass="op-table" VBox.vgrow="NEVER">
+                <TableView fx:id="tablesTable" prefHeight="400.0" prefWidth="581.0" styleClass="op-table" VBox.vgrow="NEVER">
                     <columns>
                         <TableColumn fx:id="colTableId" text="Table ID" />
-                        <TableColumn fx:id="colSeats" prefWidth="363.0" text="Number of Seats" />
-                        <TableColumn fx:id="colActions" minWidth="0.0" prefWidth="291.0" text="Actions" />
+                        <TableColumn fx:id="colSeats" prefWidth="558.0" text="Number of Seats" />
                     </columns>
                 </TableView>
 
@@ -142,6 +147,7 @@
                     <TextField fx:id="txtTableID" prefWidth="220" promptText="Table ID (e.g., T13)" styleClass="op-field" />
                     <Spinner fx:id="spinDinersAmount" prefWidth="120" styleClass="op-spinner" />
                     <Button fx:id="btnAddTable" onAction="#btnAddTable" styleClass="op-btn-primary" text="➕  Add Table" />
+               <Button fx:id="btnRemoveTable" mnemonicParsing="false" onAction="#btnRemoveTable" styleClass="op-row-del" text="Remove Table" />
                 </HBox>
             </VBox>
 

@@ -47,6 +47,11 @@
   -fx-cursor: hand;
 }
 .wl-add-btn:hover { -fx-background-color: #b97700; }
+.wl-add-btn:pressed {
+     -fx-background-color: #92400e;
+     -fx-effect: dropshadow(gaussian, rgba(15,23,42,0.20), 8, 0.10, 0, 4);
+     -fx-padding: 12 18 8 14;
+}
 
 /* Main card */
 .wl-card {
@@ -105,11 +110,19 @@
 
 /* Action buttons in table */
 .wl-btn {
+  -fx-background-color: #e2e8f0;
   -fx-background-radius: 10;
   -fx-padding: 6 10;
   -fx-font-weight: 800;
   -fx-cursor: hand;
 }
+.wl-btn:hover { -fx-background-color: #cbd5e1; }
+.wl-btn:pressed {
+     -fx-background-color: #94a3b8;
+     -fx-effect: dropshadow(gaussian, rgba(15,23,42,0.20), 6, 0.10, 0, 3);
+     -fx-padding: 8 12 4 8;
+    }
+
 .wl-btn-call { -fx-background-color: #ea580c; -fx-text-fill: white; }
 .wl-btn-call:hover { -fx-background-color: #c2410c; }
 
@@ -124,4 +137,12 @@
 }
 .wl-btn-remove:hover {
   -fx-background-color: rgba(239, 68, 68, 0.10);
+  -fx-cursor: hand;
 }
+/*When pressed change  color and size*/
+.wl-btn-remove:pressed {
+  -fx-background-color: rgba(239, 68, 68, 0.20);
+  -fx-effect: dropshadow(gaussian, rgba(15,23,42,0.20), 6, 0.10, 0, 3);
+  -fx-padding: 8 12 4 8;
+}
+

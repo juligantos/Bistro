@@ -11,87 +11,59 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox spacing="14" styleClass="wl-root" stylesheets="@WaitingListPanelStyles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bistro.app.controllers.WaitingListTableController">
-
-    <padding>
-        <Insets bottom="18" left="18" right="18" top="18" />
-    </padding>
-
-    <!-- Header -->
-    <VBox spacing="4">
-        <Label styleClass="wl-title" text="Waiting List" />
-        <Label styleClass="wl-subtitle" text="Manage customer queue and wait times" />
-    </VBox>
-
-    <!-- Stats row -->
-    <HBox spacing="14">
-        <HBox spacing="10" HBox.hgrow="ALWAYS">
-            <VBox spacing="6" HBox.hgrow="ALWAYS">
-                <Label styleClass="wl-stat-label" text="Total in Queue" />
-                <Label fx:id="totalInQueueLabel" styleClass="wl-stat-value" text="0" />
-            </VBox>
-         <styleClass>
-            <String fx:value="wl-stat" />
-            <String fx:value="wl-left-orange" />
-         </styleClass>
-        </HBox>
-
-        <HBox spacing="10" styleClass="wl-stat wl-left-orange" HBox.hgrow="ALWAYS">
-            <VBox spacing="6" HBox.hgrow="ALWAYS">
-                <Label styleClass="wl-stat-label" text="Waiting" />
-                <Label fx:id="waitingCountLabel" styleClass="wl-stat-value" text="0" />
-            <styleClass>
-               <String fx:value="wl-stat" />
-               <String fx:value="wl-left-amber" />
-            </styleClass>
-            </VBox>
-        </HBox>
-
-        <HBox spacing="10" styleClass="wl-stat wl-left-blue" HBox.hgrow="ALWAYS">
-            <VBox spacing="6" HBox.hgrow="ALWAYS">
-                <Label styleClass="wl-stat-label" text="Called" />
-                <Label fx:id="calledCountLabel" styleClass="wl-stat-value" text="0" />
-            <styleClass>
-               <String fx:value="wl-stat" />
-               <String fx:value="wl-left-purple" />
-            </styleClass>
-            </VBox>
-        </HBox>
-
-        <HBox spacing="10" styleClass="wl-stat wl-left-purple" HBox.hgrow="ALWAYS">
-            <VBox spacing="6" HBox.hgrow="ALWAYS">
-                <Label styleClass="wl-stat-label" text="Avg. Wait Time" />
-                <Label fx:id="avgWaitLabel" styleClass="wl-stat-value" text="0 min" />
-            <styleClass>
-               <String fx:value="wl-stat" />
-               <String fx:value="wl-left-blue" />
-            </styleClass>
-            </VBox>
-        </HBox>
+  <padding>
+    <Insets bottom="18" left="18" right="18" top="18" />
+  </padding>
+  <!-- Header -->
+  <VBox spacing="4">
+    <Label styleClass="wl-title" text="Waiting List" />
+    <Label styleClass="wl-subtitle" text="Manage customer queue and wait times" />
+  </VBox>
+  <!-- Stats row -->
+  <HBox spacing="14">
+    <HBox prefHeight="77.0" prefWidth="89.0" spacing="10" HBox.hgrow="ALWAYS">
+      <VBox prefHeight="49.0" prefWidth="223.0" spacing="6" HBox.hgrow="ALWAYS">
+        <Label styleClass="wl-stat-label" text="Total in WaitList" />
+        <Label fx:id="totalInQueueLabel" styleClass="wl-stat-value" text="0" />
+      </VBox>
+      <styleClass>
+        <String fx:value="wl-stat" />
+        <String fx:value="wl-left-orange" />
+      </styleClass>
     </HBox>
-
-    <!-- Search bar -->
-    <HBox alignment="CENTER_LEFT" spacing="12" styleClass="wl-search-card">
-        <TextField fx:id="searchField" promptText="Search by customer name or queue number..." styleClass="wl-search-field" HBox.hgrow="ALWAYS" />
-
-        <Button onAction="#onAddToWaitlist" styleClass="wl-add-btn" text="Add to Waitlist" />
+    <HBox spacing="10" styleClass="wl-stat wl-left-blue" HBox.hgrow="ALWAYS">
+      <VBox prefHeight="77.0" prefWidth="110.0" spacing="6" HBox.hgrow="ALWAYS">
+        <Label styleClass="wl-stat-label" text="Notified to seat" />
+        <Label fx:id="calledCountLabel" styleClass="wl-stat-value" text="0" />
+        <styleClass>
+          <String fx:value="wl-stat" />
+          <String fx:value="wl-left-purple" />
+        </styleClass>
+      </VBox>
     </HBox>
-
-    <!-- Table -->
-    <VBox spacing="10" styleClass="wl-card" VBox.vgrow="ALWAYS">
-        <Label fx:id="queueTitleLabel" styleClass="wl-card-title" text="Current Queue (0)" />
-
-        <TableView fx:id="waitingTable" styleClass="wl-table" VBox.vgrow="ALWAYS">
-            <columns>
-                <TableColumn fx:id="colQueue" text="#" />
-                <TableColumn fx:id="colName" text="Customer" />
-                <TableColumn fx:id="colMember" text="Member" />
-                <TableColumn fx:id="colParty" text="Party" />
-                <TableColumn fx:id="colJoined" text="Joined" />
-                <TableColumn fx:id="colWait" text="Wait" />
-                <TableColumn fx:id="colStatus" text="Status" />
-                <TableColumn fx:id="colActions" text="Actions" />
-            </columns>
-        </TableView>
-    </VBox>
-
+  </HBox>
+  <!-- Search bar -->
+  <HBox alignment="CENTER_LEFT" spacing="12" styleClass="wl-search-card">
+    <TextField fx:id="searchField" prefHeight="37.0" prefWidth="300.0" promptText="Search by customer name or queue number..." styleClass="wl-search-field" HBox.hgrow="ALWAYS" />
+      <Button mnemonicParsing="false" styleClass="wl-btn" text="Refresh List" />
+    <Button onAction="#onAddToWaitlist" styleClass="wl-add-btn" text="Add to Waitlist" />
+  </HBox>
+  <!-- Table -->
+  <VBox spacing="10" styleClass="wl-card" VBox.vgrow="ALWAYS">
+    <Label fx:id="queueTitleLabel" styleClass="wl-card-title" text="Current Queue (0)" />
+    <TableView fx:id="waitingTable" styleClass="wl-table" VBox.vgrow="ALWAYS">
+      <columns>
+        <TableColumn fx:id="colQueue" prefWidth="119.0" text="Confirmation Code" />
+        <TableColumn fx:id="colName" prefWidth="78.0" text="Customer" />
+        <TableColumn fx:id="colMember" prefWidth="82.0" text="Member" />
+        <TableColumn fx:id="colParty" prefWidth="71.0" text="Diners" />
+        <TableColumn fx:id="colJoined" prefWidth="87.0" text="Joined" />
+        <TableColumn fx:id="colStatus" prefWidth="67.0" text="Status" />
+      </columns>
+    </TableView>
+    <!-- NEW: Actions bar (works on selected row) -->
+    <HBox alignment="CENTER_RIGHT" spacing="10">
+      <Button fx:id="cancelReservationBtn" onAction="#onCancelReservation" styleClass="wl-btn-remove" text="Remove From Waiting List" />
+    </HBox>
+  </VBox>
 </VBox>
