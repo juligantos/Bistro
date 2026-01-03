@@ -136,21 +136,8 @@ public class BistroClient extends AbstractClient {
 		TablesSubject.register(router);
 		ConnectionSubject.register(router);
 		PaymentSubject.register(router);
-		SystemSubject.register(router);
-		
-		
-		//TODO add this router to the ordrer subject!!!!!
-		// This tells the router: "When the server sends 'getAvailableHours.ok', update the controller."
-        router.on("orders", "getAvailableHours.ok", (msg) -> {
-            @SuppressWarnings("unchecked")
-            List<String> slots = (List<String>) msg.getData();
-            
-            // Pass the data to your specific controller instance
-            reservationCTRL.setAvailableTimeSlots(slots);
-            
-            // Critical: If your system waits for responses, unblock it here
-            awaitResponse = false; 
-        });
+		SystemSubject.register(router);		
+        
 	}
 
 	/**

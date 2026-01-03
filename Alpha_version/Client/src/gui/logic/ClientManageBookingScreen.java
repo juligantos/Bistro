@@ -46,8 +46,6 @@ public class ClientManageBookingScreen {
 	@FXML
 	private TextField txtConfirmationCode;
 	@FXML
-	private Button btnConfirmReservation;
-	@FXML
 	private Hyperlink lnkForgot;
 	@FXML
 	private StackPane modalOverlay;
@@ -102,39 +100,7 @@ public class ClientManageBookingScreen {
 		setEditingEnabled(true);
 	}
 
-	// --- 2. UPDATE / CANCEL LOGIC ---
-
-	@FXML
-	void btnConfirmReservation(Event event) { 
-		if (currentOrder == null)
-			return;
-
-		if (selectedTimeSlot == null) {
-			showAlert(Alert.AlertType.WARNING, "Selection Missing", "Please select a time slot.");
-			return;
-		}
-
-		LocalDate date = datePicker.getValue();
-		LocalTime time = LocalTime.parse(selectedTimeSlot);
-		int diners = parseDiners(dinersAmountComboBox.getValue());
-
-		currentOrder.setOrderDate(date);
-		currentOrder.setOrderHour(time);
-		currentOrder.setDinersAmount(diners);
-		
-		BistroClientGUI.client.getReservationCTRL().setUpdateListener(success -> {
-			Platform.runLater(() -> {
-				if (success) {
-					showAlert(Alert.AlertType.INFORMATION, "Success", "Reservation updated successfully!");
-					BistroClientGUI.switchScreen(event, "clientDashboardScreen", "Returning to Dashboard");
-				} else {
-					showAlert(Alert.AlertType.ERROR, "Update Failed", "Could not update reservation. The slot might be taken.");
-				}
-			});
-		});
-		
-		BistroClientGUI.client.getReservationCTRL().updateReservation(currentOrder);
-	}
+	// --- 2. CANCEL LOGIC ---
 
 	@FXML
 	void btnCancel(Event event) { 
@@ -168,7 +134,6 @@ public class ClientManageBookingScreen {
 		datePicker.setDisable(!enable);
 		dinersAmountComboBox.setDisable(!enable);
 		timeSlotsGridPane.setDisable(!enable);
-		btnConfirmReservation.setDisable(!enable);
 		btnCancel.setDisable(!enable);
 	}
 
@@ -180,7 +145,6 @@ public class ClientManageBookingScreen {
 
 		timeSlotsGridPane.getChildren().clear();
 		selectedTimeSlot = null;
-		btnConfirmReservation.setDisable(true);
 		
 		BistroClientGUI.client.getReservationCTRL().setAvailableTimeSlotsListener(this::generateTimeSlots);
 		BistroClientGUI.client.getReservationCTRL().askAvailableHours(date, diners);
@@ -211,10 +175,8 @@ public class ClientManageBookingScreen {
 				timeSlotButton.setOnAction(event -> {
 					if (timeSlotButton.isSelected()) {
 						selectedTimeSlot = timeSlot;
-						btnConfirmReservation.setDisable(false);
 					} else {
 						selectedTimeSlot = null;
-						btnConfirmReservation.setDisable(true);
 					}
 				});
 				timeSlotsGridPane.add(timeSlotButton, col, row);
