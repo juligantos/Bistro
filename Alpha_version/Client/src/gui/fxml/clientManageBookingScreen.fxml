@@ -156,7 +156,7 @@
 								<!-- Date -->
 								<VBox spacing="8">
 									<children>
-										<Label styleClass="field-label" text="Select Date">
+										<Label styleClass="field-label" text="Reservation Date">
 											<graphic>
 												<ImageView fitHeight="18.0" fitWidth="18.0">
 													<image>
@@ -198,7 +198,7 @@
 											</graphic>
 										</Label>
 
-										<ScrollPane fx:id="timesScroll" fitToWidth="true" hbarPolicy="NEVER" prefHeight="208.0" prefWidth="484.0" styleClass="times-scroll">
+										<ScrollPane fx:id="timesScroll" fitToWidth="true" hbarPolicy="NEVER" prefHeight="246.0" prefWidth="484.0" styleClass="times-scroll">
 											<content>
 												<GridPane id="timeSlotsGridPane" fx:id="timeSlotsGridPane" styleClass="times-grid">
 													<columnConstraints>
@@ -237,13 +237,6 @@
 										</ScrollPane>
 									</children>
 								</VBox>
-
-								<Button id="btnConfirmReservation" fx:id="btnConfirmReservation" disable="true" onAction="#btnConfirmReservation" text="Confirm Reservation">
-									<styleClass>
-										<String fx:value="btn-primary" />
-										<String fx:value="btn-wide" />
-									</styleClass>
-								</Button>
 							</children>
 							<styleClass>
 								<String fx:value="reservation-card" />

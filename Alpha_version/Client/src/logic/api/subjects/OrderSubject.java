@@ -1,8 +1,10 @@
 package logic.api.subjects;
 
 import javafx.application.Platform;
+import logic.BistroClient;
 import logic.BistroClientGUI;
 import logic.api.ClientRouter;
+import java.util.List;
 
 public class OrderSubject {
 	
@@ -16,7 +18,13 @@ public class OrderSubject {
 		});
 		router.on("orders","createReservation.fail", msg -> {
 		});
-		
+		// This tells the router: "When the server sends 'getAvailableHours.ok', update the controller."
+		router.on("orders", "getAvailableHours.ok", (msg) -> {
+            @SuppressWarnings("unchecked")
+            List<String> slots = (List<String>) msg.getData();
+            BistroClientGUI.client.getReservationCTRL().setAvailableTimeSlots(slots);  
+            BistroClient.awaitResponse = false; 
+        });
 		
 	}
 	
