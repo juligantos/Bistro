@@ -1,0 +1,43 @@
+/* ==============================================
+   Table Cell General Styling
+   ============================================== */
+.table-cell {
+    -fx-alignment: CENTER;
+    -fx-font-size: 14px;
+    -fx-padding: 0 0 0 10;
+}
+
+/* ==============================================
+   Status Column Specifics
+   ============================================== */
+
+/* 1. SEATED (Green) */
+.status-seated {
+    -fx-text-fill: #16a34a; /* Emerald Green */
+    -fx-font-weight: bold;
+    -fx-background-color: #dcfce7; /* Very light green background */
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+}
+
+/* 2. PENDING (Orange) */
+.status-pending {
+    -fx-text-fill: #ea580c; /* Dark Orange */
+    -fx-font-weight: normal;
+    -fx-background-color: #ffedd5; /* Light orange background */
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+}
+
+/* 3. CANCELLED (Red) */
+.status-cancelled {
+    -fx-text-fill: #dc2626; /* Red */
+    -fx-opacity: 0.7;
+    -fx-text-decoration: line-through;
+}
+
+/* 4. COMPLETED (Grey) */
+.status-completed {
+    -fx-text-fill: #64748b; /* Slate Grey */
+    -fx-font-style: italic;
+}

@@ -38,6 +38,8 @@ public class ReservationController {
 	private Consumer<Boolean> cancelResultCallback;
 	private Order orderReady;
 	
+	private Consumer<List<Order>> allReservationsCallback;
+	
 	//******************************** Constructors ***********************************//
 	
 	public ReservationController(BistroClient client) {
@@ -167,5 +169,14 @@ public class ReservationController {
 	public boolean isUserReservationReady() {
 		return orderReady.getStatus() == OrderStatus.COMPLETED;
 	}
+	
+
+	public void askReservationsByDate(LocalDate date) {
+	    client.handleMessageFromClientUI(new Message(Api.ASK_GET_RESERVATIONS_BY_DATE, date));
+	}
+
+    public void setAllReservationsListener(Consumer<List<Order>> callback) {
+        this.allReservationsCallback = callback;
+    }
 	
 }
