@@ -54,5 +54,11 @@ public class TableController {
 		return userAllocatedOrderForTable.getStatus() == OrderStatus.SEATED;
 	}
 
+	public void clearCurrentTable() {
+		this.userAllocatedOrderForTable = null;
+		this.userAllocatedTable = 0;
+		
+	}
+
 
 }

@@ -77,16 +77,18 @@ public class MemberRegistrationPanel{
 			newMemberData.add(phone);
 			newMemberData.add(address);
 			BistroClientGUI.client.getUserCTRL().RegisterNewMember(newMemberData);
-			clearForm();
+			if(BistroClientGUI.client.getUserCTRL().getRegistrationSuccessFlag()) {
+				ArrayList<Integer> updatedStats = BistroClientGUI.client.getUserCTRL().getMemberRegistrationStats();
+			    
+			    showInfo("Registration Successful", "New member has been registered successfully.");
+			    refreshStatsLabels(updatedStats);
+			    clearForm();
+			}
 		}else {
         	showError("Invalid Input", errorMassage);
         }
     }
     
-    public void registerSuccess(List<Integer> updatedStats) {
-    	showInfo("Registration Successful", "New member has been registered successfully.");
-		refreshStatsLabels(updatedStats);
-	}
 
     public void clearForm() {
     	txtfirstName.clear();

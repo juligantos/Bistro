@@ -12,25 +12,31 @@ import enums.UserType;
  * This class represents the controller for user-related operations in the BistroClient.
  */
 public class UserController {
-	
-	//****************************** Instance variables ******************************
-	
-	private final BistroClient client; //final reference to the BistroClient to ensure only one instance is associated
+
+	// ****************************** Instance variables
+	// ******************************
+
+	private final BistroClient client; // final reference to the BistroClient to ensure only one instance is associated
 	private User loggedInUser;
 	private ArrayList<Integer> memberRegistrationStats;
-	//******************************** Constructors ***********************************
-	
+	private boolean registrationSuccessFlag = false;
+	// ******************************** Constructors
+	// ***********************************
+
+
 	/*
-	 * Constructor to initialize the User_Controller with a reference to the BistroClient.
+	 * Constructor to initialize the User_Controller with a reference to the
+	 * BistroClient.
 	 * 
 	 * @param client The BistroClient instance for server communication.
 	 */
 	public UserController(BistroClient client) {
-		this.client=client;
+		this.client = client;
 	}
-	
-	//******************************** Getters And Setters ***********************************
-	
+
+	// ******************************** Getters And Setters
+	// ***********************************
+
 	/*
 	 * Getter for the currently logged-in user.
 	 * 
@@ -39,7 +45,7 @@ public class UserController {
 	public User getLoggedInUser() {
 		return loggedInUser;
 	}
-	
+
 	/*
 	 * Setter for the currently logged-in user.
 	 * 
@@ -48,17 +54,17 @@ public class UserController {
 	public void setLoggedInUser(User user) {
 		this.loggedInUser = user;
 	}
-	
+
 	/**
 	 * Method to retrieve member registration statistics.
 	 * 
 	 * @return An ArrayList containing member registration statistics.
 	 */
 	public ArrayList<Integer> getMemberRegistrationStats() {
-		
+
 		return memberRegistrationStats;
 	}
-	
+
 	/**
 	 * Method to set member registration statistics.
 	 * 
@@ -68,29 +74,37 @@ public class UserController {
 		this.memberRegistrationStats = stats;
 	}
 	
-	//******************************** Instance Methods ***********************************
-	
+	public boolean getRegistrationSuccessFlag() {
+		return registrationSuccessFlag;
+	}
+
+	public void setRegistrationSuccessFlag(boolean registrationSuccessFlag) {
+		this.registrationSuccessFlag = registrationSuccessFlag;
+	}
+	// ******************************** Instance Methods
+	// ***********************************
+
 	/**
 	 * Method to sign in a user with the provided login data.
 	 * 
 	 * @param userLoginData An ArrayList containing user login information.
 	 */
 	public void signInUser(String userLoginData, UserType userType) {
-		switch(userType) {
-			case GUEST:
-				client.handleMessageFromClientUI(new Message(Api.ASK_LOGIN_GUEST, userLoginData));
-				break;
-			case EMPLOYEE:
-				client.handleMessageFromClientUI(new Message(Api.ASK_LOGIN_EMPLOYEE, userLoginData));
-				break;
-			case MEMBER:
-				client.handleMessageFromClientUI(new Message(Api.ASK_LOGIN_MEMBER, userLoginData));
-				break;
-			case MANAGER:
-				client.handleMessageFromClientUI(new Message(Api.ASK_LOGIN_MANAGER, userLoginData));
-				break;
-			default:
-				System.out.println("Unknown user type");
+		switch (userType) {
+		case GUEST:
+			client.handleMessageFromClientUI(new Message(Api.ASK_LOGIN_GUEST, userLoginData));
+			break;
+		case EMPLOYEE:
+			client.handleMessageFromClientUI(new Message(Api.ASK_LOGIN_EMPLOYEE, userLoginData));
+			break;
+		case MEMBER:
+			client.handleMessageFromClientUI(new Message(Api.ASK_LOGIN_MEMBER, userLoginData));
+			break;
+		case MANAGER:
+			client.handleMessageFromClientUI(new Message(Api.ASK_LOGIN_MANAGER, userLoginData));
+			break;
+		default:
+			System.out.println("Unknown user type");
 		}
 	}
 
@@ -100,16 +114,16 @@ public class UserController {
 	public void signOutUser() {
 		this.loggedInUser = null;
 	}
-	
+
 	/*
 	 * Method to check if a user is currently logged in.
 	 * 
 	 * @return true if a user is logged in, false otherwise.
 	 */
-	public boolean isUserLoggedInAs( UserType expectedType) {
+	public boolean isUserLoggedInAs(UserType expectedType) {
 		return this.loggedInUser != null && this.loggedInUser.getUserType() == expectedType;
 	}
-	
+
 	/**
 	 * Method to get the type of the currently logged-in user.
 	 * 
@@ -121,7 +135,7 @@ public class UserController {
 		}
 		return this.loggedInUser.getUserType();
 	}
-	
+
 	/**
 	 * Method to update the details of the currently logged-in user.
 	 * 
@@ -129,25 +143,28 @@ public class UserController {
 	 */
 	public void updateUserDetails(User updatedUser) {
 		client.handleMessageFromClientUI(new Message(Api.ASK_MEMBER_UPDATE_INFO, updatedUser));
-    }
-	
+	}
+
 	public void RegisterNewMember(Object newMemberData) {
+		this.setRegistrationSuccessFlag(false);
 		client.handleMessageFromClientUI(new Message(Api.ASK_REGISTER_NEW_MEMBER, newMemberData));
 	}
-	
+
 	/**
-	 * Method to check if the user update was successful by comparing the old user details with the current logged-in user details.
+	 * Method to check if the user update was successful by comparing the old user
+	 * details with the current logged-in user details.
+	 * 
 	 * @param oldUser
 	 * @return
 	 */
 	public boolean isUpdateSuccessful(User oldUser) {
-		return !oldUser.equals(this.loggedInUser);	
+		return !oldUser.equals(this.loggedInUser);
 	}
-	
+
 	/**
 	 * Method to handle forgotten member ID requests.
 	 * 
-	 * @param email The email address associated with the member account.
+	 * @param email       The email address associated with the member account.
 	 * @param phoneNumber The phone number associated with the member account.
 	 */
 	public void forgotMemberID(String email, String phoneNumber) {
@@ -160,5 +177,6 @@ public class UserController {
 	public void requestMemberRegistrationStats() {
 		client.handleMessageFromClientUI(new Message(Api.ASK_REGISTERATION_STATS, null));
 	}
-	
+
+
 }
