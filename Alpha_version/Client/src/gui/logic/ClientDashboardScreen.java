@@ -60,6 +60,7 @@ public class ClientDashboardScreen {
 
 	@FXML
 	private Label lblError;
+	
 	@FXML
 	private Label LblButtonDescrip;
 	
@@ -71,6 +72,7 @@ public class ClientDashboardScreen {
 	 */
 	@FXML
 	public void initialize() {
+//TODO : add method to disable join waiting list button and check in for table button if there is an active reservation for the user.
 		UserType type = BistroClientGUI.client.getUserCTRL().getLoggedInUserType();
 		switch (type) {
 		case GUEST:
@@ -163,14 +165,12 @@ public class ClientDashboardScreen {
 		if(BistroClientGUI.client.getWaitingListCTRL().isUserOnWaitingList()) {
 			fxmlFileName = "clientOnListScreen";
 		}
-		else if(BistroClientGUI.client.getReservationCTRL().isUserReservationReady()) {
-			fxmlFileName = "clienWaitingOverScreen";
-		}
 		else {
 			fxmlFileName = "clientJoinWaitingListScreen";
 		}
 		BistroClientGUI.switchScreen(event, fxmlFileName, "Failed to load Client Join Waiting List Screen.");
 	}
+	
 
 	/**
 	 * Method to handle the action of checking in for a table.
@@ -226,6 +226,7 @@ public class ClientDashboardScreen {
 			display(lblError, "Failed to sign out. Please try again.", Color.RED);
 		}
 	}
+	
 	
 	/**
 	 * Method to display an error message in a label with a specified color.
