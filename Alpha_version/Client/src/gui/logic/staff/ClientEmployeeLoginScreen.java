@@ -35,8 +35,6 @@ public class ClientEmployeeLoginScreen {
 	@FXML
 	public void initialize() {
 		txtPasswordVisible.textProperty().bindBidirectional(txtPassword.textProperty());
-		txtPasswordVisible.setVisible(false);
-        txtPasswordVisible.setManaged(false);
 	}
 
 	public void btnBack(Event event) {
