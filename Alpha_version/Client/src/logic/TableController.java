@@ -1,6 +1,7 @@
 package logic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import comms.Api;
@@ -11,26 +12,27 @@ import enums.OrderStatus;
 public class TableController {
 	//****************************** Instance variables ******************************
 	private final BistroClient client;
-	private List<Order> occupiedTables;
+	private HashMap<Table,String> tableStatuses;
 	private Order userAllocatedOrderForTable;
 	private int userAllocatedTable;
+	
 	//******************************** Constructors ***********************************//
 	public TableController(BistroClient client) {
 		this.client = client;
-		this.occupiedTables = new ArrayList<>();
+		this.tableStatuses = new HashMap<>();
 		this.userAllocatedOrderForTable = null;
 		this.userAllocatedTable = 0;
 	}
 	
 	//******************************** Getters And Setters ***********************************//	
-	public List<Order> getOccupiedTables() {
-		return occupiedTables;
+
+	public HashMap<Table, String> getTableStatuses() {
+		return tableStatuses;
 	}
 	
-	public void setOccupiedTables(List<Order> occupiedTables) {
-		this.occupiedTables = occupiedTables;
+	public void setTableStatuses(HashMap<Table, String> tableStatuses) {
+		this.tableStatuses = tableStatuses;
 	}
-
 	public Order getUserAllocatedOrderForTable() {
 		return userAllocatedOrderForTable;
 	}
@@ -58,6 +60,15 @@ public class TableController {
 		this.userAllocatedOrderForTable = null;
 		this.userAllocatedTable = 0;
 		
+	}
+
+	public void requestTableStatus() {
+		client.handleMessageFromClientUI(new Message(Api.ASK_TABLE_STATUS, null));
+		
+	}
+
+	public void updateTableStatuses(HashMap<Table, String> tableStatuses) {
+		setTableStatuses(tableStatuses);
 	}
 
 

@@ -26,6 +26,7 @@ public final class Api {
     public static final String REPLY_CONNECTION_DISCONNECT_OK = "connection.disconnect.ok";
 
     // == Login/signOut subject == //
+    
 // Requests
     public static final String ASK_LOGIN_GUEST = "login.guest";
     public static final String ASK_LOGIN_MEMBER = "login.member";
@@ -35,6 +36,7 @@ public final class Api {
     public static final String ASK_SIGNOUT_MEMBER = "signout.member";
     public static final String ASK_SIGNOUT_EMPLOYEE = "signout.employee";
     public static final String ASK_SIGNOUT_MANAGER = "signout.manager";
+    
 // Responses
     public static final String REPLY_LOGIN_GUEST_OK = "login.guest.ok";
     public static final String REPLY_LOGIN_MEMBER_OK = "login.member.ok";
@@ -104,6 +106,7 @@ public final class Api {
     
     // == Restaurant Management subject == //
 // Requests
+    public static final String ASK_TABLE_STATUS = "tables.getStatus";
     
 // Responses
     
