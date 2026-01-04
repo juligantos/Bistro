@@ -123,6 +123,7 @@ public final class Api {
     public static final String REPLY_WAITING_LIST_LEAVE_FAIL = "waitinglist.leave.fail";
     public static final String REPLY_IS_IN_WAITLIST_YES = "waitinglist.isInWaitingList.yes";
     public static final String REPLY_IS_IN_WAITLIST_NO = "waitinglist.isInWaitingList.no";
+    public static final String REPLY_WAITING_LIST_SIT_OK = "waitinglist.sit.ok";
     
     // == Payment subject == //
 // Requests
