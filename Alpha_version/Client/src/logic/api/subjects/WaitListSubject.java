@@ -49,9 +49,13 @@ public class WaitListSubject {
 			BistroClientGUI.switchScreen("clientDashboardScreen", "Client Dashboard error message");
 		});
 		router.on("waitinglist", "notified.failed", msg -> {
-			BistroClientGUI.showAlert(Alert.AlertType.ERROR, "Waitlist Notification Failed",
-					"Failed to notify the restaurant that you have arrived from the waitlist. Please try again.",
-					Platform::runLater);
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			Platform.runLater(() -> {
+				alert.setTitle("Error");
+				alert.setHeaderText("Notification Error");
+				alert.setContentText("Failed to notify the system that you have arrived. Please contact the staff for assistance.");
+				alert.showAndWait();
+			});
 		});
 	}
 }
