@@ -7,14 +7,15 @@ import logic.BistroClientGUI;
 import logic.api.ClientRouter;
 
 public class WaitListSubject {
-	
-	private WaitListSubject() {}
-	
+
+	private WaitListSubject() {
+	}
+
 	public static void register(ClientRouter router) {
 		// Handler for user on waiting list status messages
 		
 		router.on("waitinglist", "isInWaitingList.yes", msg -> {;
-		OrderStatus status = (OrderStatus) msg.getData();
+			OrderStatus status = OrderStatus.WAITING_LIST;
 		BistroClientGUI.client.getReservationCTRL().getReadyUserReservation().setStatus(status);
 		});
 		
@@ -34,6 +35,11 @@ public class WaitListSubject {
 		});
 		router.on("waitinglist", "leave.fail", msg -> {
 		});
-		
+		router.on("waitinglist", "sit.ok", msg -> {
+			OrderStatus status = OrderStatus.SEATED;
+		    BistroClientGUI.client.getReservationCTRL().getReadyUserReservation().setStatus(status);
+		    BistroClientGUI.switchScreen("clientDashboardScreen", "Client Dashboard error message");
+	    });
 	}
 }
+
