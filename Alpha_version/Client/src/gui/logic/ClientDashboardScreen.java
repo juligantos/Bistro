@@ -60,6 +60,7 @@ public class ClientDashboardScreen {
 
 	@FXML
 	private Label lblError;
+	
 	@FXML
 	private Label LblButtonDescrip;
 	
@@ -163,14 +164,12 @@ public class ClientDashboardScreen {
 		if(BistroClientGUI.client.getWaitingListCTRL().isUserOnWaitingList()) {
 			fxmlFileName = "clientOnListScreen";
 		}
-		else if(BistroClientGUI.client.getReservationCTRL().isUserReservationReady()) {
-			fxmlFileName = "clienWaitingOverScreen";
-		}
 		else {
 			fxmlFileName = "clientJoinWaitingListScreen";
 		}
 		BistroClientGUI.switchScreen(event, fxmlFileName, "Failed to load Client Join Waiting List Screen.");
 	}
+	
 
 	/**
 	 * Method to handle the action of checking in for a table.
@@ -226,6 +225,12 @@ public class ClientDashboardScreen {
 			display(lblError, "Failed to sign out. Please try again.", Color.RED);
 		}
 	}
+	
+	
+	public void seatedCostumer{
+		
+	}
+	
 	
 	/**
 	 * Method to display an error message in a label with a specified color.
