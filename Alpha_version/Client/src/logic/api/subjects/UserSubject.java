@@ -9,6 +9,7 @@ import logic.BistroClientGUI;
 import logic.UserController;
 import logic.api.ClientRouter;
 import enums.UserType;
+import javafx.scene.control.Alert;
 
 public class UserSubject {
 
@@ -48,6 +49,19 @@ public class UserSubject {
 			BistroClientGUI.client.getUserCTRL().setMemberRegistrationStats(count);
 		});
 		router.on("member", "registerationStats.fail", msg -> {
+		});
+		
+		router.on("customers", "getalldata.ok", msg -> {
+			ArrayList<User> customersData = (ArrayList<User>) msg.getData();
+			BistroClientGUI.client.getUserCTRL().setCustomersData(customersData);
+		});
+		
+		router.on("customers", "getalldata.fail", msg -> {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Failed to Retrieve Customers Data");
+			alert.setContentText("An error occurred while trying to retrieve customers data. Please try again later.");
+			alert.showAndWait();
 		});
 	}
 }

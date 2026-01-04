@@ -7,6 +7,7 @@ import java.util.Map;
 import comms.*;
 import entities.User;
 import enums.UserType;
+import gui.logic.staff.CustomersPanel;
 
 /*
  * This class represents the controller for user-related operations in the BistroClient.
@@ -22,7 +23,7 @@ public class UserController {
 	private boolean registrationSuccessFlag = false;
 	// ******************************** Constructors
 	// ***********************************
-
+	private ArrayList<User> customersData=new ArrayList<User>();
 
 	/*
 	 * Constructor to initialize the User_Controller with a reference to the
@@ -55,6 +56,14 @@ public class UserController {
 		this.loggedInUser = user;
 	}
 
+	public ArrayList<User> getCustomersData() {
+		return customersData;
+	}
+	
+	public void clearCustomersData() {
+		this.customersData.clear();
+	}
+	
 	/**
 	 * Method to retrieve member registration statistics.
 	 * 
@@ -205,5 +214,17 @@ public class UserController {
 		
 	}
 
+	public void loadCustomersData() {
+		client.handleMessageFromClientUI(new Message(Api.ASK_LOAD_CUSTOMERS_DATA, null));
+		
+	}
+	public boolean isCustomersDataLoaded() {
+		return !customersData.isEmpty();
+	}
+
+	public void setCustomersData(ArrayList<User> customersNewData) {
+		this.customersData = customersNewData;
+		
+	}
 
 }
