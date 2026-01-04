@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="op-scroll" stylesheets="@RestaurantManagementPanelStyles.css" vbarPolicy="AS_NEEDED" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.logic.staff.RestaurantManagementPanel">
+<ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="op-scroll" stylesheets="@../../css/staff/RestaurantManagementPanelStyles.css" vbarPolicy="AS_NEEDED" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.logic.staff.RestaurantManagementPanel">
 
     <content>
         <VBox spacing="16" styleClass="op-root">
