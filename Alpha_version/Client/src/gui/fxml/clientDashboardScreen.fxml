@@ -34,8 +34,8 @@
                     <left>
                         <VBox spacing="6">
                             <children>
-                                <Label fx:id="welcomeLabel" styleClass="mem-title" text="Welcome," />
-                                <Label fx:id="clientLabel" styleClass="mem-subtitle" />
+                                <Label fx:id="lblWelcome" styleClass="mem-title" text="Welcome," />
+                                <Label fx:id="lblClient" styleClass="mem-subtitle" />
                             </children>
                         </VBox>
                     </left>

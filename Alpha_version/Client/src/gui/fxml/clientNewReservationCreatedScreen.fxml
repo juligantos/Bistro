@@ -110,7 +110,6 @@
         </BorderPane>
     </children>
    <stylesheets>
-      <URL value="@../css/reservation_confirmed.css" />
       <URL value="@../../gui/css/clientNewReservationCreatedStyles.css" />
    </stylesheets>
 </StackPane>

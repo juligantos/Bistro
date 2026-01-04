@@ -111,7 +111,7 @@
                                 <HBox alignment="CENTER_LEFT" spacing="28.0">
                                     <children>
                                         <Label styleClass="muted-label" text="Booking as:" />
-                                        <Label fx:id="lblUser" styleClass="pill-blue" text="Member" />
+                                        <Label fx:id="lblUser" styleClass="pill-blue" text="" />
                                     </children>
                                 </HBox>
 
@@ -157,7 +157,7 @@
                                     </ImageView>
                                  </graphic></Label>
 
-                                        <ScrollPane fx:id="timesScroll" fitToWidth="true" hbarPolicy="NEVER" prefHeight="190.0" prefWidth="484.0" styleClass="times-scroll">
+                                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="190.0" prefWidth="484.0" styleClass="times-scroll">
                                  <content>
                                     <GridPane id="timeSlotsGridPane" styleClass="times-grid">
                                       <columnConstraints>

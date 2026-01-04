@@ -56,13 +56,14 @@ public class ClientDashboardScreen {
 	private Label lblWelcome;
 
 	@FXML
-	private Label lblTopSubTitle;
+	private Label lblClient;
 
 	@FXML
 	private Label lblError;
 	
 	@FXML
 	private Label LblButtonDescrip;
+	
 	
 	// ******************************** FXML Methods ***********************************
 
@@ -110,7 +111,7 @@ public class ClientDashboardScreen {
 	@FXML
 	public void SetDashboardAsGuest() {
 		lblWelcome.setText("Welcome, Guest!");
-		lblTopSubTitle.setText("How can we serve you today?");
+		lblClient.setText("How can we serve you today?");
 		btnEditPersonalDetails.setVisible(false);
 		btnEditPersonalDetails.setManaged(false);
 		loyalpointVbox.setVisible(false);
@@ -131,7 +132,7 @@ public class ClientDashboardScreen {
 	@FXML
 	public void SetDashboardAsMember(User member) {
 		lblWelcome.setText("Welcome, " + member.getFirstName() + " " + member.getLastName() + "!");
-		lblTopSubTitle.setText("Member ID: " + member.getUserId());
+		lblClient.setText("Member ID: " + member.getUserId());
 		btnEditPersonalDetails.setVisible(true);
 		btnEditPersonalDetails.setManaged(true);
 		loyalpointVbox.setVisible(true);
