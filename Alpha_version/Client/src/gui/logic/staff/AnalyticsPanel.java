@@ -1,35 +1,53 @@
 package gui.logic.staff;
 
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import entities.MonthlyReport;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import logic.BistroClientGUI;
 
 public class AnalyticsPanel {
-	// --- KPI Labels ---
-    @FXML private Label totalReservationsLabel;
-    @FXML private Label totalReservationsDelta;
+	//*********************** FXML Variables ************************//
+    @FXML 
+    private Label totalReservationsLabel;
     
-    @FXML private Label avgMonthlyLabel;
-    @FXML private Label avgMonthlyDelta;
+    @FXML 
+    private Label totalReservationsDelta;
     
-    @FXML private Label onTimeRateLabel;
-    @FXML private Label onTimeDelta;
+    @FXML 
+    private Label avgMonthlyLabel;
     
-    @FXML private Label customersThisMonthLabel;
-    @FXML private Label currentMonthLabel;
+    @FXML 
+    private Label avgMonthlyDelta;
+    
+    @FXML 
+    private Label onTimeRateLabel;
+    
+    @FXML 
+    private Label onTimeDelta;
+    
+    @FXML 
+    private Label customersThisMonthLabel;
+    
+    @FXML 
+    private Label currentMonthLabel;
 
-    // --- Chart 1: Arrival Times ---
+    // ****** Chart Arrival Times ******
     @FXML private BarChart<String, Number> arrivalBarChart;
     @FXML private Label totalOnTimeLabel;
     @FXML private Label totalLateLabel;
 
-    // --- Chart 2: Monthly Trends ---
+    // ****** Chart Monthly Trends ******
     @FXML private LineChart<String, Number> reservationsLineChart;
     @FXML private Label peakMonthLabel;
     @FXML private Label peakMonthValueLabel;
@@ -37,30 +55,33 @@ public class AnalyticsPanel {
     @FXML private Label lowestMonthValueLabel;
     @FXML private Label growthRateLabel;
 
-    // --- Dynamic Bottom Sections ---
+    // ****** Dynamic Bottom Sections ******
     @FXML private VBox peakTimesBox;
     @FXML private VBox partySizeBox;
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    
+    //*********************** FXML Methods ************************//
+    
+    public void initialize() {
         // Initial setup if needed (e.g., clear charts)
         arrivalBarChart.setAnimated(true);
         reservationsLineChart.setAnimated(true);
+        BistroClientGUI.client.getMonthlyReportsCTRL().requestMonthlyReportData();
+        updateDashboard(BistroClientGUI.client.getMonthlyReportsCTRL().getCurrentMonthlyReport());
     }
 
     /**
-     * Call this method when data arrives from the server via OCSF client.
-     * @param data The DTO containing all statistics.
+     * Updates the entire dashboard with new data from MonthlyReport
+     * @param data The MonthlyReport 
      */
     public void updateDashboard(MonthlyReport data) {
         if (data == null) return;
 
-        // 1. Update KPIs
-        totalReservationsLabel.setText(String.valueOf(data.getTotalReservations2025()));
+        // 1. Update KPIs 
+        totalReservationsLabel.setText(String.valueOf(data.getTotalReservationsInGivenYear()));
         // Assuming getter for delta exists in DTO
         setDeltaLabel(totalReservationsDelta, 5.2); // Example value, replace with data.get...
 
-        avgMonthlyLabel.setText(String.valueOf(data.getAvgMonthlyReservations())); // Add getter
+        avgMonthlyLabel.setText(String.valueOf(data.getAvgMonthlyReservations()));
         setDeltaLabel(avgMonthlyDelta, 2.1);
 
         onTimeRateLabel.setText(String.format("%.1f%%", data.getOnTimeArrivalRate() * 100));
@@ -79,19 +100,24 @@ public class AnalyticsPanel {
         totalOnTimeLabel.setText(String.valueOf(data.getTotalOnTime()));
         totalLateLabel.setText(String.valueOf(data.getTotalLate()));
         
-        peakMonthLabel.setText(data.getPeakMonth()); // Add getter
-        peakMonthValueLabel.setText(String.valueOf(data.getPeakMonthValue())); // Add getter
+        peakMonthLabel.setText(data.getPeakMonth()); 
+        peakMonthValueLabel.setText(String.valueOf(data.getPeakMonthValue())); 
         
-        lowestMonthLabel.setText(data.getLowestMonth()); // Add getter
-        lowestMonthValueLabel.setText(String.valueOf(data.getLowestMonthValue())); // Add getter
+        lowestMonthLabel.setText(data.getLowestMonth()); 
+        lowestMonthValueLabel.setText(String.valueOf(data.getLowestMonthValue())); 
         
-        growthRateLabel.setText(String.format("%+.1f%%", data.getGrowthRateYearly())); // Add getter
+        growthRateLabel.setText(String.format("%+.1f%%", data.getGrowthRateYearly())); 
 
         // 5. Build Dynamic Bottom Rows
         populateDistributionRows(peakTimesBox, data.getPeakReservationTimes(), "ad-bar-blue");
-        populateDistributionRows(partySizeBox, data.getPartySizeDistribution(), "ad-bar-green");
+        populateDistributionRows(partySizeBox, data.getDinersAmountDistribution(), "ad-bar-green");
     }
 
+    /**
+	 * Helper to set delta label text and color based on value
+	 * @param label The Label to update
+	 * @param value The delta value (positive/negative)
+	 */
     private void setDeltaLabel(Label label, double value) {
         label.setText(String.format("%+.1f%%", value));
         // Simple logic to change color class based on positive/negative
@@ -103,7 +129,11 @@ public class AnalyticsPanel {
         }
     }
 
-    private void updateArrivalChart(MonthlyReportData data) {
+    /**
+	 * Updates the arrival times bar chart with new data
+	 * @param data The MonthlyReport DTO
+	 */
+    private void updateArrivalChart(MonthlyReport data) {
         arrivalBarChart.getData().clear();
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("Arrivals");
@@ -117,7 +147,11 @@ public class AnalyticsPanel {
         arrivalBarChart.getData().add(series);
     }
 
-    private void updateTrendChart(MonthlyReportData data) {
+    /**
+     * Updates the monthly reservations trend line chart
+     * @param data
+     */
+    private void updateTrendChart(MonthlyReport data) {
         reservationsLineChart.getData().clear();
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("2025");
@@ -134,6 +168,9 @@ public class AnalyticsPanel {
 
     /**
      * Dynamically creates progress bar rows for the bottom cards
+     * @param container The VBox container to populate
+     * @param dataMap The data map to visualize (key: label, value: count)
+     * @param colorStyleClass The CSS style class for the progress bar color
      */
     private void populateDistributionRows(VBox container, Map<String, Integer> dataMap, String colorStyleClass) {
         container.getChildren().clear();
@@ -171,5 +208,5 @@ public class AnalyticsPanel {
             container.getChildren().add(rowContainer);
         });
     }
-}
+
 }

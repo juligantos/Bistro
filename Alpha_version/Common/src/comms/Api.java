@@ -108,6 +108,7 @@ public final class Api {
 // Requests
     public static final String ASK_TABLE_STATUS = "tables.getStatus";
 	public static final String ASK_LOAD_CUSTOMERS_DATA = "customers.getalldata";
+	public static final String ASK_MONTHLY_REPORT_DATA = "monthlyReports.getData";
     
 // Responses
 	public static final String REPLY_TABLE_STATUS_OK = "tables.getStatus.ok";

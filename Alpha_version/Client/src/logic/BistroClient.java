@@ -50,6 +50,8 @@ public class BistroClient extends AbstractClient {
 	
 	private final PaymentController paymentCTRL;
 	
+	private final MonthlyReportsController monthlyReportsCTRL;
+	
 	//******************************** Constructors ***********************************
 	
 	/*
@@ -74,6 +76,7 @@ public class BistroClient extends AbstractClient {
 		this.waitingListCTRL = new WaitingListController(this);
 		this.tableCTRL = new TableController(this);
 		this.paymentCTRL = new PaymentController(this);
+		this.monthlyReportsCTRL = new MonthlyReportsController(this);
 		registerHandlers(); // Register message handlers
 	}
 	
@@ -120,6 +123,9 @@ public class BistroClient extends AbstractClient {
 			return this.paymentCTRL;
 		}
 		
+		public MonthlyReportsController getMonthlyReportsCTRL() {
+			return this.monthlyReportsCTRL;
+		}
 		
 		
 	
