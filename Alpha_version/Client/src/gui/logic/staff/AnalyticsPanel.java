@@ -154,7 +154,7 @@ public class AnalyticsPanel {
     private void updateTrendChart(MonthlyReport data) {
         reservationsLineChart.getData().clear();
         XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.setName("2025");
+        series.setName(data.getYear());
 
         Map<String, Integer> trends = data.getMonthlyReservationsMap();
         // Ensure month order is correct (Logic depends on Map implementation, LinkedHashMap is best)
@@ -166,7 +166,8 @@ public class AnalyticsPanel {
         reservationsLineChart.getData().add(series);
     }
 
-    /**
+
+	/**
      * Dynamically creates progress bar rows for the bottom cards
      * @param container The VBox container to populate
      * @param dataMap The data map to visualize (key: label, value: count)

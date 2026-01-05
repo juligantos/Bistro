@@ -9,6 +9,7 @@ import java.util.Map;
 public class MonthlyReport implements Serializable {
     private static final long serialVersionUID = 1L;
     //************************ Instance Variables ************************//
+    private String reportYear;
 	private int totalReservationsInGivenYear; // can be for given year to compare year over year
 	private double totalReservationsDelta; // delta means change from previous period
 
@@ -157,5 +158,9 @@ public class MonthlyReport implements Serializable {
 	
 	public void setGrowthRateYearly(double growthRateYearly) {
 		this.growthRateYearly = growthRateYearly;
+	}
+
+	public String getYear() {
+		return reportYear;
 	}
 }
