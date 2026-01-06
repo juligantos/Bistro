@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -55,17 +56,16 @@ public class ClientLoginScreen {
 	@FXML
 	private StackPane mainPane;
 	
-	
 	@FXML
 	private StackPane modalOverlay; // Overlay pane for modals
-
-	@FXML
-	private Rectangle overlayBackground;
 	
 	private Parent ForgotIDModalRoot;
-
+	
 	@FXML
 	private Label lblError;
+	
+	@FXML
+	private BorderPane contentPane;
 	// ******************************** Variables ********************************
 
 	private Map<String, Object> userLoginData; // holds received user login data
@@ -183,7 +183,7 @@ public class ClientLoginScreen {
 
 			modalOverlay.getChildren().add(ForgotIDModalRoot);
 		}
-		mainPane.setEffect(new GaussianBlur(18));
+		contentPane.setEffect(new GaussianBlur(18));
 		modalOverlay.setVisible(true);
 		modalOverlay.setManaged(true);
 	}
@@ -204,7 +204,7 @@ public class ClientLoginScreen {
 	 * Closes the forgot member ID modal dialog.
 	 */
 	public void closeForgotIDScreen() {
-		mainPane.setEffect(null);
+		contentPane.setEffect(null);
 		modalOverlay.setVisible(false);
 		modalOverlay.setManaged(false);
 	}
