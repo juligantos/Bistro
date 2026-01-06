@@ -29,6 +29,21 @@ public class WaitingListSubject {
 	public static void register(Router router, WaitingListService waitingListService, ServerLogger logger) {
 		// Handlers related to waiting list can be added here
 		
+		router.on("WaitingList","isInWaitingList", (msg, client) -> {
+			String userID = (String) msg.getData();
+			boolean isInWaitingList = waitingListService.isUserInWaitingList(userID);
+			if (isInWaitingList) {
+				logger.log("[INFO] Client: "+ client + " checked and found to be in the waiting list.");
+				client.sendToClient(new Message(Api.REPLY_WAITING_LIST_IS_IN_LIST, null));
+			}
+			else {
+				logger.log("[INFO] Client: "+ client + " checked and found NOT to be in the waiting list.");
+				client.sendToClient(new Message(Api.REPLY_WAITING_LIST_IS_NOT_IN_LIST, null));
+			}
+		});
+		
+		
+		
 		//join to waiting list
 		router.on("waitingList", "join", (msg, client) -> {
 			Map<String, Object> userData = (Map<String, Object>) msg.getData();

@@ -142,6 +142,8 @@ public final class Api {
 	public static final String ASK_WAITING_LIST_ADD_WALKIN = "waitinglist.addWalkIn";
 	
 	// Responses
+	public static final String REPLY_WAITING_LIST_IS_IN_LIST = "waitinglist.isInWaitingList.yes";
+	public static final String REPLY_WAITING_LIST_IS_NOT_IN_LIST = "waitinglist.isInWaitingList.no";
     public static final String REPLY_WAITING_LIST_JOIN_OK = "waitinglist.join.ok";
     public static final String REPLY_WAITING_LIST_SKIPPED = "waitinglist.join.skipped";
     public static final String REPLY_WAITING_LIST_JOIN_FAIL = "waitinglist.join.fail";

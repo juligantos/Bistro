@@ -21,7 +21,7 @@ public final class UserSubject {
 		// Request: "login.guest"
 		router.on("login", "guest", (msg, client) -> {
 			@SuppressWarnings("unchecked")
-			String loginData = "GUEST" + (String) msg.getData();
+			String loginData = "GUEST|" + (String) msg.getData();
 			User user = userService.getUserInfo(loginData);
 			if (user != null) {
 				client.sendToClient(new Message(Api.REPLY_LOGIN_GUEST_OK, user));
@@ -33,7 +33,7 @@ public final class UserSubject {
 		// Request: "login.member"
 		router.on("login", "member", (msg, client) -> {
 			@SuppressWarnings("unchecked")
-			String loginData = "MEMBER" + (String) msg.getData();
+			String loginData = "MEMBER|" + (String) msg.getData();
 			User user = userService.getUserInfo(loginData);
 			if (user != null) {
 				client.sendToClient(new Message(Api.REPLY_LOGIN_MEMBER_OK, user));

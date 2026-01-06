@@ -35,10 +35,6 @@ public class BistroClient extends AbstractClient {
 	private static BistroClient clientInstance;
 	
 	private final ClientRouter router;
-
-	public static Message messageFromServer;
-	
-	public static boolean awaitResponse = false;
 	
 	private final UserController userCTRL;
 	
@@ -51,6 +47,11 @@ public class BistroClient extends AbstractClient {
 	private final PaymentController paymentCTRL;
 	
 	private final MonthlyReportsController monthlyReportsCTRL;
+	
+	public static Message messageFromServer;
+	
+	public static boolean awaitResponse = false;
+	
 	
 	//******************************** Constructors ***********************************
 	

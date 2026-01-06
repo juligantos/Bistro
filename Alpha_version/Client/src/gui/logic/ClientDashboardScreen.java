@@ -150,7 +150,7 @@ public class ClientDashboardScreen {
 	@FXML
 	public void SetDashboardAsMember(User member) {
 		lblWelcome.setText("Welcome, " + member.getFirstName() + " " + member.getLastName() + "!");
-		lblClient.setText("Member ID: " + member.getUserId());
+		lblClient.setText("Member ID: " + member.getMemberCode());
 		btnEditPersonalDetails.setVisible(true);
 		btnEditPersonalDetails.setManaged(true);
 		loyalpointVbox.setVisible(true);
@@ -238,9 +238,9 @@ public class ClientDashboardScreen {
 	 */
 	@FXML
 	public void btnSignOut(Event event) {
-		BistroClientGUI.client.getUserCTRL().signOutUser();
-		if (BistroClientGUI.client.getUserCTRL().getLoggedInUser() == null) {
-			BistroClientGUI.switchScreen(event, "loginScreen", "Failed to load Login Screen.");
+		boolean isLoggedOut = BistroClientGUI.client.getUserCTRL().signOutUser();
+		if (isLoggedOut) {
+			BistroClientGUI.switchScreen(event, "clientLoginScreen", "Failed to load Login Screen.");
 		} else {
 			display(lblError, "Failed to sign out. Please try again.", Color.RED);
 		}

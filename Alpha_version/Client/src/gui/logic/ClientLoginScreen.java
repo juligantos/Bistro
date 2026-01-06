@@ -206,7 +206,7 @@ public class ClientLoginScreen {
 	 */
 	@FXML
 	public void lnkEmployee(Event event) {
-		BistroClientGUI.switchScreen(event, "employeeLoginScreen", "Employee Login Error Message");
+		BistroClientGUI.switchScreen(event, "staff/clientEmployeeLoginScreen", "Employee Login Error Message");
 	}
 	
 	

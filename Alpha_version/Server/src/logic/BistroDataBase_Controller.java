@@ -654,6 +654,46 @@ public class BistroDataBase_Controller {
 	
 	
 	// ********************Waiting List Operations ******************************
+	
+	public boolean isUserInWaitingList(String userId) {
+		if (userId == null || userId.isEmpty()) {
+			return false;
+		}
+		
+		int userIdInt;
+		try {
+			userIdInt = Integer.parseInt(userId);
+		} catch (NumberFormatException e) {
+			logger.log("[ERROR] Invalid userId format: " + userId);
+			return false;
+		}
+		
+		final String qry = "SELECT 1 " + "FROM orders " + "WHERE user_id = ? " + "AND order_type = 'WAITLIST' "
+				+ "AND status = 'PENDING'";
+		
+		Connection conn = null;
+		
+		try {
+			conn = borrow();
+			
+			try (PreparedStatement ps = conn.prepareStatement(qry)) {
+				
+				ps.setInt(1, userIdInt); 
+				
+				try (ResultSet rs = ps.executeQuery()) {
+					return rs.next();
+				}
+			}
+			
+		} catch (SQLException ex) {
+			logger.log("[ERROR] SQLException in isUserInWaitingList: " + ex.getMessage());
+			ex.printStackTrace();
+			return false;
+		} finally {
+			release(conn);
+		}
+	}
+	
 	public Order addToWaitingList(Map<String, Object> userData) {
 		// TODO Auto-generated method stub
 		return null;
@@ -833,5 +873,6 @@ public class BistroDataBase_Controller {
 			release(conn);
 		}  	
 	}
+
 
 }

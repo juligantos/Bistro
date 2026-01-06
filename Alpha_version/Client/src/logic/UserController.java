@@ -123,8 +123,12 @@ public class UserController {
 	/*
 	 * Method to sign out the currently logged-in user.
 	 */
-	public void signOutUser() {
+	public boolean signOutUser() {
 		this.loggedInUser = null;
+		if (this.loggedInUser == null) {
+			return true;
+		}
+		return false;
 	}
 
 	/*

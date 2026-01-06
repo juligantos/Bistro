@@ -176,20 +176,7 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
-                                          <ToggleButton fx:id="timeSlotsGridPane" mnemonicParsing="false" styleClass="time-slot" text="11:00" />
-                                          <ToggleButton mnemonicParsing="false" styleClass="time-slot" text="11:30" GridPane.columnIndex="1" />
-                                          <ToggleButton mnemonicParsing="false" styleClass="time-slot" text="12:00" GridPane.columnIndex="2" />
-                                          <ToggleButton mnemonicParsing="false" styleClass="time-slot" text="12:30" GridPane.columnIndex="3" />
-                                          <ToggleButton mnemonicParsing="false" styleClass="time-slot" text="13:00" GridPane.rowIndex="1" />
-                                          <ToggleButton mnemonicParsing="false" styleClass="time-slot" text="13:30" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                          <ToggleButton mnemonicParsing="false" styleClass="time-slot" text="14:00" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                                          <ToggleButton mnemonicParsing="false" styleClass="time-slot" text="14:30" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                                          <ToggleButton mnemonicParsing="false" styleClass="time-slot" text="15:00" GridPane.rowIndex="2" />
-                                          <ToggleButton mnemonicParsing="false" styleClass="time-slot" text="15:30" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                          <ToggleButton mnemonicParsing="false" styleClass="time-slot" text="16:00" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                                          <ToggleButton mnemonicParsing="false" styleClass="time-slot" text="16:30" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                                          <ToggleButton mnemonicParsing="false" styleClass="time-slot" text="17:00" GridPane.rowIndex="3" />
-                                          <ToggleButton mnemonicParsing="false" styleClass="time-slot" text="17:30" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          
                                        </children>
                                     </GridPane>
                                  </content>

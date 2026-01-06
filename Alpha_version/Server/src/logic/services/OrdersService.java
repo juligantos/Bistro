@@ -19,6 +19,7 @@ import logic.BistroServer;
 import logic.ServerLogger;
 
 public class OrdersService {
+	
 	// ******************************** Instance variables ***********************************
 	private final BistroServer server;
 	private final BistroDataBase_Controller dbController;
