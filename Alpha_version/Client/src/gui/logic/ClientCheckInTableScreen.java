@@ -3,6 +3,8 @@ package gui.logic;
 import entities.User;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
@@ -33,16 +35,21 @@ public class ClientCheckInTableScreen {
 	private Label lblUser;
 	@FXML
 	private Label lblError;
+	@FXML
+	private StackPane modalOverlay;
 	
 	private StackPane currentScreen;
 	@FXML
 	private StackPane ScreenContainer;
+	
+	private ClientForgotConfirmCodeScreen forgotModalsCTRL;
 	
 	// ****************************** Instance Methods ******************************
 
 	/**
 	 * Initializes the Client Check-In Table screen.
 	 */
+	private Parent ForgotIDModalRoot;
 	@FXML
 	public void initialize() {
 		User currentUser = BistroClientGUI.client.getUserCTRL().getLoggedInUser();
@@ -87,7 +94,20 @@ public class ClientCheckInTableScreen {
 	
 	@FXML
 	public void lnkForgot(Event event) {
-		BistroClientGUI.switchScreen(event, "clientForgotConfirmCodeScreen", "Client Forgot Confirmation Code error messege");
+		if (ForgotIDModalRoot == null) {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/fxml/ClientForgotConfirmationCode.fxml"));
+			try {
+				ForgotIDModalRoot = loader.load();
+			} catch (Exception e) {
+				e.printStackTrace();
+				BistroClientGUI.display(lblError, "Unable to open Forgot Member ID screen.", Color.RED);
+			}
+			forgotModalsCTRL = loader.getController();
+			forgotModalsCTRL.setParent(this);
+			modalOverlay.getChildren().add(ForgotIDModalRoot);
+			modalOverlay.setVisible(true);
+			modalOverlay.setManaged(true);
+		}
 		return;
 	}
 	
