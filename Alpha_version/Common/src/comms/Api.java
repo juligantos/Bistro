@@ -155,10 +155,16 @@ public final class Api {
     
     // Requests
     public static final String ASK_PAYMENT_COMPLETE = "payment.complete";
+	public static final String ASK_PROCESS_PAYMENT_MANUALLY ="payment.processManually";
+	public static final String ASK_LOAD_PENDING_BILLS = "payment.loadPendingBills";
     
     // Responses
 	public static final String REPLY_PAYMENT_COMPLETE_OK = "payment.complete.ok";
 	public static final String REPLY_PAYMENT_COMPLETE_FAIL = "payment.complete.fail";
+	public static final String REPLY_PROCESS_PAYMENT_MANUALLY_OK = "payment.processManually.ok";
+	public static final String REPLY_PROCESS_PAYMENT_MANUALLY_FAIL = "payment.processManually.fail";
+	public static final String REPLY_LOAD_PENDING_BILLS_OK = "payment.loadPendingBills.ok";
+	public static final String REPLY_LOAD_PENDING_BILLS_FAIL = "payment.loadPendingBills.fail";
   
     
 // == System responses == //

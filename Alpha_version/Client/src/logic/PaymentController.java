@@ -1,5 +1,12 @@
 package logic;
 
+import java.util.List;
+
+import comms.Api;
+import comms.Message;
+import entities.Bill;
+import entities.Order;
+
 public class PaymentController {
 	private final BistroClient client;
 	private double amountPaid;
@@ -12,6 +19,9 @@ public class PaymentController {
 	private double taxRate= 0.18; // tax rate of 18%
 	private double discountRate= 0.1; // discount rate of 10%
 	private Object orderItemsForBilling;
+	private boolean isPaymentManuallySuccessful= false;
+	private List<Bill> pendingBills;
+	
 	public PaymentController(BistroClient client) {
 		this.client = client;
 		this.amountPaid = 0.0;
@@ -38,14 +48,42 @@ public class PaymentController {
 	public void setOrderItems(Object orderItems) {
 		this.orderItemsForBilling = orderItems;
 	}
-	
-	public boolean processPaymentCompleted() {
-		return this.getPaymentStatus().equals(PaymentStatus.COMPLETED.name());
-	}
 	public Object getOrderItems() {
 		return this.orderItemsForBilling;
 	}
+	public boolean processPaymentCompleted() {
+		return this.getPaymentStatus().equals(PaymentStatus.COMPLETED.name());
+	}
 	public void checkpaymentSuccess(double amountPaid) {
-		client.handleMessageFromClientUI(new comms.Message(comms.Api.ASK_PAYMENT_COMPLETE, amountPaid));
+		client.handleMessageFromClientUI(new Message(Api.ASK_PAYMENT_COMPLETE, amountPaid));
+	}
+	public void processPayment(int orderNumber) {
+		client.handleMessageFromClientUI(new Message(Api.ASK_PROCESS_PAYMENT_MANUALLY, orderNumber));
+		
+	}
+	public void setIsPaymentManuallySuccessful(boolean isSuccessful) {
+		this.isPaymentManuallySuccessful = isSuccessful;
+		
+		
+	}
+	public boolean getIsPaymentManuallySuccessful() {
+		return this.isPaymentManuallySuccessful;
+	}
+	public void loadPendingBills() {
+		client.handleMessageFromClientUI(new Message(Api.ASK_LOAD_PENDING_BILLS, null));
+		
+	}
+	public List<Bill> getPendingBills() {
+		return this.pendingBills;
+	}
+	public boolean isBillsLoaded() {
+		if(this.pendingBills != null) {
+			return true;
+		}
+		return false;
+	}
+	public void setPendingBills(List<Bill> data) {
+		this.pendingBills = data;
+		
 	}
 }

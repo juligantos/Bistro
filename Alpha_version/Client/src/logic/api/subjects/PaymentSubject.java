@@ -1,6 +1,8 @@
 package logic.api.subjects;
 
-import logic.BistroClient;
+import java.util.List;
+
+import entities.Bill;
 import logic.BistroClientGUI;
 import logic.PaymentController.PaymentStatus;
 import logic.api.ClientRouter;
@@ -17,7 +19,18 @@ public class PaymentSubject {
 			// Handle failed payment processing
 			BistroClientGUI.client.getPaymentCTRL().setPaymentStatus(PaymentStatus.FAILED.name());
 		});
-		
+		router.on("payment", "processManually.ok", msg -> {
+			// Handle successful manual payment processing
+			BistroClientGUI.client.getPaymentCTRL().setIsPaymentManuallySuccessful(true);
+			BistroClientGUI.client.getTableCTRL().clearCurrentTable();
+		});
+		router.on("payment", "processManually.fail", msg -> {
+		});
+		router.on("payment", "getPendingBills.ok", msg -> {
+			BistroClientGUI.client.getPaymentCTRL().setPendingBills((List<Bill>) msg.getData());
+		});
+		router.on("payment", "getPendingBills.fail", msg -> {
+		});
 	}
 	
 }
