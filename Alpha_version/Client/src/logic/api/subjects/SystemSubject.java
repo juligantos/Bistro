@@ -1,5 +1,6 @@
 package logic.api.subjects;
 
+import logic.BistroClient;
 import logic.api.ClientRouter;
 
 public class SystemSubject {
@@ -8,6 +9,7 @@ public class SystemSubject {
 		
 		router.on("system", "unknownCommand", msg -> {
 			System.out.println("System shutdown acknowledged by server.");
+            BistroClient.awaitResponse = false;
 		});
 		
 	}

@@ -13,6 +13,7 @@ public class OrderSubject {
 	public static void register(ClientRouter router) {
 		// Handler for new reservation creation messages
 		router.on("orders", "createReservation.ok", msg -> {
+            BistroClient.awaitResponse = false;
 			String confirmationCode = (String) msg.getData();
 			Platform.runLater(() -> BistroClientGUI.client.getReservationCTRL().setConfirmationCode(confirmationCode));
 		});
@@ -20,6 +21,7 @@ public class OrderSubject {
 		});
 		// This tells the router: "When the server sends 'getAvailableHours.ok', update the controller."
 		router.on("orders", "getAvailableHours.ok", (msg) -> {
+            BistroClient.awaitResponse = false;
             @SuppressWarnings("unchecked")
             List<String> slots = (List<String>) msg.getData();
             BistroClientGUI.client.getReservationCTRL().setAvailableTimeSlots(slots);  
