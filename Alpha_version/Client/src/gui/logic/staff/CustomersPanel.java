@@ -176,14 +176,18 @@ public class CustomersPanel {
 	}
 
 	private void refreshdata() {
+		BistroClientGUI.client.getUserCTRL().clearCustomersData();
 		BistroClientGUI.client.getUserCTRL().loadCustomersData();
 		if (BistroClientGUI.client.getUserCTRL().isCustomersDataLoaded()) {
 			updateCustomers(BistroClientGUI.client.getUserCTRL().getCustomersData());
 		} else {
-			totalCustomersLabel.setText("0");
-			membersLabel.setText("0");
-			walkinsLabel.setText("0");
-			masterData.clear();
+			Platform.runLater(() -> {
+				totalCustomersLabel.setText("0");
+				membersLabel.setText("0");
+				walkinsLabel.setText("0");
+				directoryTitleLabel.setText("Customer Directory (0)");
+				masterData.clear();
+			});
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setTitle("No Data");
 			alert.setHeaderText(null);

@@ -22,7 +22,7 @@ public class ReservationController {
 	
 	//****************************** Static variables ******************************//
 	
-	public static final int SLOT_MINUTES = 15;
+	public static final int SLOT_MINUTES = 15;//not used!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!?
 	
 	//****************************** Instance variables ******************************//
 	
