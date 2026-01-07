@@ -52,18 +52,8 @@ public class OrderSubject {
 			BistroClientGUI.client.getReservationCTRL().setReadyUserReservation(null);
 		});
 		router.on("orders", "order.notExists", msg -> {
-						BistroClient.awaitResponse = false;
-		});
-		router.on("reservation", "forgotConfirmationCode.ok", msg -> {
 			BistroClient.awaitResponse = false;
-			String confirmationCode = (String) msg.getData();
-			BistroClientGUI.client.getReservationCTRL().handleForgotConfirmationCodeResponse(confirmationCode);
-		});
-		router.on("reservation", "forgotConfirmationCode.fail", msg -> {
-			BistroClient.awaitResponse = false;
-			BistroClientGUI.client.getReservationCTRL().handleForgotConfirmationCodeResponse("NOT_FOUND");
-		});
-		
+		});	
 	}
 	
 }

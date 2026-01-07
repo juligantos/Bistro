@@ -36,7 +36,6 @@ public class WaitListSubject {
 
 				router.on("waitinglist", "join.fail", msg -> {
 		            BistroClient.awaitResponse = false;
-					wlController.setUserOnWaitingList(false);
 				});
 
 				router.on("waitinglist", "join.skipped", msg -> {
@@ -71,6 +70,14 @@ public class WaitListSubject {
 		            BistroClient.awaitResponse = false;
 					wlController.setUserOnWaitingList(false);
 					BistroClientGUI.client.getReservationCTRL().setReadyUserReservation(null);
+				});
+				router.on("waitinglist", "isInWaitingList.fail", msg -> {
+		            BistroClient.awaitResponse = false;
+		            Alert alert = new Alert(Alert.AlertType.ERROR);
+		            alert.setTitle("Error");
+		            alert.setHeaderText("Could not verify waiting list status");
+		            alert.setContentText("An error occurred while verifying your waiting list status. Please try again later.");
+		            alert.showAndWait();
 				});
 
 				//Notifications
