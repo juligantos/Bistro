@@ -25,6 +25,9 @@ public class WaitListSubject {
 					wlController.setWaitingList(list);
 					
 				});
+				router.on("waitinglist", "getAll.fail", msg -> {
+		            BistroClient.awaitResponse = false;
+				});
 
 				//Client: Join Status
 				router.on("waitinglist", "join.ok", msg -> {

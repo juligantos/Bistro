@@ -124,11 +124,37 @@ public class UserController {
 	 * Method to sign out the currently logged-in user.
 	 */
 	public boolean signOutUser() {
-		this.loggedInUser = null;
-		if (this.loggedInUser == null) {
-			return true;
-		}
-		return false;
+	    if (this.loggedInUser == null) {
+	        return true; // Already signed out
+	    }
+
+	    String apiCommand;
+	    
+	    // Determine the correct API constant based on the user's role
+	    switch (this.loggedInUser.getUserType()) {
+	        case GUEST:
+	            apiCommand = Api.ASK_SIGNOUT_GUEST;
+	            break;
+	        case MEMBER:
+	            apiCommand = Api.ASK_SIGNOUT_MEMBER;
+	            break;
+	        case EMPLOYEE:
+	            apiCommand = Api.ASK_SIGNOUT_EMPLOYEE;
+	            break;
+	        case MANAGER:
+	            apiCommand = Api.ASK_SIGNOUT_MANAGER;
+	            break;
+	        default:
+	            return false; // Unknown role
+	    }
+
+	    // Send the message to the server
+	    client.handleMessageFromClientUI(new Message(apiCommand,null));
+
+	    // Clear the local session
+	    this.loggedInUser = null;
+
+	    return (this.loggedInUser == null);
 	}
 
 	/*

@@ -144,17 +144,16 @@ public final class Api {
 	// Responses
 	public static final String REPLY_WAITING_LIST_IS_IN_LIST = "waitinglist.isInWaitingList.yes";
 	public static final String REPLY_WAITING_LIST_IS_NOT_IN_LIST = "waitinglist.isInWaitingList.no";
+	public static final String REPLY_WAITING_LIST_IS_IN_LIST_FAIL = "waitinglist.isInWaitingList.fail";
     public static final String REPLY_WAITING_LIST_JOIN_OK = "waitinglist.join.ok";
     public static final String REPLY_WAITING_LIST_SKIPPED = "waitinglist.join.skipped";
     public static final String REPLY_WAITING_LIST_JOIN_FAIL = "waitinglist.join.fail";
     public static final String REPLY_WAITING_LIST_LEAVE_OK = "waitinglist.leave.ok";
     public static final String REPLY_WAITING_LIST_LEAVE_FAIL = "waitinglist.leave.fail";
-    public static final String REPLY_IS_IN_WAITLIST_YES = "waitinglist.isInWaitingList.yes";
-    public static final String REPLY_IS_IN_WAITLIST_NO = "waitinglist.isInWaitingList.no";
-    public static final String REPLY_IS_IN_WAITLIST_FAIL = "waitinglist.isInWaitingList.fail";
     public static final String REPLY_WAITING_LIST_NOTIFIED_OK = "waitinglist.notified.ok";
     public static final String REPLY_WAITING_LIST_NOTIFIED_FAIL = "waitinglist.notified.fail";
-    public static final String REPLY_GET_WAITING_LIST = "waitinglist.getAll.ok";
+    public static final String REPLY_GET_WAITING_LIST_OK = "waitinglist.getAll.ok";
+    public static final String REPLY_GET_WAITING_LIST_FAIL = "waitinglist.getAll.fail";
     public static final String REPLY_WAITING_LIST_ADD_WALKIN_OK = "waitinglist.addWalkIn.ok";
     
 // == Payment subject == //
