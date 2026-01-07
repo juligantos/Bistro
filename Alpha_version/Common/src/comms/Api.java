@@ -93,8 +93,8 @@ public final class Api {
     public static final String ASK_ORDER_AVAILABLE_HOURS = "orders.getAvailableHours";
     public static final String ASK_GET_ORDER = "orders.getOrder";
     public static final String ASK_CHECK_ORDER_EXISTS = "orders.checkOrderExists";
-    public static final String ASK_GET_ALLOCATED_TABLE = "orders.getAllocatedTable";
-    public static final String ASK_PAYMENT_UPDATE = "orders.paymentUpdate";
+    public static final String ASK_GET_ALLOCATED_TABLE = "orders.getAllocatedTable";//not used?
+    public static final String ASK_PAYMENT_UPDATE = "orders.paymentUpdate";//not used?
     public static final String ASK_CANCEL_RESERVATION = "orders.cancelReservation";
     public static final String ASK_UPDATE_RESERVATION = "orders.updateReservation";
     public static final String ASK_GET_RESERVATIONS_BY_DATE = "orders.getOrdersByDate";

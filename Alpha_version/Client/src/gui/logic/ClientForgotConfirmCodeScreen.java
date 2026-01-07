@@ -15,10 +15,17 @@ import logic.BistroClientGUI;
  */
 public class ClientForgotConfirmCodeScreen {
 
-    @FXML private TextField txtPhoneNum;
-    @FXML private TextField txtEmail;
-    @FXML private Label lblError;
-    @FXML private Button btnFindCode;
+    @FXML
+    private TextField txtPhoneNum;
+    
+    @FXML
+    private TextField txtEmail;
+    
+    @FXML
+    private Label lblError;
+    
+    @FXML
+    private Button btnFindCode;
 
     private ClientCheckInTableScreen parentController;
 
